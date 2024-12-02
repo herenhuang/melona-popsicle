@@ -13,7 +13,14 @@ function HomePage() {
   return (
     <div className="px-8 md:px-16 lg:px-24">
       <Confetti />
-      <Header isPersonal={isPersonal} onToggle={() => setIsPersonal(!isPersonal)} />
+<Header isPersonal={isPersonal} onToggle={() => {
+  if (isPersonal) {
+    document.body.classList.add('professional');
+  } else {
+    document.body.classList.remove('professional');
+  }
+  setIsPersonal(!isPersonal);
+}} />
       <main>
         <ProjectSection 
           work={work}
