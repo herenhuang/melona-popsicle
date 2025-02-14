@@ -95,3 +95,39 @@ export const professionalTalks = [
     link: "https://www.eventbrite.ca/e/personal-branding-and-founder-led-sales-tickets-723934877707"
   }
 ];
+
+export const work = [
+  {
+    title: "Co.Lab",
+    description: "Founded and scaled edtech startup to 30K+ learning hours",
+    link: "https://www.joincolab.io"
+  }
+  // Add more work items as needed
+];
+
+export const projects = [
+  {
+    title: "Personal Website",
+    description: "Built with React, TypeScript, and Tailwind CSS",
+    link: "https://github.com/herenhuang/melona-popsicle"
+  }
+  // Add more projects as needed
+];
+
+export const awards = [
+  {
+    title: "Forbes 30 Under 30",
+    description: "Education Category, 2023",
+    link: "https://www.forbes.com/30-under-30/2023/education"
+  }
+  // Add more awards as needed
+];
+
+export const talks = [
+  {
+    title: "Product Management",
+    description: "Speaking at various conferences about PM best practices",
+    link: null
+  }
+  // Add more talks as needed
+];
