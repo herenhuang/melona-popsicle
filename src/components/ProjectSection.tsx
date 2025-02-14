@@ -16,6 +16,7 @@ interface Project {
   title: string;
   description: string;
   link?: string;
+  hoverImage?: string;
 }
 
 interface SectionProps {
