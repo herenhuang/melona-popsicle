@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { VideoHover } from './VideoHover';
-import { ModeToggle } from './ModeToggle';
 import { SparklesText } from './ui/sparkles-text';
-
-interface HeaderProps {
-  isPersonal: boolean;
-  onToggle: () => void;
-}
+import { SabbaticalNote } from './SabbaticalNote';
 
 const PersonalContent = () => (
   <span className="opacity-0 animate-fadeInUp">
@@ -39,7 +34,7 @@ const ProfessionalContent = () => (
   </span>
 );
 
-export function Header({ isPersonal, onToggle }: HeaderProps) {
+export function Header() {
   const [arrowOpacity, setArrowOpacity] = useState(1);
 
   useEffect(() => {
@@ -57,12 +52,11 @@ export function Header({ isPersonal, onToggle }: HeaderProps) {
   }, []);
 
   return (
-    <header className="h-screen flex flex-col justify-center relative">
-      <div className="absolute inset-0 bg-[#f5f3e8] opacity-40"></div>
-      <ModeToggle isPersonal={isPersonal} onToggle={onToggle} />
-      <div className="relative z-10 max-w-3xl">
+    <header className="h-screen w-full flex flex-col items-center justify-center relative">
+      <div className="relative z-10 max-w-3xl px-4">
         <div className="font-inter text-xl text-gray-700 leading-relaxed relative">
-          {isPersonal ? <PersonalContent /> : <ProfessionalContent />}
+          <PersonalContent />
+          <SabbaticalNote isPersonal={true} />
         </div>
       </div>
       <div 

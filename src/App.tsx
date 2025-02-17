@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ProjectSection } from './components/ProjectSection';
 import { ContactBar } from './components/ContactBar';
-import { Contact } from './components/Contact';
 import { Confetti } from './components/Confetti';
 import { ChoiceScreen } from './components/ChoiceScreen';
-import { work, projects, awards, talks } from './data/projects';
+import { BoringPage } from './components/BoringPage';
+import { GardenDemo } from './components/GardenDemo';
+import { personalWork, personalProjects, personalAwards, personalTalks } from './data/projects';
+import { ChatBox } from './components/ChatBox';
+import { FunFooter } from './components/FunFooter';
+import './styles/grid.css';
 
 function HomePage() {
-  const [isPersonal, setIsPersonal] = useState(true);
+  const location = useLocation();
   const [hasChosen, setHasChosen] = useState(false);
+  const [choice, setChoice] = useState<'fun' | 'regular' | null>(null);
 
-  const handleChoice = (choice: 'fun' | 'regular') => {
-    setIsPersonal(choice === 'fun');
+  const handleChoice = (selectedChoice: 'fun' | 'regular') => {
     setHasChosen(true);
-    if (choice === 'regular') {
-      document.body.classList.add('professional');
-    }
+    setChoice(selectedChoice);
   };
 
   if (!hasChosen) {
@@ -25,26 +27,30 @@ function HomePage() {
   }
 
   return (
-    <div className="px-8 md:px-16 lg:px-24">
+    <div className="flex flex-col items-center min-h-screen px-8 md:px-16 lg:px-24 grid-bg">
       <Confetti />
-      <Header isPersonal={isPersonal} onToggle={() => {
-        if (isPersonal) {
-          document.body.classList.add('professional');
-        } else {
-          document.body.classList.remove('professional');
-        }
-        setIsPersonal(!isPersonal);
-      }} />
-      <main>
-        <ProjectSection 
-          work={work}
-          projects={projects}
-          awards={awards}
-          talks={talks}
-          isPersonal={isPersonal}
-        />
-      </main>
-      <ContactBar isPersonal={isPersonal} />
+      <Header />
+      <ChatBox />
+      <GardenDemo />
+
+      {choice === 'fun' && (
+        <div className="w-full max-w-4xl mx-auto">
+          <FunFooter />
+        </div>
+      )}
+      
+      {choice === 'regular' && (
+        <main className="w-full flex justify-center">
+          <ProjectSection 
+            work={personalWork}
+            projects={personalProjects}
+            awards={personalAwards}
+            talks={personalTalks}
+            isPersonal={true}
+          />
+        </main>
+      )}
+      <ContactBar isPersonal={true} />
     </div>
   );
 }
@@ -52,14 +58,10 @@ function HomePage() {
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-[#f5f3e8] relative">
-        <div className="bg-grid-pattern min-h-screen">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </div>
-      </div>
+      <Routes>
+        <Route path="/boring" element={<BoringPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </Router>
   );
 }

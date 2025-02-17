@@ -33,10 +33,6 @@ export default {
             transform: 'translateY(0)'
           },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
         burst: {
           '0%': { 
             transform: 'scale(1)',
