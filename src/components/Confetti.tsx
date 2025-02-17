@@ -10,7 +10,7 @@ export function Confetti() {
       spread: 360, 
       ticks: 60, 
       zIndex: 0,
-      scalar: 3 // Makes particles 3x larger
+      scalar: 3
     };
 
     function randomInRange(min: number, max: number) {

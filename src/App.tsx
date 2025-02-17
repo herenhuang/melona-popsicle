@@ -5,22 +5,36 @@ import { ProjectSection } from './components/ProjectSection';
 import { ContactBar } from './components/ContactBar';
 import { Contact } from './components/Contact';
 import { Confetti } from './components/Confetti';
+import { ChoiceScreen } from './components/ChoiceScreen';
 import { work, projects, awards, talks } from './data/projects';
 
 function HomePage() {
   const [isPersonal, setIsPersonal] = useState(true);
+  const [hasChosen, setHasChosen] = useState(false);
+
+  const handleChoice = (choice: 'fun' | 'regular') => {
+    setIsPersonal(choice === 'fun');
+    setHasChosen(true);
+    if (choice === 'regular') {
+      document.body.classList.add('professional');
+    }
+  };
+
+  if (!hasChosen) {
+    return <ChoiceScreen onChoice={handleChoice} />;
+  }
 
   return (
     <div className="px-8 md:px-16 lg:px-24">
       <Confetti />
-<Header isPersonal={isPersonal} onToggle={() => {
-  if (isPersonal) {
-    document.body.classList.add('professional');
-  } else {
-    document.body.classList.remove('professional');
-  }
-  setIsPersonal(!isPersonal);
-}} />
+      <Header isPersonal={isPersonal} onToggle={() => {
+        if (isPersonal) {
+          document.body.classList.add('professional');
+        } else {
+          document.body.classList.remove('professional');
+        }
+        setIsPersonal(!isPersonal);
+      }} />
       <main>
         <ProjectSection 
           work={work}

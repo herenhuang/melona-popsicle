@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { VideoHover } from './VideoHover';
 import { ModeToggle } from './ModeToggle';
+import { SparklesText } from './ui/sparkles-text';
 
 interface HeaderProps {
   isPersonal: boolean;
@@ -10,16 +11,30 @@ interface HeaderProps {
 
 const PersonalContent = () => (
   <span className="opacity-0 animate-fadeInUp">
-    howdy, i'm <span className="font-sora text-4xl font-bold text-[#ff6b35] inline-block mr-2">Helen Huang</span>
+    <div className="flex items-baseline gap-2 mb-4">
+      <span>howdy, i'm</span>
+      <SparklesText 
+        text="helen huang"
+        colors={{ first: "#76bb5d", second: "#9774cc" }}
+        className="text-7xl font-bold text-[#ff6b35]"
+      />
+    </div>
     - an earth science grad turned big tech pm turned edtech founder turned whoever it is that i am now. deeply curious, reasonable dancer <a href="https://x.com/heyohelen/status/1651703013361238016" target="_blank" rel="noopener noreferrer">(🇮🇳) </a>
-<a href="https://www.linkedin.com/posts/heyohelen_normalize-posting-passion-projects-activity-7101979035412434944-85hW" target="_blank" rel="noopener noreferrer">(🇳🇬) </a>
-<a href="https://www.youtube.com/watch?v=WkO3QsWT_ns" target="_blank" rel="noopener noreferrer">(🎅)</a>, terrible memory.
+    <a href="https://www.linkedin.com/posts/heyohelen_normalize-posting-passion-projects-activity-7101979035412434944-85hW" target="_blank" rel="noopener noreferrer">(🇳🇬) </a>
+    <a href="https://www.youtube.com/watch?v=WkO3QsWT_ns" target="_blank" rel="noopener noreferrer">(🎅)</a>, terrible memory.
   </span>
 );
 
 const ProfessionalContent = () => (
   <span className="opacity-0 animate-fadeInUp">
-    Hello, I'm <span className="font-sora text-4xl font-bold text-[#ff6b35] inline-block mr-2">Helen Huang</span>
+    <div className="flex items-baseline gap-2 mb-4">
+      <span>Hello, I'm</span>
+      <SparklesText 
+        text="Helen Huang"
+        colors={{ first: "#76bb5d", second: "#9774cc" }}
+        className="text-7xl font-bold text-[#ff6b35]"
+      />
+    </div>
     - an operator with 10+ years of experience in strategy, product and marketing. I'm highly collaborative, and love turning chaos into clear process with a creative twist!
   </span>
 );
@@ -49,12 +64,12 @@ export function Header({ isPersonal, onToggle }: HeaderProps) {
         <div className="font-inter text-xl text-gray-700 leading-relaxed relative">
           {isPersonal ? <PersonalContent /> : <ProfessionalContent />}
         </div>
-        <div
-          className="fixed bottom-24 left-[1.5rem] md:left-[4rem] lg:left-[6rem] transition-opacity duration-300"
-          style={{ opacity: arrowOpacity }}
-        >
-          <ArrowDown className="w-6 h-6 text-gray-500 animate-bounce" />
-        </div>
+      </div>
+      <div 
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 text-gray-400 animate-bounce"
+        style={{ opacity: arrowOpacity }}
+      >
+        <ArrowDown className="w-6 h-6" />
       </div>
     </header>
   );
