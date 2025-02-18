@@ -51,21 +51,29 @@ export function ChatBox() {
   }, [messages, isLoading]); // Scroll on new messages or when loading state changes
 
   const questions = [
-    "Hi Helen... what are you up to nowadays?",
-    "And what about before that?",
-    "Wow! And what were you doing before the startup days?",
-    "So how did you end up in tech in the first place?"
+    "Oh cool... well what's up? What's new?",
+    "Oh interesting! What led you to doing that?",
+    "And what were you doing before that?"
   ];
 
-  const responses = [
-    "I'm currently on an adult gap year, swapping hustle-heavy schedules for creative hobbies and long midday naps.",
-    "For a few years, I was running an education startup in Toronto—though \"home base\" was pretty flexible because I was either off exploring new places solo or teaming up with my co-founder. We ended up collecting stamps from over 20 countries, soaking in everything from bustling street markets in Asia to cozy cafés in Europe.",
-    "I was at Microsoft in Seattle, diving into product management and finding my groove in developer advocacy. That's also when I caught the travel bug, though I had no idea I'd take it to such extremes.",
-    ""
+  const responseChunks = [
+    // Chunk 1 - will be sent as two separate messages
+    [
+      "well i am currently doing an adult gap year/sabbatical right now, or funemployed, whatever you want to call it.",
+      "spending time on projects like this, catching up with friends, dancing a lot more..."
+    ],
+    // Chunk 2
+    [
+      "well ever since i read the 4-hour workweek by Tim Ferris a few years ago, i've really loved the concept of mini-retirements. figured this was as good as year as any to experience my own."
+    ],
+    // Chunk 3
+    [
+      "so about half a year ago i stepped back from the day to day of running co.lab (the experimental education/tech company i started with sefunmi back in 2021). after that i worked on a few different projects (fintech, crypto) in a fractional/advisory capacity."
+    ]
   ];
 
   const handleAskMore = async () => {
-    if (currentStep >= responses.length) return;
+    if (currentStep >= responseChunks.length) return;
     
     setIsLoading(true);
     setMessages(prev => [...prev, { 
@@ -76,7 +84,7 @@ export function ChatBox() {
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     setMessages(prev => [...prev, { 
-      text: responses[currentStep], 
+      text: responseChunks[currentStep][0], 
       isUser: false 
     }]);
     
@@ -117,11 +125,16 @@ export function ChatBox() {
       
       setIsLoading(true);
       
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Get current chunk of responses
+      const currentChunk = responseChunks[currentStep];
       
-      setMessages(prev => [...prev, { text: responses[currentStep], isUser: false }]);
+      // Send each message in the chunk with a small delay between them
+      for (const response of currentChunk) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setMessages(prev => [...prev, { text: response, isUser: false }]);
+      }
+      
       setIsLoading(false);
-      
       setCurrentStep(prev => prev + 1);
     }
   };
