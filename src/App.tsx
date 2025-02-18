@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ProjectSection } from './components/ProjectSection';
 import { ContactBar } from './components/ContactBar';
@@ -64,6 +64,7 @@ export default function App() {
         <Route path="/boring" element={<BoringPage />} />
         <Route path="/now" element={<NowPage />} />
         <Route path="/now/:noteId" element={<NowPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
