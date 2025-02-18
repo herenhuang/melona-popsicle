@@ -128,8 +128,10 @@ export const nowUpdates: NowUpdate[] = [
         {
           type: 'paragraph',
           content: [
-            "This is just one part of my personal website. But why are there so many different pieces and contrasting styles? Well, if you know me at all, you'll know I love variety and anything whimsical.",
-            "These pages you're currently reading, these are mainly my /now pages, inspired by Derek Sivers and the [/now](https://nownownow.com/about) movement. The UI is inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website.", 
+            "This is just one part of my personal website. But why are there so many different pieces and contrasting styles? Well, if you know me at all, you'll know I love variety and anything whimsical. So now you're forced to join me.",
+            "These pages you're currently reading, these are mainly my /now pages, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm up to these days.", 
+            "The UI is heavily inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website which I found super cool.", 
+            "All the code here was written by AI (blend of o1, claude, cursor, v0)! Wild right?"
           ]
         },
         {

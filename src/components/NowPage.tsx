@@ -28,25 +28,22 @@ export function NowPage() {
     let match;
 
     while ((match = linkRegex.exec(text)) !== null) {
-      // Add text before the link
       if (match.index > lastIndex) {
         parts.push(text.slice(lastIndex, match.index));
       }
-      // Add the link
       parts.push(
         <a 
           key={match.index} 
           href={match[2]}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-500 hover:underline"
+          className="text-[#CC9900] underline underline-offset-2 hover:opacity-80"
         >
           {match[1]}
         </a>
       );
       lastIndex = match.index + match[0].length;
     }
-    // Add remaining text
     if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex));
     }
