@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Info, Smile, Send } from 'lucide-react';
 import helenAvatar from '../images/helen-avatar.jpg';
 
@@ -23,6 +23,16 @@ export function ChatBox() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [showSuggestion, setShowSuggestion] = useState(false);
+
+  // Add ref for the chat area
+  const chatBoxRef = useRef<HTMLDivElement>(null);
+
+  // Auto scroll to bottom when messages change
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages, isLoading]); // Scroll on new messages or when loading state changes
 
   const questions = [
     "Hi Helen... what are you up to nowadays?",
@@ -89,17 +99,13 @@ export function ChatBox() {
       setTypedLength(0);
       setIsTyping(false);
       
-      // Start Helen's response
       setIsLoading(true);
       
-      // Simulate typing delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Show Helen's response
       setMessages(prev => [...prev, { text: responses[currentStep], isUser: false }]);
       setIsLoading(false);
       
-      // Move to next question
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -127,8 +133,11 @@ export function ChatBox() {
         </div>
       </div>
 
-      {/* Chat Area - increased height from 500px to 600px */}
-      <div className="h-[600px] overflow-y-auto p-6 space-y-6 bg-white">
+      {/* Chat Area - added ref and custom scrollbar styling */}
+      <div 
+        ref={chatBoxRef}
+        className="h-[600px] overflow-y-auto p-6 space-y-6 bg-white scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+      >
         {messages.map((message, index) => (
           <div
             key={index}
