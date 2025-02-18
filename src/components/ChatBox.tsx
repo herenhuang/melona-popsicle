@@ -81,7 +81,7 @@ export function ChatBox() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
       {/* Top Nav */}
       <div className="bg-[#f1f1f1] px-4 py-3 flex items-center justify-between border-b border-gray-200">
         <div className="flex items-center gap-2">
@@ -100,11 +100,11 @@ export function ChatBox() {
       </div>
 
       {/* Chat Area */}
-      <div className="h-[500px] overflow-y-auto p-4 space-y-4 bg-white">
+      <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-white">
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message.isUser ? 'justify-end pr-4' : 'justify-start pl-4'}`}
           >
             <div
               className={`px-4 py-2 rounded-2xl ${
@@ -118,7 +118,7 @@ export function ChatBox() {
           </div>
         ))}
         {isLoading && (
-          <div className="flex justify-start">
+          <div className="flex justify-start pl-4">
             <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2">
               <div className="flex gap-1">
                 <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" />
@@ -131,7 +131,7 @@ export function ChatBox() {
       </div>
 
       {/* Message Input */}
-      <div className="p-4 border-t border-gray-200 bg-white">
+      <div className="p-6 border-t border-gray-200 bg-white">
         {currentStep < responses.length ? (
           <button
             onClick={handleAskMore}
