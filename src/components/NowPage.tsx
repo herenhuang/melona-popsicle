@@ -132,13 +132,7 @@ export function NowPage() {
         <div className="pl-8 pr-16 py-8">
           <div className="mb-8 text-center">
             <p className="text-sm text-[#969696]">
-              {new Date(selectedNoteContent?.date || '').toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              })}
+              {selectedNoteContent?.formattedDate}
             </p>
           </div>
           <div className="text-[#636363] text-sm">

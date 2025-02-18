@@ -8,6 +8,7 @@ export interface NowUpdate {
   id: string;
   title: string;
   date: string;
+  formattedDate: string;
   preview: string;
   content: {
     blocks: ContentBlock[];
@@ -24,6 +25,7 @@ export const nowUpdates: NowUpdate[] = [
         id: '2025-02-18',
         title: '🌱 now',
         date: '2025-02-18',
+        formattedDate: 'February 18, 2025 at 3:14 PM',
         preview: 'After a pretty rough last half...',
         content: {
           blocks: [
@@ -64,7 +66,8 @@ export const nowUpdates: NowUpdate[] = [
     {
     id: 'bingo',
     title: '📇 bingo card',    
-    date: '2024-01-16',
+    date: '2025-01-25',
+    formattedDate: 'January 24, 2025 at 1:24 PM',
     preview: 'In January, I led a work...',
     content: {
       blocks: [
@@ -112,7 +115,8 @@ export const nowUpdates: NowUpdate[] = [
   {
     id: 'what',
     title: '🐓 what is this?',
-    date: '2024-02-17',
+    date: '2025-02-16',
+    formattedDate: 'February 16, 2025 at 9:01 PM',
     preview: 'This is just one part of my...',
     content: {
       blocks: [
