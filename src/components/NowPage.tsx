@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { X, Minus, Plus, Search, Edit, Pin } from 'lucide-react';
 import { nowUpdates } from '../data/now-updates';
@@ -7,6 +7,7 @@ export function NowPage() {
   const navigate = useNavigate();
   const { noteId } = useParams();
   const [selectedNote, setSelectedNote] = useState(noteId || nowUpdates[0].id);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (noteId) {
@@ -15,6 +16,15 @@ export function NowPage() {
   }, [noteId]);
 
   const selectedNoteContent = nowUpdates.find(note => note.id === selectedNote);
+
+  // Filter notes based on search query
+  const filteredNotes = useMemo(() => {
+    return nowUpdates.filter(note => 
+      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.preview.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.formattedDate.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
 
   const handleNoteSelect = (id: string) => {
     setSelectedNote(id);
@@ -77,13 +87,15 @@ export function NowPage() {
         </div>
 
         {/* Search Bar */}
-        <div className="px-4 py-2">
+        <div className="px-2 py-2">
           <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-[#969696]" />
-            <input 
-              type="text" 
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#969696]" />
+            <input
+              type="text"
               placeholder="Search"
-              className="w-full pl-10 pr-4 py-1.5 bg-[#e4e4e4] rounded-lg text-sm focus:outline-none text-[#636363] placeholder-[#969696]"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 bg-[#e4e4e4]/30 rounded-lg text-sm placeholder-[#969696] focus:outline-none"
             />
           </div>
         </div>
@@ -98,7 +110,7 @@ export function NowPage() {
             <div className="mt-2 -mx-4 border-b border-[#e4e4e4]" />
           </div>
           <div className="mt-2 px-2">
-            {nowUpdates.map((note, index) => (
+            {filteredNotes.map((note, index) => (
               <div key={note.id}>
                 <button 
                   onClick={() => handleNoteSelect(note.id)}
