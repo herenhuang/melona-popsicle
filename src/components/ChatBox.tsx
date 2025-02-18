@@ -81,7 +81,7 @@ export function ChatBox() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="max-w-5xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
       {/* Top Nav */}
       <div className="bg-[#f1f1f1] px-4 py-3 flex items-center justify-between border-b border-gray-200">
         <div className="flex items-center gap-2">
@@ -100,7 +100,7 @@ export function ChatBox() {
       </div>
 
       {/* Chat Area */}
-      <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-white">
+      <div className="h-[500px] overflow-y-auto p-6 space-y-6 bg-white">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -110,7 +110,7 @@ export function ChatBox() {
               className={`px-4 py-2 rounded-2xl ${
                 message.isUser
                   ? 'bg-[#007AFF] text-white'
-                  : 'bg-[#E9E9EB] text-black'
+                  : 'bg-[#E9E9EB] text-black max-w-[60%]'
               }`}
             >
               {message.text}
@@ -119,7 +119,7 @@ export function ChatBox() {
         ))}
         {isLoading && (
           <div className="flex justify-start pl-4">
-            <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2">
+            <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2 max-w-[60%]">
               <div className="flex gap-1">
                 <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" />
                 <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce delay-100" />
