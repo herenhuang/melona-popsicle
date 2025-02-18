@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Info, Smile, Send } from 'lucide-react';
 import helenAvatar from '../images/helen-avatar.jpg';
+import { useNavigate } from 'react-router-dom';
 
 export function ChatBox() {
   const [messages, setMessages] = useState<Array<{
-    text: string;
+    text?: string;  // Made optional since URL messages won't have text
     isUser: boolean;
     isUrl?: boolean;
     urlPreview?: {
@@ -18,7 +19,10 @@ export function ChatBox() {
       isUser: false
     },
     {
-      text: "though if you want to just glean my background, just go to https://www.helenhuang.io/boring",
+      text: "though if you want to just glean my background, just go to",
+      isUser: false
+    },
+    {
       isUser: false,
       isUrl: true,
       urlPreview: {
@@ -36,6 +40,8 @@ export function ChatBox() {
 
   // Add ref for the chat area
   const chatBoxRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
 
   // Auto scroll to bottom when messages change
   useEffect(() => {
@@ -124,6 +130,10 @@ export function ChatBox() {
   const typedPart = currentQuestion.slice(0, typedLength);
   const remainingPart = currentQuestion.slice(typedLength);
 
+  const handleUrlClick = (url: string) => {
+    navigate(url);
+  };
+
   return (
     <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden w-full">
       {/* Top Nav - increased padding and text size */}
@@ -146,38 +156,86 @@ export function ChatBox() {
       {/* Chat Area - added ref and custom scrollbar styling */}
       <div 
         ref={chatBoxRef}
-        className="h-[600px] overflow-y-auto p-6 space-y-6 bg-white scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+        className="h-[600px] overflow-y-auto p-6 bg-white scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
       >
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} w-full`}
-          >
-            <div
-              className={`${
-                message.isUser
-                  ? 'bg-[#007AFF] text-white'
-                  : 'bg-[#E9E9EB] text-black'
-              } rounded-2xl px-4 py-2 max-w-[60%] w-fit`}
-            >
-              {message.text}
-              
-              {message.isUrl && message.urlPreview && (
-                <div className="mt-2 bg-white rounded-lg overflow-hidden border border-gray-200">
-                  <div className="p-3">
-                    <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
-                  </div>
-                  <img 
-                    src={message.urlPreview.image} 
-                    alt="Link preview"
-                    className="w-full h-32 object-cover"
-                  />
+        <div className="space-y-6">
+          {/* Initial Helen messages with reduced spacing */}
+          <div className="space-y-2">
+            {messages.slice(0, 3).map((message, index) => (
+              <div
+                key={index}
+                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} w-full`}
+              >
+                <div
+                  className={`${
+                    message.isUser
+                      ? 'bg-[#007AFF] text-white'
+                      : 'bg-[#E9E9EB] text-black'
+                  } rounded-2xl overflow-hidden max-w-[60%] w-fit ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-2'}`}
+                >
+                  {message.text && (
+                    <div>{message.text}</div>
+                  )}
+                  
+                  {message.isUrl && message.urlPreview && (
+                    <div 
+                      onClick={() => handleUrlClick(`https://www.${message.urlPreview?.url}`)}
+                      className="bg-white overflow-hidden cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 rounded-2xl"
+                    >
+                      <img 
+                        src={message.urlPreview.image} 
+                        alt="Link preview"
+                        className="w-full h-32 object-cover"
+                      />
+                      <div className="p-3 border border-gray-200 border-t-0 rounded-b-2xl">
+                        <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
+                        <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
+            ))}
           </div>
-        ))}
+
+          {/* Remaining messages with normal spacing */}
+          {messages.slice(3).map((message, index) => (
+            <div
+              key={index + 3}
+              className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} w-full`}
+            >
+              <div
+                className={`${
+                  message.isUser
+                    ? 'bg-[#007AFF] text-white'
+                    : 'bg-[#E9E9EB] text-black'
+                } rounded-2xl overflow-hidden max-w-[60%] w-fit ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-2'}`}
+              >
+                {message.text && (
+                  <div>{message.text}</div>
+                )}
+                
+                {message.isUrl && message.urlPreview && (
+                  <div 
+                    onClick={() => handleUrlClick(`https://www.${message.urlPreview?.url}`)}
+                    className="bg-white overflow-hidden cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 rounded-2xl"
+                  >
+                    <img 
+                      src={message.urlPreview.image} 
+                      alt="Link preview"
+                      className="w-full h-32 object-cover"
+                    />
+                    <div className="p-3 border border-gray-200 border-t-0 rounded-b-2xl">
+                      <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
+                      <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        
         {isLoading && (
           <div className="flex justify-start">
             <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2">
