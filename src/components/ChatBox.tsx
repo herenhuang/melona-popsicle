@@ -2,20 +2,30 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Info, Smile, Send } from 'lucide-react';
 import helenAvatar from '../images/helen-avatar.jpg';
 
-interface Message {
-  text: string;
-  isUser: boolean;
-}
-
 export function ChatBox() {
-  const [messages, setMessages] = useState<Message[]>([
-    { 
-      text: "Hi Helen... what are you up to nowadays?", 
-      isUser: true 
+  const [messages, setMessages] = useState<Array<{
+    text: string;
+    isUser: boolean;
+    isUrl?: boolean;
+    urlPreview?: {
+      title: string;
+      url: string;
+      image: string;
+    };
+  }>>([
+    {
+      text: "howdy howdy, wanna chat? just type below in the chatbox, and press tab to autocomplete.",
+      isUser: false
     },
-    { 
-      text: "I'm currently on an adult gap year, swapping hustle-heavy schedules for creative hobbies and long midday naps.", 
-      isUser: false 
+    {
+      text: "though if you want to just glean my background, just go to https://www.helenhuang.io/boring",
+      isUser: false,
+      isUrl: true,
+      urlPreview: {
+        title: "Helen Huang | Background",
+        url: "helenhuang.io/boring",
+        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=300&auto=format&fit=crop"
+      }
     }
   ]);
   const [typedLength, setTypedLength] = useState(0);
@@ -115,7 +125,7 @@ export function ChatBox() {
   const remainingPart = currentQuestion.slice(typedLength);
 
   return (
-    <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden w-full">
       {/* Top Nav - increased padding and text size */}
       <div className="bg-[#f1f1f1] px-6 py-4 flex items-center justify-between border-b border-gray-200">
         <div className="flex items-center gap-3">
@@ -141,16 +151,30 @@ export function ChatBox() {
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} w-full`}
           >
             <div
-              className={`px-4 py-2 rounded-2xl ${
+              className={`${
                 message.isUser
                   ? 'bg-[#007AFF] text-white'
-                  : 'bg-[#E9E9EB] text-black max-w-[60%]'
-              }`}
+                  : 'bg-[#E9E9EB] text-black'
+              } rounded-2xl px-4 py-2 max-w-[60%] w-fit`}
             >
               {message.text}
+              
+              {message.isUrl && message.urlPreview && (
+                <div className="mt-2 bg-white rounded-lg overflow-hidden border border-gray-200">
+                  <div className="p-3">
+                    <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
+                    <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
+                  </div>
+                  <img 
+                    src={message.urlPreview.image} 
+                    alt="Link preview"
+                    className="w-full h-32 object-cover"
+                  />
+                </div>
+              )}
             </div>
           </div>
         ))}
