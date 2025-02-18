@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Minus, Plus, Search, PenTool } from 'lucide-react';
+import { X, Minus, Plus, Search, Edit } from 'lucide-react';
 import { nowUpdates } from '../data/now-updates';
 
 export function NowPage() {
@@ -23,7 +23,7 @@ export function NowPage() {
             <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
           </button>
           <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
-            <PenTool className="w-4 h-4" />
+            <Edit className="w-4 h-4" />
           </button>
         </div>
 
@@ -74,32 +74,66 @@ export function NowPage() {
 
       {/* Main Content */}
       <div className="flex-1 bg-white overflow-y-auto">
-        <div className="max-w-2xl mx-auto p-8">
-          <div className="text-center mb-8">
-            <p className="text-sm text-[#969696]">{selectedNoteContent?.date}</p>
+        <div className="pl-8 pr-16 py-8">
+          <div className="mb-8 text-center">
+            <p className="text-sm text-[#969696]">
+              {new Date(selectedNoteContent?.date || '').toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
+            </p>
           </div>
-          <div className="text-[#636363]">
-            <h1 className="text-2xl font-medium mb-6">{selectedNoteContent?.title}</h1>
-            {selectedNoteContent?.content.currently.length > 0 && (
-              <>
-                <h2 className="text-xl font-medium mb-4">currently</h2>
-                <ul className="list-disc pl-5 mb-6 space-y-2">
-                  {selectedNoteContent.content.currently.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {selectedNoteContent?.content.previously.length > 0 && (
-              <>
-                <h2 className="text-xl font-medium mb-4">previously</h2>
-                <ul className="list-disc pl-5 space-y-2">
-                  {selectedNoteContent.content.previously.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </>
-            )}
+          <div className="text-[#636363] text-sm">
+            <h1 className="text-2xl font-medium mb-6">
+              {selectedNoteContent?.title}
+              {selectedNoteContent?.id === 'nownownow' && (
+                <span className="text-sm font-normal ml-2">
+                  (<a 
+                    href="https://nownownow.com/about" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    learn more about /now pages
+                  </a>)
+                </span>
+              )}
+            </h1>
+            
+            {/* Content Blocks */}
+            {selectedNoteContent?.content.blocks.map((block, index) => (
+              <div key={index} className="mb-6">
+                {block.type === 'header' && block.title && (
+                  <>
+                    <h2 className="text-xl font-medium mb-4">{block.title}</h2>
+                    <ul className="list-disc pl-5 space-y-2">
+                      {block.content.map((item, bIndex) => (
+                        <li key={bIndex}>{item}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {block.type === 'paragraph' && (
+                  <div className="space-y-4">
+                    {block.content.map((paragraph, pIndex) => (
+                      <p key={pIndex}>{paragraph}</p>
+                    ))}
+                  </div>
+                )}
+                {block.type === 'bullets' && (
+                  <ul className="list-disc pl-5 space-y-2">
+                    {block.content.map((item, bIndex) => (
+                      <li key={bIndex}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+
+            {/* Images */}
             {selectedNoteContent?.content.images && selectedNoteContent.content.images.length > 0 && (
               <div className="space-y-6 mt-8">
                 {selectedNoteContent.content.images.map((image, index) => (
@@ -110,7 +144,7 @@ export function NowPage() {
                       className="w-full h-auto"
                     />
                     {image.caption && (
-                      <figcaption className="text-sm text-[#969696] mt-2 text-center">
+                      <figcaption className="text-sm text-[#969696] mt-2">
                         {image.caption}
                       </figcaption>
                     )}
