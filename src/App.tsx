@@ -10,6 +10,7 @@ import { GardenDemo } from './components/GardenDemo';
 import { personalWork, personalProjects, personalAwards, personalTalks } from './data/projects';
 import { ChatBox } from './components/ChatBox';
 import { FunFooter } from './components/FunFooter';
+import { NowPage } from './components/NowPage';
 import './styles/grid.css';
 
 function HomePage() {
@@ -59,8 +60,9 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/boring" element={<BoringPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/boring" element={<BoringPage />} />
+        <Route path="/now" element={<NowPage />} />
       </Routes>
     </Router>
   );

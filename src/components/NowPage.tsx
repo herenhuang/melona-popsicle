@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { X, Minus, Plus, Search, PenTool } from 'lucide-react';
+import { nowUpdates, type NowUpdate } from '../data/now-updates';
 
 export function NowPage() {
-  const [selectedNote, setSelectedNote] = useState<'july' | 'todo'>('july');
+  const [selectedNote, setSelectedNote] = useState<string>(nowUpdates[0].id);
+
+  const selectedNoteContent = nowUpdates.find(note => note.id === selectedNote);
 
   return (
     <div className="flex h-screen bg-white">
@@ -40,95 +43,82 @@ export function NowPage() {
         <div className="mt-6">
           <h2 className="px-4 text-xs font-medium text-[#969696] uppercase">Pinned</h2>
           <div className="mt-2 px-2">
-            <button 
-              onClick={() => setSelectedNote('july')}
-              className={`group w-full rounded-lg text-left transition-colors mb-1 ${
-                selectedNote === 'july' 
-                  ? 'bg-[#FFE484]' 
-                  : 'hover:bg-[#FFE484]'
-              }`}
-            >
-              <div className={`px-3 py-2`}>
-                <h3 className="font-bold text-[#636363]">July 2024</h3>
-                <div className="flex items-baseline gap-2">
-                  <p className="text-sm text-[#636363]">Yesterday</p>
-                  <p className="text-sm text-[#969696] flex-1 truncate">Currently building in public...</p>
-                </div>
-              </div>
-            </button>
-            <button 
-              onClick={() => setSelectedNote('todo')}
-              className={`group w-full rounded-lg text-left transition-colors ${
-                selectedNote === 'todo' 
-                  ? 'bg-[#FFE484]' 
-                  : 'hover:bg-[#FFE484]'
-              }`}
-            >
-              <div className={`px-3 py-2`}>
-                <h3 className="font-bold text-[#636363]">Todo & Ideas</h3>
-                <div className="flex items-baseline gap-2">
-                  <p className="text-sm text-[#636363]">Yesterday</p>
-                  <p className="text-sm text-[#969696] flex-1 truncate">☐ Write blog post about garden...</p>
-                </div>
-              </div>
-            </button>
+            {nowUpdates.map((note, index) => (
+              <React.Fragment key={note.id}>
+                <button 
+                  onClick={() => setSelectedNote(note.id)}
+                  className={`group w-full text-left transition-colors rounded-lg ${
+                    selectedNote === note.id ? 'bg-[#FFE484]' : ''
+                  }`}
+                >
+                  <div className={`px-3 py-3.5`}>
+                    <h3 className="font-bold text-sm text-[#636363]">{note.title}</h3>
+                    <div className="flex items-baseline gap-2 text-[#969696] text-sm mt-0.5">
+                      <p>{note.date}</p>
+                      <p className="flex-1 truncate">{note.preview}</p>
+                    </div>
+                  </div>
+                </button>
+                {index < nowUpdates.length - 1 && (
+                  <div className={`h-[1px] mx-2 ${
+                    selectedNote === note.id || selectedNote === nowUpdates[index + 1]?.id
+                      ? 'bg-[#FFE484]' 
+                      : 'bg-[#e4e4e4]'
+                  }`}></div>
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 bg-white">
+      <div className="flex-1 bg-white overflow-y-auto">
         <div className="max-w-2xl mx-auto p-8">
-          {selectedNote === 'july' ? (
-            <>
-              <div className="text-center mb-8">
-                <p className="text-sm text-[#969696]">July 3, 2024 at 3:00 PM</p>
-              </div>
-              <div className="text-[#636363]">
-                <h1 className="text-2xl font-medium mb-6">July 2024</h1>
+          <div className="text-center mb-8">
+            <p className="text-sm text-[#969696]">{selectedNoteContent?.date}</p>
+          </div>
+          <div className="text-[#636363]">
+            <h1 className="text-2xl font-medium mb-6">{selectedNoteContent?.title}</h1>
+            {selectedNoteContent?.content.currently.length > 0 && (
+              <>
                 <h2 className="text-xl font-medium mb-4">currently</h2>
                 <ul className="list-disc pl-5 mb-6 space-y-2">
-                  <li>building in public</li>
-                  <li>exploring new projects and opportunities</li>
-                  <li>reading "Middlemarch" by George Eliot</li>
+                  {selectedNoteContent.content.currently.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
                 </ul>
+              </>
+            )}
+            {selectedNoteContent?.content.previously.length > 0 && (
+              <>
                 <h2 className="text-xl font-medium mb-4">previously</h2>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>shipped some fun projects</li>
-                  <li>learned a lot about building in public</li>
-                  <li>made some great connections</li>
+                <ul className="list-disc pl-5 mb-6 space-y-2">
+                  {selectedNoteContent.content.previously.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
                 </ul>
+              </>
+            )}
+            {selectedNoteContent?.content.images && selectedNoteContent.content.images.length > 0 && (
+              <div className="space-y-6 mt-8">
+                {selectedNoteContent.content.images.map((image, index) => (
+                  <figure key={index} className="rounded-lg overflow-hidden">
+                    <img 
+                      src={image.src} 
+                      alt={image.alt}
+                      className="w-full h-auto"
+                    />
+                    {image.caption && (
+                      <figcaption className="text-sm text-[#969696] mt-2 text-center">
+                        {image.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
               </div>
-            </>
-          ) : (
-            <>
-              <div className="text-center mb-8">
-                <p className="text-sm text-[#969696]">July 1, 2024 at 9:15 AM</p>
-              </div>
-              <div className="text-[#636363]">
-                <h1 className="text-2xl font-medium mb-6">Todo & Ideas</h1>
-                <h2 className="text-xl font-medium mb-4">Website Updates</h2>
-                <ul className="space-y-2 mb-6">
-                  <li>☐ Write blog post about garden metaphors in digital spaces</li>
-                  <li>☐ Add dark mode toggle</li>
-                  <li>☑ Implement Apple Notes style UI for /now page</li>
-                  <li>☐ Create a proper RSS feed</li>
-                </ul>
-                <h2 className="text-xl font-medium mb-4">Content Ideas</h2>
-                <ul className="space-y-2 mb-6">
-                  <li>☐ Document the process of building this site</li>
-                  <li>☐ Write about the intersection of gardening and coding</li>
-                  <li>☐ Share thoughts on digital gardens vs traditional blogs</li>
-                </ul>
-                <h2 className="text-xl font-medium mb-4">Future Features</h2>
-                <ul className="space-y-2">
-                  <li>☐ Add a proper garden visualization</li>
-                  <li>☐ Implement a better note-taking system</li>
-                  <li>☐ Create an interactive timeline of projects</li>
-                </ul>
-              </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
