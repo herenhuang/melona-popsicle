@@ -18,6 +18,7 @@ export function ChatBox() {
       isUser: false 
     }
   ]);
+  const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -80,8 +81,21 @@ export function ChatBox() {
     return <div dangerouslySetInnerHTML={{ __html: text }} />;
   };
 
+  const handleSendMessage = () => {
+    if (inputText.trim()) {
+      setMessages([...messages, { text: inputText, isUser: true }]);
+      setInputText('');
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && inputText.trim()) {
+      handleSendMessage();
+    }
+  };
+
   return (
-    <div className="max-w-5xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
       {/* Top Nav */}
       <div className="bg-[#f1f1f1] px-4 py-3 flex items-center justify-between border-b border-gray-200">
         <div className="flex items-center gap-2">
@@ -131,27 +145,29 @@ export function ChatBox() {
       </div>
 
       {/* Message Input */}
-      <div className="p-6 border-t border-gray-200 bg-white">
-        {currentStep < responses.length ? (
-          <button
-            onClick={handleAskMore}
-            disabled={isLoading}
-            className="w-full px-4 py-2 bg-[#007AFF] text-white rounded-full hover:bg-[#0069DB] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      <div className="p-4 border-t border-gray-200 bg-white">
+        <div className="flex items-center gap-2">
+          <button 
+            className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors"
           >
-            {questions[currentStep]}
+            <Smile className="w-6 h-6" />
           </button>
-        ) : (
-          <div className="flex items-center gap-2 bg-[#f1f1f1] rounded-full px-4 py-2">
-            <Smile className="w-6 h-6 text-[#007AFF] cursor-pointer" />
-            <input
-              type="text"
-              placeholder="iMessage"
-              disabled
-              className="flex-1 bg-transparent border-none outline-none text-gray-400"
-            />
-            <Send className="w-6 h-6 text-[#007AFF] cursor-pointer" />
-          </div>
-        )}
+          <input
+            type="text"
+            placeholder="iMessage"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            onKeyPress={handleKeyPress}
+            className="flex-1 bg-[#f1f1f1] px-4 py-2 rounded-full border-none outline-none text-gray-600 placeholder-gray-400"
+          />
+          <button 
+            className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors disabled:opacity-50"
+            onClick={handleSendMessage}
+            disabled={!inputText.trim()}
+          >
+            <Send className="w-6 h-6" />
+          </button>
+        </div>
       </div>
     </div>
   );
