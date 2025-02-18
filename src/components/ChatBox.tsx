@@ -18,21 +18,17 @@ export function ChatBox() {
       isUser: false 
     }
   ]);
-  const [inputText, setInputText] = useState('');
+  const [typedLength, setTypedLength] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [showSuggestion, setShowSuggestion] = useState(false);
 
   const questions = [
+    "Hi Helen... what are you up to nowadays?",
     "And what about before that?",
     "Wow! And what were you doing before the startup days?",
-    "So how did you end up in tech in the first place?",
-    "Oh wow... that's super interesting. Wait, so what's next?!",
-    "That's interesting, never really thought about it that way.",
-    "Hm, yeah for sure.",
-    "I don't know... what am I supposed to do?",
-    "Ahhhhhh, ok, ok.",
-    "Why wouldn't it??",
-    "Oh, I see! That's pretty cool, coding with AI?!"
+    "So how did you end up in tech in the first place?"
   ];
 
   const responses = [
@@ -81,18 +77,41 @@ export function ChatBox() {
     return <div dangerouslySetInnerHTML={{ __html: text }} />;
   };
 
-  const handleSendMessage = () => {
-    if (inputText.trim()) {
-      setMessages([...messages, { text: inputText, isUser: true }]);
-      setInputText('');
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isTyping) {
+      setIsTyping(true);
+    }
+    const newLength = e.target.value.length;
+    setTypedLength(newLength);
+    
+    if (newLength === questions[currentStep].length) {
+      setTimeout(() => {
+        handleSendMessage(questions[currentStep]);
+        setTypedLength(0);
+        setIsTyping(false);
+      }, 100);
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputText.trim()) {
-      handleSendMessage();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Tab' && isTyping) {
+      e.preventDefault();
+      handleSendMessage(questions[currentStep]);
+      setTypedLength(0);
+      setIsTyping(false);
     }
   };
+
+  const handleSendMessage = (messageText: string) => {
+    if (messageText.trim()) {
+      setMessages([...messages, { text: messageText, isUser: true }]);
+      setCurrentStep(prev => prev + 1);
+    }
+  };
+
+  const currentQuestion = questions[currentStep] || '';
+  const typedPart = currentQuestion.slice(0, typedLength);
+  const remainingPart = currentQuestion.slice(typedLength);
 
   return (
     <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -152,18 +171,26 @@ export function ChatBox() {
           >
             <Smile className="w-6 h-6" />
           </button>
-          <input
-            type="text"
-            placeholder="iMessage"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            onKeyPress={handleKeyPress}
-            className="flex-1 bg-[#f1f1f1] px-4 py-2 rounded-full border-none outline-none text-gray-600 placeholder-gray-400"
-          />
+          <div className="relative flex-1">
+            <input
+              type="text"
+              value={typedPart}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Type anything, and press tab to autocomplete"
+              className="w-full bg-[#f1f1f1] px-4 py-2 rounded-full border-none outline-none text-gray-800 placeholder-gray-400"
+            />
+            {isTyping && (
+              <div className="absolute inset-0 pointer-events-none px-4 py-2 flex">
+                <span className="text-gray-800">{typedPart}</span>
+                <span className="text-gray-400">{remainingPart}</span>
+              </div>
+            )}
+          </div>
           <button 
             className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors disabled:opacity-50"
-            onClick={handleSendMessage}
-            disabled={!inputText.trim()}
+            onClick={() => handleSendMessage(currentQuestion)}
+            disabled={!isTyping}
           >
             <Send className="w-6 h-6" />
           </button>
