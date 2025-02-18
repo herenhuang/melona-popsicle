@@ -110,20 +110,20 @@ export function ChatBox() {
 
   return (
     <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
-      {/* Top Nav */}
-      <div className="bg-[#f1f1f1] px-4 py-3 flex items-center justify-between border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <span className="text-gray-400 text-sm">To:</span>
+      {/* Top Nav - increased padding and text size */}
+      <div className="bg-[#f1f1f1] px-6 py-4 flex items-center justify-between border-b border-gray-200">
+        <div className="flex items-center gap-3">
+          <span className="text-gray-400 text-base">To:</span>
           <img 
             src={helenAvatar} 
             alt="Helen"
-            className="w-6 h-6 rounded-full object-cover"
+            className="w-8 h-8 rounded-full object-cover" // Increased avatar size
           />
-          <span className="text-gray-800 font-medium">Helen Huang</span>
+          <span className="text-gray-800 font-medium text-lg">Helen Huang</span>
         </div>
-        <div className="flex items-center gap-4">
-          <Camera className="w-5 h-5 text-[#007AFF] cursor-pointer" />
-          <Info className="w-5 h-5 text-[#007AFF] cursor-pointer" />
+        <div className="flex items-center gap-5"> {/* Increased gap between icons */}
+          <Camera className="w-6 h-6 text-[#007AFF] cursor-pointer" /> {/* Increased icon size */}
+          <Info className="w-6 h-6 text-[#007AFF] cursor-pointer" />
         </div>
       </div>
 
@@ -158,7 +158,7 @@ export function ChatBox() {
         )}
       </div>
 
-      {/* Message Input */}
+      {/* Message Input - updated send button opacity */}
       <div className="p-4 border-t border-gray-200 bg-white">
         <div className="flex items-center gap-2">
           <button 
@@ -184,7 +184,7 @@ export function ChatBox() {
             )}
           </div>
           <button 
-            className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors disabled:opacity-50"
+            className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors disabled:opacity-100" // Changed to 100%
             onClick={() => handleSendMessage(currentQuestion)}
             disabled={!isTyping || isLoading}
           >
