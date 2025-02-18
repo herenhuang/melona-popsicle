@@ -127,12 +127,12 @@ export function ChatBox() {
         </div>
       </div>
 
-      {/* Chat Area */}
-      <div className="h-[500px] overflow-y-auto p-6 space-y-6 bg-white">
+      {/* Chat Area - increased height from 500px to 600px */}
+      <div className="h-[600px] overflow-y-auto p-6 space-y-6 bg-white">
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${message.isUser ? 'justify-end pr-4' : 'justify-start pl-4'}`}
+            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
           >
             <div
               className={`px-4 py-2 rounded-2xl ${
@@ -146,8 +146,8 @@ export function ChatBox() {
           </div>
         ))}
         {isLoading && (
-          <div className="flex justify-start pl-4">
-            <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2 max-w-[60%]">
+          <div className="flex justify-start">
+            <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2">
               <div className="flex gap-1">
                 <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" />
                 <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce delay-100" />
