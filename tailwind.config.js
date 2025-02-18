@@ -17,6 +17,7 @@ export default {
         float: 'float 3s ease-in-out infinite',
         burst: 'burst 0.5s ease-out forwards',
         sparkle: 'sparkle 0.5s ease-out forwards',
+        typing: 'typing 0.3s ease-out forwards'
       },
       keyframes: {
         fadeIn: {
@@ -51,6 +52,16 @@ export default {
           '100%': { 
             transform: 'scale(1) rotate(180deg)',
             opacity: '0'
+          }
+        },
+        typing: {
+          '0%': { 
+            opacity: '0',
+            transform: 'translateY(10px)'
+          },
+          '100%': { 
+            opacity: '1',
+            transform: 'translateY(0)'
           }
         }
       },
