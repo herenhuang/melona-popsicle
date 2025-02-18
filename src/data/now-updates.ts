@@ -62,22 +62,50 @@ export const nowUpdates: NowUpdate[] = [
         }
       },
     {
-    id: 'todo',
-    title: '📙 to-do list',    
+    id: 'bingo',
+    title: '📇 h1 bingo card',    
     date: '2024-01-16',
-    preview: '☐ Write blog post about garden...',
+    preview: 'In January, I led a workshop...',
     content: {
       blocks: [
         {
-          type: 'bullets',
+            type: 'paragraph',
+            content: [
+                'In January, I led a workshop where we made bingo cards (rather than new years resolutions). This is what\'s on mine, all the things I want to complete (or at least get started on) in in this first half of 2025.'
+            ]
+        },
+        {
+          type: 'header',
+          title: 'not yet started',
           content: [
-            '☐ Write blog post about garden metaphors in digital spaces',
-            '☐ Add dark mode toggle',
-            '☑ Implement Apple Notes style UI for /now page',
-            '☐ Create a proper RSS feed',
-            '☐ Document the process of building this site',
-            '☐ Write about the intersection of gardening and coding',
-            '☐ Share thoughts on digital gardens vs traditional blogs'
+            'write a creative workbook',
+            'complete a chinese course',
+            'move to NY',
+            'do an essay on why i stopped doing my nails and lashes',
+            'message ness labs person',
+            'try pottery',
+            'get a new phone',
+            'take pictures of all my clothes',
+            'set up trading view for my stocks and rebalance them'
+          ]
+        },
+        {
+          type: 'header',
+          title: 'in progress',
+          content: [
+            'finish this website',
+            'restart my blog',
+            'finish AI coding course',
+            'finish dance classes',
+            'get a drivers license',
+            'host a fake fashion show for my fake trash bag brand for my real birthday'
+          ]
+        },
+        {
+          type: 'header',
+          title: 'completed',
+          content: [
+            'get this page up and share it'
           ]
         }
       ],
@@ -91,25 +119,25 @@ export const nowUpdates: NowUpdate[] = [
     }
   },
   {
-    id: 'nownownow',
-    title: '⚙️ what is this?',
-    date: '2024-02-18',
+    id: 'what',
+    title: '🥚 what is this?',
+    date: '2024-02-17',
     preview: 'A brief explanation of this page',
     content: {
       blocks: [
         {
           type: 'paragraph',
           content: [
-            "This is my /now page, inspired by Derek Sivers and the ",
-            "Unlike a blog or social media, this page changes slowly and deliberately, reflecting my current priorities and interests."
+            "This is just one part of my personal website. But why are there so many different pieces and contrasting styles? Well, if you know me at all, you'll know I love variety and anything whimsical.",
+            "These pages you're currently reading, these are mainly my /now pages, inspired by Derek Sivers and the [/now](https://nownownow.com/about) movement. The UI is inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website.", 
           ]
         },
         {
           type: 'header',
           title: 'How it works',
           content: [
-            'Updates happen every month or two',
-            'Old entries are preserved for historical context',
+            'Updates happen ever so often',
+            'Old entries are preserved for historical context from here on out',
             'Content reflects my current focus and thoughts'
           ]
         }

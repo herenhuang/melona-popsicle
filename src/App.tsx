@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ProjectSection } from './components/ProjectSection';
 import { ContactBar } from './components/ContactBar';
@@ -58,12 +58,13 @@ function HomePage() {
 
 export default function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/boring" element={<BoringPage />} />
         <Route path="/now" element={<NowPage />} />
+        <Route path="/now/:noteId" element={<NowPage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }

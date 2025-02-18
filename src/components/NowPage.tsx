@@ -1,11 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { X, Minus, Plus, Search, Edit } from 'lucide-react';
 import { nowUpdates } from '../data/now-updates';
 
 export function NowPage() {
-  const [selectedNote, setSelectedNote] = useState(nowUpdates[0].id);
+  const navigate = useNavigate();
+  const { noteId } = useParams();
+  const [selectedNote, setSelectedNote] = useState(noteId || nowUpdates[0].id);
+
+  useEffect(() => {
+    if (noteId) {
+      setSelectedNote(noteId);
+    }
+  }, [noteId]);
 
   const selectedNoteContent = nowUpdates.find(note => note.id === selectedNote);
+
+  const handleNoteSelect = (id: string) => {
+    setSelectedNote(id);
+    navigate(id === '2025-02-18' ? '/now' : `/now/${id}`);
+  };
+
+  const renderTextWithLinks = (text: string) => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      // Add text before the link
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+      // Add the link
+      parts.push(
+        <a 
+          key={match.index} 
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 hover:underline"
+        >
+          {match[1]}
+        </a>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+    return parts;
+  };
 
   return (
     <div className="flex h-screen bg-white">
@@ -46,7 +92,7 @@ export function NowPage() {
             {nowUpdates.map((note, index) => (
               <React.Fragment key={note.id}>
                 <button 
-                  onClick={() => setSelectedNote(note.id)}
+                  onClick={() => handleNoteSelect(note.id)}
                   className={`group w-full text-left transition-colors rounded-lg ${
                     selectedNote === note.id ? 'bg-[#FFE484]' : ''
                   }`}
@@ -119,7 +165,7 @@ export function NowPage() {
                 {block.type === 'paragraph' && (
                   <div className="space-y-4">
                     {block.content.map((paragraph, pIndex) => (
-                      <p key={pIndex}>{paragraph}</p>
+                      <p key={pIndex}>{renderTextWithLinks(paragraph)}</p>
                     ))}
                   </div>
                 )}
