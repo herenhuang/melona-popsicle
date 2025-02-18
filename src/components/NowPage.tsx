@@ -19,11 +19,43 @@ export function NowPage() {
 
   // Filter notes based on search query
   const filteredNotes = useMemo(() => {
-    return nowUpdates.filter(note => 
-      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      note.preview.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      note.formattedDate.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const query = searchQuery.toLowerCase();
+    return nowUpdates.filter(note => {
+      // Search in title, preview, and formatted date
+      if (
+        note.title.toLowerCase().includes(query) ||
+        note.preview.toLowerCase().includes(query) ||
+        note.formattedDate.toLowerCase().includes(query)
+      ) {
+        return true;
+      }
+
+      // Search in content blocks
+      return note.content.blocks.some(block => {
+        if (block.type === 'paragraph') {
+          // Search in paragraph content
+          return block.content.some(paragraph => 
+            paragraph.toLowerCase().includes(query)
+          );
+        }
+        if (block.type === 'header') {
+          // Search in header title and content
+          return (
+            (block.title && block.title.toLowerCase().includes(query)) ||
+            block.content.some(item => 
+              item.toLowerCase().includes(query)
+            )
+          );
+        }
+        if (block.type === 'bullets') {
+          // Search in bullet points
+          return block.content.some(item => 
+            item.toLowerCase().includes(query)
+          );
+        }
+        return false;
+      });
+    });
   }, [searchQuery]);
 
   const handleNoteSelect = (id: string) => {
