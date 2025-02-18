@@ -93,25 +93,29 @@ export function NowPage() {
           <h2 className="px-4 text-xs font-medium text-[#969696] uppercase">Pinned</h2>
           <div className="mt-2 px-2">
             {nowUpdates.map((note, index) => (
-              <button 
-                key={note.id}
-                onClick={() => handleNoteSelect(note.id)}
-                className={`group w-full text-left py-4 px-4 transition-colors rounded-lg ${
-                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]'
-                }`}
-              >
-                <div className="text-sm">
-                  <div className="font-bold whitespace-nowrap overflow-hidden">
-                    {note.title}
+              <div key={note.id}>
+                <button 
+                  onClick={() => handleNoteSelect(note.id)}
+                  className={`group w-full text-left py-4 px-4 transition-colors rounded-lg ${
+                    selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]'
+                  }`}
+                >
+                  <div className="text-sm">
+                    <div className="font-bold whitespace-nowrap overflow-hidden">
+                      {note.title}
+                    </div>
+                    <div className="flex">
+                      <span className="text-[#464646] shrink-0">{note.date}</span>
+                      <span className="ml-2 text-[#969696] w-[120px] whitespace-nowrap overflow-hidden text-ellipsis">
+                        {note.preview}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex">
-                    <span className="text-[#464646] shrink-0">{note.date}</span>
-                    <span className="ml-2 text-[#969696] w-[180px] whitespace-nowrap overflow-hidden text-ellipsis">
-                      {note.preview}
-                    </span>
-                  </div>
-                </div>
-              </button>
+                </button>
+                {index < nowUpdates.length - 1 && (
+                  <div className="mx-4 border-b border-[#e4e4e4]" />
+                )}
+              </div>
             ))}
           </div>
         </div>
