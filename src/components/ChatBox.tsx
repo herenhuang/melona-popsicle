@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Loader2, Paperclip, Mic, Send } from 'lucide-react';
+import { Camera, Info, Smile, Send } from 'lucide-react';
 import helenAvatar from '../images/helen-avatar.jpg';
 
 interface Message {
@@ -81,30 +81,36 @@ export function ChatBox() {
   };
 
   return (
-    <section className="w-full max-w-4xl mx-auto my-24 bg-white rounded-xl shadow-2xl overflow-hidden">
-      <div className="bg-gradient-to-b from-white to-[#f8f8f7] border-b border-gray-200 p-8 text-gray-800 shadow-sm">
-        <h2 className="font-sora text-3xl font-bold text-[#ff6b35]">Chat with Helen</h2>
-        <p className="text-[#ff6b35] mt-2 font-inter font-medium text-lg">Ask me about my journey</p>
+    <div className="max-w-2xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden">
+      {/* Top Nav */}
+      <div className="bg-[#f1f1f1] px-4 py-3 flex items-center justify-between border-b border-gray-200">
+        <div className="flex items-center gap-2">
+          <span className="text-gray-400 text-sm">To:</span>
+          <img 
+            src={helenAvatar} 
+            alt="Helen"
+            className="w-6 h-6 rounded-full object-cover"
+          />
+          <span className="text-gray-800 font-medium">Helen Huang</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Camera className="w-5 h-5 text-[#007AFF] cursor-pointer" />
+          <Info className="w-5 h-5 text-[#007AFF] cursor-pointer" />
+        </div>
       </div>
-      
-      <div className="min-h-[500px] overflow-y-auto p-8 space-y-6 bg-[#fafaf9]">
+
+      {/* Chat Area */}
+      <div className="h-[500px] overflow-y-auto p-4 space-y-4 bg-white">
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex gap-4 ${message.isUser ? 'justify-end' : ''}`}
+            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
           >
-            {!message.isUser && (
-              <img
-                src={helenAvatar}
-                alt="Helen's avatar"
-                className="w-10 h-10 rounded-full"
-              />
-            )}
             <div
-              className={`max-w-[75%] rounded-xl p-4 ${
+              className={`px-4 py-2 rounded-2xl ${
                 message.isUser
-                  ? 'bg-[#76bb5d]/80 text-gray-700'
-                  : 'bg-white shadow-md text-gray-700'
+                  ? 'bg-[#007AFF] text-white'
+                  : 'bg-[#E9E9EB] text-black'
               }`}
             >
               {message.text}
@@ -112,37 +118,41 @@ export function ChatBox() {
           </div>
         ))}
         {isLoading && (
-          <div className="flex items-start">
-            <img src={helenAvatar} alt="Helen's avatar" className="w-10 h-10 rounded-full mr-3 flex-shrink-0 object-cover" />            <div className="bg-white shadow-md border border-gray-100 rounded-2xl px-6 py-3">
-              <Loader2 className="w-5 h-5 animate-spin text-gray-500" />
+          <div className="flex justify-start">
+            <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2">
+              <div className="flex gap-1">
+                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" />
+                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce delay-100" />
+                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce delay-200" />
+              </div>
             </div>
           </div>
         )}
       </div>
 
-      <div className="p-8 border-t border-gray-100 bg-gradient-to-t from-white to-[#f8f8f7]">
+      {/* Message Input */}
+      <div className="p-4 border-t border-gray-200 bg-white">
         {currentStep < responses.length ? (
           <button
             onClick={handleAskMore}
             disabled={isLoading}
-            className={`w-full px-6 py-4 text-black text-lg rounded-xl hover:brightness-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium bg-[#76bb5d]/80`}
+            className="w-full px-4 py-2 bg-[#007AFF] text-white rounded-full hover:bg-[#0069DB] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {questions[currentStep]}
           </button>
         ) : (
-          <div className="flex items-center gap-3 border-2 rounded-xl p-4 text-gray-400">
-            <Paperclip className="w-6 h-6" />
+          <div className="flex items-center gap-2 bg-[#f1f1f1] rounded-full px-4 py-2">
+            <Smile className="w-6 h-6 text-[#007AFF] cursor-pointer" />
             <input
               type="text"
-              placeholder="Type your message..."
-              className="flex-1 outline-none text-lg"
+              placeholder="iMessage"
               disabled
+              className="flex-1 bg-transparent border-none outline-none text-gray-400"
             />
-            <Mic className="w-6 h-6" />
-            <Send className="w-6 h-6" />
+            <Send className="w-6 h-6 text-[#007AFF] cursor-pointer" />
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 } 
