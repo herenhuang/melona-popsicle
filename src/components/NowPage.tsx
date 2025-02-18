@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { X, Minus, Plus, Search, Edit } from 'lucide-react';
+import { X, Minus, Plus, Search, Edit, Pin } from 'lucide-react';
 import { nowUpdates } from '../data/now-updates';
 
 export function NowPage() {
@@ -90,7 +90,13 @@ export function NowPage() {
 
         {/* Pinned Notes */}
         <div className="mt-6">
-          <h2 className="px-4 text-xs font-medium text-[#969696] uppercase">Pinned</h2>
+          <div className="px-4 pb-2">
+            <h2 className="text-sm font-medium text-[#969696] flex items-center gap-1.5">
+              <Pin size={14} strokeWidth={2} />
+              Pinned
+            </h2>
+            <div className="mt-2 -mx-4 border-b border-[#e4e4e4]" />
+          </div>
           <div className="mt-2 px-2">
             {nowUpdates.map((note, index) => (
               <div key={note.id}>
