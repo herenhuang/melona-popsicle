@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { X, Minus, Plus, Search, PenTool } from 'lucide-react';
-import { nowUpdates, type NowUpdate } from '../data/now-updates';
+import { nowUpdates } from '../data/now-updates';
 
 export function NowPage() {
-  const [selectedNote, setSelectedNote] = useState<string>(nowUpdates[0].id);
+  const [selectedNote, setSelectedNote] = useState(nowUpdates[0].id);
 
   const selectedNoteContent = nowUpdates.find(note => note.id === selectedNote);
 
@@ -93,7 +93,7 @@ export function NowPage() {
             {selectedNoteContent?.content.previously.length > 0 && (
               <>
                 <h2 className="text-xl font-medium mb-4">previously</h2>
-                <ul className="list-disc pl-5 mb-6 space-y-2">
+                <ul className="list-disc pl-5 space-y-2">
                   {selectedNoteContent.content.previously.map((item, index) => (
                     <li key={index}>{item}</li>
                   ))}
