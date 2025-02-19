@@ -101,7 +101,16 @@ export function ChatBox() {
     [
       "You do whatever you want to do :^)",
       "pave your own path!",
-      "i appreciate you for learning a bit about mine though."
+      "i appreciate you for learning a bit about mine though.",
+      "you can check out my /now page?",
+      {
+        isUrl: true,
+        urlPreview: {
+          title: "Helen Huang | Now",
+          url: "helenhuang.io/now",
+          image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=300&auto=format&fit=crop"  // Make sure this image exists in your public folder
+        }
+      }
     ],
     [
       "ok bye now! shoo!",
@@ -177,7 +186,13 @@ export function ChatBox() {
       // Send each message in the chunk with a small delay between them
       for (const response of currentChunk) {
         await new Promise(resolve => setTimeout(resolve, 1000));
-        setMessages(prev => [...prev, { text: response, isUser: false }]);
+        
+        // Check if response is a URL preview object or a text message
+        if (typeof response === 'string') {
+          setMessages(prev => [...prev, { text: response, isUser: false }]);
+        } else {
+          setMessages(prev => [...prev, { ...response, isUser: false }]);
+        }
       }
       
       setIsLoading(false);
@@ -190,7 +205,17 @@ export function ChatBox() {
   const remainingPart = currentQuestion.slice(typedLength);
 
   const handleUrlClick = (url: string) => {
-    navigate(url);
+    // Remove https://www. if present
+    const cleanUrl = url.replace('https://www.', '');
+    
+    // If it's an internal route (starts with helenhuang.io)
+    if (cleanUrl.startsWith('helenhuang.io/')) {
+      const route = '/' + cleanUrl.split('/').slice(1).join('/');
+      navigate(route);
+    } else {
+      // External URL
+      window.open('https://www.' + cleanUrl, '_blank');
+    }
   };
 
   return (
