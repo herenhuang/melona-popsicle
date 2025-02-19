@@ -219,28 +219,28 @@ export function ChatBox() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-24 bg-white rounded-2xl shadow-2xl overflow-hidden w-full">
-      {/* Top Nav - increased padding and text size */}
-      <div className="bg-[#f1f1f1] px-6 py-4 flex items-center justify-between border-b border-gray-200">
+    <div className="max-w-4xl mx-auto my-12 md:my-24 bg-white rounded-2xl shadow-2xl overflow-hidden w-full relative">
+      {/* Top Nav */}
+      <div className="bg-[#f1f1f1] px-6 py-4 flex items-center justify-between border-b border-gray-200 sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <span className="text-gray-400 text-base">To:</span>
           <img 
             src={helenAvatar} 
             alt="Helen"
-            className="w-8 h-8 rounded-full object-cover" // Increased avatar size
+            className="w-8 h-8 rounded-full object-cover"
           />
           <span className="text-gray-800 font-medium text-lg">Helen Huang</span>
         </div>
-        <div className="flex items-center gap-5"> {/* Increased gap between icons */}
-          <Camera className="w-6 h-6 text-[#007AFF] cursor-pointer" /> {/* Increased icon size */}
+        <div className="flex items-center gap-5">
+          <Camera className="w-6 h-6 text-[#007AFF] cursor-pointer" />
           <Info className="w-6 h-6 text-[#007AFF] cursor-pointer" />
         </div>
       </div>
 
-      {/* Chat Area - added ref and custom scrollbar styling */}
+      {/* Chat Area - adjusted for mobile */}
       <div 
         ref={chatBoxRef}
-        className="h-[600px] overflow-y-auto p-6 bg-white scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+        className="h-[calc(100vh-16rem)] md:h-[600px] overflow-y-auto p-6 bg-white scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
       >
         <div className="space-y-6">
           {/* Initial Helen messages with reduced spacing */}
@@ -346,12 +346,10 @@ export function ChatBox() {
         )}
       </div>
 
-      {/* Message Input - updated send button opacity */}
-      <div className="p-4 border-t border-gray-200 bg-white">
+      {/* Message Input - fixed at bottom on mobile */}
+      <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4">
         <div className="flex items-center gap-2">
-          <button 
-            className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors"
-          >
+          <button className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors">
             <Smile className="w-6 h-6" />
           </button>
           <div className="relative flex-1">
@@ -365,14 +363,14 @@ export function ChatBox() {
               disabled={isLoading}
             />
             {isTyping && !isLoading && (
-              <div className="absolute inset-0 pointer-events-none px-4 py-2 flex">
-                <span className="text-gray-800">{typedPart}</span>
-                <span className="text-gray-400">{remainingPart}</span>
+              <div className="absolute inset-0 pointer-events-none px-4 py-2 flex overflow-hidden">
+                <span className="text-gray-800 truncate">{typedPart}</span>
+                <span className="text-gray-400 truncate">{remainingPart}</span>
               </div>
             )}
           </div>
           <button 
-            className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors disabled:opacity-100" // Changed to 100%
+            className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors disabled:opacity-100"
             onClick={() => handleSendMessage(currentQuestion)}
             disabled={!isTyping || isLoading}
           >
