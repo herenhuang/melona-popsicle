@@ -334,14 +334,13 @@ export function ChatBox() {
           ))}
         </div>
         
+        {/* Loading indicator */}
         {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-[#E9E9EB] rounded-2xl px-4 py-2">
-              <div className="flex gap-1">
-                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" />
-                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce delay-100" />
-                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce delay-200" />
-              </div>
+          <div className="flex justify-start w-full mt-2">
+            <div className="flex items-center gap-1 px-3 py-1.5 bg-[#E9E9EB] rounded-2xl">
+              <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
+              <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
+              <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" />
             </div>
           </div>
         )}
