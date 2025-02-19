@@ -101,16 +101,7 @@ export function ChatBox() {
     [
       "You do whatever you want to do :^)",
       "pave your own path!",
-      "i appreciate you for learning a bit about mine though.",
-      "you can check out my /now page?",
-      {
-        isUrl: true,
-        urlPreview: {
-          title: "Helen Huang | Now",
-          url: "helenhuang.io/now",
-          image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=300&auto=format&fit=crop"  // Make sure this image exists in your public folder
-        }
-      }
+      "i appreciate you for learning a bit about mine though."
     ],
     [
       "ok bye now! shoo!",
@@ -122,8 +113,17 @@ export function ChatBox() {
     [
       "YES BUT PLEASE LEAVE T_T (and check out the rest of the site)",
       "SO I CAN STOP SCRIPTING THIS OK.",
-      "but also take care of yourself, you're doing great if you made it this far kek. <3",
-      "maybe msg me elsewhere so I know, cause it's sorta jokes you stuck around this whole time."
+      "take care of yourself tho, wild you made it this far. <3",
+      "maybe msg me so I know, cause it's sorta jokes you stuck around this whole time.",
+      "don't forget to check out this page if you haven't already!",
+      {
+        isUrl: true,
+        urlPreview: {
+          title: "Helen Huang | Now",
+          url: "helenhuang.io/now",
+          image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=300&auto=format&fit=crop"  // Make sure this image exists in your public folder
+        }
+      }
     ]
   ];
 
