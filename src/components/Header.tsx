@@ -6,17 +6,19 @@ import { SabbaticalNote } from './SabbaticalNote';
 
 const PersonalContent = () => (
   <span className="opacity-0 animate-fadeInUp">
-    <div className="flex items-baseline gap-2 mb-4">
-      <span>howdy, i'm</span>
+    <div className="flex flex-col md:flex-row md:items-baseline gap-2 mb-4">
+      <span className="text-base md:text-lg">howdy, i'm</span>
       <SparklesText 
         text="helen huang"
         colors={{ first: "#76bb5d", second: "#9774cc" }}
-        className="text-7xl font-bold text-[#ff6b35]"
+        className="text-5xl md:text-8xl font-bold text-[#ff6b35]"
       />
     </div>
-    - an earth science grad turned big tech pm turned edtech founder turned whoever it is that i am now. deeply curious, reasonable dancer <a href="https://x.com/heyohelen/status/1651703013361238016" target="_blank" rel="noopener noreferrer">(🇮🇳) </a>
-    <a href="https://www.linkedin.com/posts/heyohelen_normalize-posting-passion-projects-activity-7101979035412434944-85hW" target="_blank" rel="noopener noreferrer">(🇳🇬) </a>
-    <a href="https://www.youtube.com/watch?v=WkO3QsWT_ns" target="_blank" rel="noopener noreferrer">(🎅)</a>, terrible memory.
+    <div className="text-base md:text-lg">
+      - an earth science grad turned big tech pm turned edtech founder turned whoever it is that i am now. deeply curious, reasonable dancer <a href="https://x.com/heyohelen/status/1651703013361238016" target="_blank" rel="noopener noreferrer">(🇮🇳) </a>
+      <a href="https://www.linkedin.com/posts/heyohelen_normalize-posting-passion-projects-activity-7101979035412434944-85hW" target="_blank" rel="noopener noreferrer">(🇳🇬) </a>
+      <a href="https://www.youtube.com/watch?v=WkO3QsWT_ns" target="_blank" rel="noopener noreferrer">(🎅)</a>, terrible memory.
+    </div>
   </span>
 );
 
