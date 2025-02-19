@@ -17,7 +17,8 @@ export default {
         float: 'float 3s ease-in-out infinite',
         burst: 'burst 0.5s ease-out forwards',
         sparkle: 'sparkle 0.5s ease-out forwards',
-        typing: 'typing 0.3s ease-out forwards'
+        typing: 'typing 0.3s ease-out forwards',
+        bubbleAppear: 'bubbleAppear 0.15s ease-out forwards'
       },
       keyframes: {
         fadeIn: {
@@ -62,6 +63,16 @@ export default {
           '100%': { 
             opacity: '1',
             transform: 'translateY(0)'
+          }
+        },
+        bubbleAppear: {
+          '0%': { 
+            opacity: '0',
+            transform: 'scale(0.98) translateY(5px)'
+          },
+          '100%': { 
+            opacity: '1',
+            transform: 'scale(1) translateY(0)'
           }
         }
       },

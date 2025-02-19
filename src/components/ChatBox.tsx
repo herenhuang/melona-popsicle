@@ -298,14 +298,14 @@ export function ChatBox() {
               {group.map((message, messageIndex) => (
                 <div
                   key={messageIndex}
-                  className={`flex ${message.isUser ? 'justify-end my-6' : 'justify-start'} w-full`}
+                  className={`flex ${message.isUser ? 'justify-end my-6' : 'justify-start'} w-full animate-messageAppear`}
                 >
                   <div
                     className={`${
                       message.isUser
                         ? 'bg-[#007AFF] text-white'
                         : 'bg-[#E9E9EB] text-black'
-                    } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'}`}
+                    } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'} opacity-0 animate-bubbleAppear`}
                   >
                     {message.text && (
                       <div className="whitespace-pre-wrap break-words leading-normal">{message.text}</div>
