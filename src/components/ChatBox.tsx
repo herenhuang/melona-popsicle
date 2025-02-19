@@ -68,7 +68,8 @@ export function ChatBox() {
   const responseChunks = [
     [
       "well i am currently doing an adult gap year/sabbatical right now, or funemployed, whatever you want to call it.",
-      "spending time on projects like this, catching up with friends, dancing a lot more..."
+      "spending time going to dance class, catching up with friends",
+      "learning AI (so that I can even make this site)"
     ],
     [
       "well ever since i read the 4-hour workweek by Tim Ferris a few years ago, i've really loved the concept of mini-retirements. figured this was as good as year as any to experience my own."
@@ -218,7 +219,7 @@ export function ChatBox() {
       >
         <div className="space-y-6">
           {/* Initial Helen messages with reduced spacing */}
-          <div className="space-y-2">
+          <div className="space-y-1">
             {messages.slice(0, 3).map((message, index) => (
               <div
                 key={index}
@@ -229,10 +230,10 @@ export function ChatBox() {
                     message.isUser
                       ? 'bg-[#007AFF] text-white'
                       : 'bg-[#E9E9EB] text-black'
-                  } rounded-2xl overflow-hidden max-w-[60%] w-fit ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-2'}`}
+                  } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'}`}
                 >
                   {message.text && (
-                    <div>{message.text}</div>
+                    <div className="whitespace-pre-wrap break-words leading-normal">{message.text}</div>
                   )}
                   
                   {message.isUrl && message.urlPreview && (
@@ -268,21 +269,21 @@ export function ChatBox() {
             
             return groups;
           }, [] as Array<typeof messages>).map((group, groupIndex) => (
-            <div key={groupIndex} className="space-y-2 mb-6">
+            <div key={groupIndex} className="space-y-1 mb-4">
               {group.map((message, messageIndex) => (
                 <div
                   key={messageIndex}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} w-full`}
+                  className={`flex ${message.isUser ? 'justify-end my-6' : 'justify-start'} w-full`}
                 >
                   <div
                     className={`${
                       message.isUser
                         ? 'bg-[#007AFF] text-white'
                         : 'bg-[#E9E9EB] text-black'
-                    } rounded-2xl overflow-hidden max-w-[60%] w-fit ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-2'}`}
+                    } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'}`}
                   >
                     {message.text && (
-                      <div>{message.text}</div>
+                      <div className="whitespace-pre-wrap break-words leading-normal">{message.text}</div>
                     )}
                     
                     {message.isUrl && message.urlPreview && (
