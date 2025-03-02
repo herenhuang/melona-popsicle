@@ -12,10 +12,10 @@ export function ContactBar({ isPersonal = true }: ContactBarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show contact bar when user scrolls near the footer
+      // Show contact bar when user is very close to the bottom
       const scrollPosition = window.scrollY + window.innerHeight;
       const pageHeight = document.documentElement.scrollHeight;
-      const showThreshold = pageHeight - 500; // Adjust this value to control when it appears
+      const showThreshold = pageHeight - 100; // Changed from 500 to 100
       
       setIsVisible(scrollPosition > showThreshold);
     };
@@ -32,7 +32,7 @@ export function ContactBar({ isPersonal = true }: ContactBarProps) {
 
   return (
     <div 
-      className={`fixed bottom-0 transition-all duration-500 ease-in-out py-6 pr-6 pl-4 flex items-center gap-6 bg-[#f5f3e8]/80 backdrop-blur-sm rounded-tr-lg z-[90] 
+      className={`fixed bottom-0 transition-all duration-500 ease-in-out py-6 pr-6 pl-4 flex items-center gap-6 bg-[#f5f3e8]/80 backdrop-blur-sm rounded-tr-lg z-40
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'}
         max-w-4xl right-1/2 transform translate-x-[50%] md:translate-x-0 md:right-[calc((100vw-4rem-48rem)/2)]`}
     >
