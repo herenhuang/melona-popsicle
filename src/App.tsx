@@ -18,10 +18,10 @@ function HomePage() {
       <Confetti />
       <Header />
       <Experience />
-      <ChatBox />
       <GardenDemo />
       <FunFooter />
       <ContactBar isPersonal={true} />
+      <ChatBox />
     </div>
   );
 }

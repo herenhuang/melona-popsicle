@@ -4,6 +4,7 @@ import helenAvatar from '../images/helen-avatar.jpg';
 import { useNavigate } from 'react-router-dom';
 
 export function ChatBox() {
+  const [isVisible, setIsVisible] = useState(false);
   const [messages, setMessages] = useState<Array<{
     text?: string;  // Made optional since URL messages won't have text
     isUser: boolean;
@@ -220,182 +221,24 @@ export function ChatBox() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-12 md:my-24">
-      {/* Desktop version */}
-      <div className="hidden md:block bg-white rounded-2xl shadow-2xl overflow-hidden w-full relative">
-        {/* Top Nav */}
-        <div className="bg-[#f1f1f1] px-6 py-4 flex items-center justify-between border-b border-gray-200 sticky top-0 z-10">
-          <div className="flex items-center gap-3">
-            <span className="text-gray-400 text-base">To:</span>
-            <img 
-              src={helenAvatar} 
-              alt="Helen"
-              className="w-8 h-8 rounded-full object-cover"
-            />
-            <span className="text-gray-800 font-medium text-lg">Helen Huang</span>
-          </div>
-          <div className="flex items-center gap-5">
-            <Camera className="w-6 h-6 text-[#007AFF] cursor-pointer" />
-            <Info className="w-6 h-6 text-[#007AFF] cursor-pointer" />
-          </div>
-        </div>
-
-        {/* Chat Area - adjusted for mobile */}
-        <div 
-          ref={chatBoxRef}
-          className="h-[calc(100vh-16rem)] md:h-[600px] overflow-y-auto p-6 bg-white scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
-        >
-          <div className="space-y-6">
-            {/* Initial Helen messages with reduced spacing */}
-            <div className="space-y-1">
-              {messages.slice(0, 3).map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} w-full`}
-                >
-                  <div
-                    className={`${
-                      message.isUser
-                        ? 'bg-[#007AFF] text-white'
-                        : 'bg-[#E9E9EB] text-black'
-                    } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'}`}
-                  >
-                    {message.text && (
-                      <div className="whitespace-pre-wrap break-words leading-normal">{message.text}</div>
-                    )}
-                    
-                    {message.isUrl && message.urlPreview && (
-                      <div 
-                        onClick={() => handleUrlClick(`https://www.${message.urlPreview?.url}`)}
-                        className="bg-white overflow-hidden cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 rounded-2xl"
-                      >
-                        <img 
-                          src={message.urlPreview.image} 
-                          alt="Link preview"
-                          className="w-full h-32 object-cover"
-                        />
-                        <div className="p-3 border border-gray-200 border-t-0 rounded-b-2xl">
-                          <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
-                          <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Remaining messages with chunk-aware spacing */}
-            {messages.slice(3).reduce((groups, message, index) => {
-              const isFirstInChunk = index === 0 || message.isUser;
-              
-              if (isFirstInChunk) {
-                groups.push([message]);
-              } else {
-                groups[groups.length - 1].push(message);
-              }
-              
-              return groups;
-            }, [] as Array<typeof messages>).map((group, groupIndex) => (
-              <div key={groupIndex} className="space-y-1 mb-4">
-                {group.map((message, messageIndex) => (
-                  <div
-                    key={messageIndex}
-                    className={`flex ${message.isUser ? 'justify-end my-6' : 'justify-start'} w-full animate-messageAppear`}
-                  >
-                    <div
-                      className={`${
-                        message.isUser
-                          ? 'bg-[#007AFF] text-white'
-                          : 'bg-[#E9E9EB] text-black'
-                      } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'} opacity-0 animate-bubbleAppear`}
-                    >
-                      {message.text && (
-                        <div className="whitespace-pre-wrap break-words leading-normal">{message.text}</div>
-                      )}
-                      
-                      {message.isUrl && message.urlPreview && (
-                        <div 
-                          onClick={() => handleUrlClick(`https://www.${message.urlPreview?.url}`)}
-                          className="bg-white overflow-hidden cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 rounded-2xl"
-                        >
-                          <img 
-                            src={message.urlPreview.image} 
-                            alt="Link preview"
-                            className="w-full h-32 object-cover"
-                          />
-                          <div className="p-3 border border-gray-200 border-t-0 rounded-b-2xl">
-                            <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
-                            <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-          
-          {/* Loading indicator */}
-          {isLoading && (
-            <div className="flex justify-start w-full mt-2">
-              <div className="flex items-center gap-1 px-3 py-1.5 bg-[#E9E9EB] rounded-2xl">
-                <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Message Input - fixed at bottom on mobile */}
-        <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4">
-          <div className="flex items-center gap-2">
-            <button className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors">
-              <Smile className="w-6 h-6" />
-            </button>
-            <div className="relative flex-1">
-              <input
-                type="text"
-                value={typedPart}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Type anything, and press tab to autocomplete"
-                className="w-full bg-[#f1f1f1] px-4 py-2 rounded-full border-none outline-none text-gray-800 placeholder-gray-400"
-                disabled={isLoading}
-              />
-              {isTyping && !isLoading && (
-                <div className="absolute inset-0 pointer-events-none px-4 py-2 flex overflow-hidden">
-                  <span className="text-gray-800 truncate">{typedPart}</span>
-                  <span className="text-gray-400 truncate">{remainingPart}</span>
-                </div>
-              )}
-            </div>
-            <button 
-              className="p-2 text-[#007AFF] hover:text-[#0069DB] transition-colors disabled:opacity-100"
-              onClick={() => handleSendMessage(currentQuestion)}
-              disabled={!isTyping || isLoading}
-            >
-              <Send className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile chat button */}
-      <button 
-        onClick={() => setIsExpanded(true)}
-        className="md:hidden fixed bottom-20 right-4 bg-[#007AFF] text-white p-4 rounded-full shadow-lg z-40 flex items-center gap-2"
+    <>
+      {/* Chat trigger button */}
+      <button
+        onClick={() => setIsVisible(true)}
+        className={`fixed bottom-24 right-6 z-40 bg-[#ff6b35] text-white px-6 py-4 rounded-full shadow-lg hover:bg-[#ff8c35] transition-all duration-200 flex items-center gap-2 ${
+          isVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
       >
         <MessageCircle className="w-6 h-6" />
-        <span>Chat with Helen</span>
+        <span className="font-medium">Chat with Helen</span>
       </button>
 
-      {/* Mobile expandable chat interface */}
-      {isExpanded && (
-        <div className="md:hidden fixed inset-0 bg-white z-50 flex flex-col">
-          {/* Mobile Header - fixed at top */}
+      {/* Chat interface */}
+      <div className={`fixed inset-0 z-50 transition-all duration-300 ${
+        isVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      }`}>
+        <div className="md:hidden fixed inset-0 bg-white">
+          {/* Mobile header */}
           <div className="fixed top-0 left-0 right-0 z-10 bg-[#f1f1f1] px-6 py-4 flex items-center justify-between border-b border-gray-200">
             <div className="flex items-center gap-3">
               <span className="text-gray-400 text-base">To:</span>
@@ -407,7 +250,7 @@ export function ChatBox() {
               <span className="text-gray-800 font-medium text-lg">Helen Huang</span>
             </div>
             <button 
-              onClick={() => setIsExpanded(false)}
+              onClick={() => setIsVisible(false)}
               className="text-gray-500 p-2"
             >
               <X className="w-6 h-6" />
@@ -417,7 +260,7 @@ export function ChatBox() {
           {/* Messages area - with padding for header */}
           <div 
             ref={chatBoxRef}
-            className="flex-1 overflow-y-auto pt-[4.5rem] pb-[4.5rem]"
+            className="flex-1 overflow-y-auto pt-[4.5rem] pb-[4.5rem] px-4"
           >
             <div className="space-y-6">
               {/* Initial Helen messages with reduced spacing */}
@@ -513,7 +356,7 @@ export function ChatBox() {
           </div>
 
           {/* Input area - fixed at bottom */}
-          <div className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white p-4">
+          <div className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white p-4 px-4">
             <div className="flex items-center gap-2">
               <button className="p-2 text-[#007AFF]">
                 <Smile className="w-6 h-6" />
@@ -524,12 +367,15 @@ export function ChatBox() {
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   placeholder="Type anything, and press tab to autocomplete"
-                  className="w-full bg-[#f1f1f1] px-4 py-2 rounded-full border-none outline-none text-gray-800 placeholder-gray-400 resize-none"
-                  style={{ height: 'auto', minHeight: '44px' }}
+                  className="w-full bg-[#f1f1f1] px-6 py-3 rounded-full border-none outline-none text-gray-800 placeholder-gray-400 resize-none"
+                  style={{ 
+                    height: 'auto',
+                    minHeight: '44px',
+                  }}
                   rows={1}
                 />
                 {isTyping && !isLoading && (
-                  <div className="absolute inset-0 pointer-events-none px-4 py-2 flex overflow-hidden">
+                  <div className="absolute inset-0 pointer-events-none px-6 py-3 flex overflow-hidden">
                     <span className="text-gray-800 truncate">{typedPart}</span>
                     <span className="text-gray-400 truncate">{remainingPart}</span>
                   </div>
@@ -545,7 +391,162 @@ export function ChatBox() {
             </div>
           </div>
         </div>
-      )}
-    </div>
+
+        {/* Desktop chat interface */}
+        <div className="hidden md:block fixed bottom-24 right-6 w-[600px] bg-white rounded-xl shadow-xl overflow-hidden">
+          {/* Desktop header */}
+          <div className="bg-[#f1f1f1] px-6 py-4 flex items-center justify-between border-b border-gray-200">
+            <div className="flex items-center gap-3">
+              <img 
+                src={helenAvatar} 
+                alt="Helen"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="text-gray-800 font-medium">Helen Huang</span>
+            </div>
+            <button 
+              onClick={() => setIsVisible(false)}
+              className="text-gray-500 p-2"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Messages area */}
+          <div 
+            ref={chatBoxRef}
+            className="h-96 overflow-y-auto p-6"
+          >
+            <div className="space-y-6">
+              {/* Initial Helen messages with reduced spacing */}
+              <div className="space-y-1">
+                {messages.slice(0, 3).map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} w-full`}
+                  >
+                    <div
+                      className={`${
+                        message.isUser
+                          ? 'bg-[#007AFF] text-white'
+                          : 'bg-[#E9E9EB] text-black'
+                      } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'}`}
+                    >
+                      {message.text && (
+                        <div className="whitespace-pre-wrap break-words leading-normal">{message.text}</div>
+                      )}
+                      
+                      {message.isUrl && message.urlPreview && (
+                        <div 
+                          onClick={() => handleUrlClick(`https://www.${message.urlPreview?.url}`)}
+                          className="bg-white overflow-hidden cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 rounded-2xl"
+                        >
+                          <img 
+                            src={message.urlPreview.image} 
+                            alt="Link preview"
+                            className="w-full h-32 object-cover"
+                          />
+                          <div className="p-3 border border-gray-200 border-t-0 rounded-b-2xl">
+                            <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
+                            <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Remaining messages with chunk-aware spacing */}
+              {messages.slice(3).reduce((groups, message, index) => {
+                const isFirstInChunk = index === 0 || message.isUser;
+                
+                if (isFirstInChunk) {
+                  groups.push([message]);
+                } else {
+                  groups[groups.length - 1].push(message);
+                }
+                
+                return groups;
+              }, [] as Array<typeof messages>).map((group, groupIndex) => (
+                <div key={groupIndex} className="space-y-1 mb-4">
+                  {group.map((message, messageIndex) => (
+                    <div
+                      key={messageIndex}
+                      className={`flex ${message.isUser ? 'justify-end my-6' : 'justify-start'} w-full animate-messageAppear`}
+                    >
+                      <div
+                        className={`${
+                          message.isUser
+                            ? 'bg-[#007AFF] text-white'
+                            : 'bg-[#E9E9EB] text-black'
+                        } rounded-2xl overflow-hidden w-fit max-w-[75%] ${!message.text && message.isUrl ? 'p-0' : 'px-4 py-[0.6rem]'} opacity-0 animate-bubbleAppear`}
+                      >
+                        {message.text && (
+                          <div className="whitespace-pre-wrap break-words leading-normal">{message.text}</div>
+                        )}
+                        
+                        {message.isUrl && message.urlPreview && (
+                          <div 
+                            onClick={() => handleUrlClick(`https://www.${message.urlPreview?.url}`)}
+                            className="bg-white overflow-hidden cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 rounded-2xl"
+                          >
+                            <img 
+                              src={message.urlPreview.image} 
+                              alt="Link preview"
+                              className="w-full h-32 object-cover"
+                            />
+                            <div className="p-3 border border-gray-200 border-t-0 rounded-b-2xl">
+                              <h3 className="font-medium text-gray-800">{message.urlPreview.title}</h3>
+                              <p className="text-sm text-gray-500 mt-1">{message.urlPreview.url}</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Input area */}
+          <div className="border-t border-gray-200 p-4">
+            <div className="flex items-center gap-2">
+              <button className="p-2 text-[#007AFF]">
+                <Smile className="w-6 h-6" />
+              </button>
+              <div className="relative flex-1">
+                <textarea
+                  value={typedPart}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Type anything, and press tab to autocomplete"
+                  className="w-full bg-[#f1f1f1] px-6 py-3 rounded-full border-none outline-none text-gray-800 placeholder-gray-400 resize-none"
+                  style={{ 
+                    height: 'auto',
+                    minHeight: '44px',
+                  }}
+                  rows={1}
+                />
+                {isTyping && !isLoading && (
+                  <div className="absolute inset-0 pointer-events-none px-6 py-3 flex overflow-hidden">
+                    <span className="text-gray-800 truncate">{typedPart}</span>
+                    <span className="text-gray-400 truncate">{remainingPart}</span>
+                  </div>
+                )}
+              </div>
+              <button 
+                className="p-2 text-[#007AFF] disabled:opacity-50"
+                onClick={() => handleSendMessage(currentQuestion)}
+                disabled={!isTyping || isLoading}
+              >
+                <Send className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 } 
