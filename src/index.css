@@ -5,6 +5,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html, body {
+    @apply overflow-x-hidden;
+    width: 100%;
+    position: relative;
+  }
+}
+
 .bg-grid-pattern {
   background-image: 
     linear-gradient(rgba(255, 107, 53, 0.1) 1px, transparent 1px),

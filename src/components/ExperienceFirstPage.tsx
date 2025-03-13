@@ -15,8 +15,8 @@ export function ExperienceFirstPage() {
         <div className="absolute left-20 top-0 bottom-0 w-px bg-red-200" />
 
         {/* Content area with horizontal lines */}
-        <div className="relative pl-28 pr-12 py-12">
-          <div className="absolute left-0 right-0 top-0 bottom-0 pointer-events-none">
+        <div className="relative pl-16 sm:pl-28 pr-4 sm:pr-12 py-12">
+        <div className="absolute left-0 right-0 top-0 bottom-0 pointer-events-none"> 
             {[...Array(15)].map((_, i) => (
               <div
                 key={i}

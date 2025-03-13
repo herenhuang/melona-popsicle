@@ -48,7 +48,9 @@ export function ChatBox() {
   // Auto scroll to bottom when messages change
   useEffect(() => {
     if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+      setTimeout(() => {
+        chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+      }, 100);
     }
   }, [messages, isLoading]); // Scroll on new messages or when loading state changes
 
@@ -260,7 +262,7 @@ export function ChatBox() {
           {/* Messages area - with padding for header */}
           <div 
             ref={chatBoxRef}
-            className="flex-1 overflow-y-auto pt-[4.5rem] pb-[4.5rem] px-4"
+            className="flex-1 overflow-y-auto pt-[4.5rem] pb-[5.5rem] px-4 h-[calc(100vh-9rem)]"
           >
             <div className="space-y-6">
               {/* Initial Helen messages with reduced spacing */}
@@ -369,8 +371,9 @@ export function ChatBox() {
                   placeholder="Type anything, and press tab to autocomplete"
                   className="w-full bg-[#f1f1f1] px-6 py-3 rounded-full border-none outline-none text-gray-800 placeholder-gray-400 resize-none"
                   style={{ 
-                    height: 'auto',
+                    height: '44px',
                     minHeight: '44px',
+                    maxHeight: '44px'
                   }}
                   rows={1}
                 />
