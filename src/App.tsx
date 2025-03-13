@@ -5,7 +5,6 @@ import { ContactBar } from './components/ContactBar';
 import { Confetti } from './components/Confetti';
 import { GardenDemo } from './components/GardenDemo';
 import { ChatBox } from './components/ChatBox';
-import { FunFooter } from './components/FunFooter';
 import { NowPage } from './components/NowPage';
 import { Experience } from './components/Experience';
 import './styles/grid.css';
@@ -19,7 +18,6 @@ function HomePage() {
       <Header />
       <Experience />
       <GardenDemo />
-      <FunFooter />
       <ContactBar isPersonal={true} />
       <ChatBox />
     </div>
