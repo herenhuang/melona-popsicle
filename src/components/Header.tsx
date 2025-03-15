@@ -76,15 +76,15 @@ const Icon: React.FC<IconProps> = ({
           height={120 * scale} 
           viewBox={viewBox}
           xmlns="http://www.w3.org/2000/svg"
-          className="drop-shadow-lg"
+          className={`drop-shadow-lg transition-all duration-300 ${isHovered ? 'filter drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]' : ''}`}
         >
           <path 
             d={svgPath}
             fill={isHovered ? hoverColor : fillColor}
             className="transition-colors duration-300"
-            stroke="#ffffff"
-            strokeWidth="1"
-            strokeOpacity="0.3"
+            stroke={isHovered ? "#ffffff" : "#ffffff"}
+            strokeWidth={isHovered ? "2" : "1"}
+            strokeOpacity={isHovered ? "0.8" : "0.3"}
           />
         </svg>
       </motion.div>
@@ -92,12 +92,17 @@ const Icon: React.FC<IconProps> = ({
       {/* Label only visible on hover */}
       <motion.div 
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center font-bold text-white text-lg pointer-events-none drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
+        initial={{ opacity: 0 }}
         animate={{ 
           opacity: isHovered ? 1 : 0,
           scale: isHovered ? 1.1 : 1,
           textShadow: isHovered ? "0 0 8px rgba(0,0,0,0.5)" : "0 0 0 rgba(0,0,0,0)"
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ 
+          opacity: { duration: 0.1 },
+          scale: { duration: 0.2 },
+          textShadow: { duration: 0.2 }
+        }}
       >
         {label}
       </motion.div>
