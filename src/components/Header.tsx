@@ -178,6 +178,15 @@ const AboutContent = () => (
         <p>Exploring creative coding, dancing, and finding inspiration in unexpected places.</p>
       </div>
     </div>
+
+    <div className="mt-4 flex justify-center">
+      <button
+        onClick={() => window.dispatchEvent(new CustomEvent('openWorkPopup'))}
+        className="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors shadow-md hover:shadow-lg"
+      >
+        Work
+      </button>
+    </div>
   </div>
 );
 
@@ -218,6 +227,15 @@ const WorkContent = () => (
         <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Growth</span>
         <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Community Building</span>
       </div>
+    </div>
+
+    <div className="mt-4 flex justify-center">
+      <button
+        onClick={() => window.dispatchEvent(new CustomEvent('openSpeakingPopup'))}
+        className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-md hover:shadow-lg"
+      >
+        Speaking
+      </button>
     </div>
   </div>
 );
@@ -324,47 +342,136 @@ const SpeakingContent = () => (
 );
 
 export function Header() {
+  const [openPopups, setOpenPopups] = useState<string[]>([]);
   const [activePopup, setActivePopup] = useState<string | null>(null);
   
+  useEffect(() => {
+    const handleWorkPopup = () => {
+      setOpenPopups(prev => {
+        if (!prev.includes('work')) {
+          const newPopups = [...prev, 'work'];
+          setActivePopup('work');
+          return newPopups;
+        }
+        return prev;
+      });
+    };
+    
+    const handleSpeakingPopup = () => {
+      setOpenPopups(prev => {
+        if (!prev.includes('speaking')) {
+          const newPopups = [...prev, 'speaking'];
+          setActivePopup('speaking');
+          return newPopups;
+        }
+        return prev;
+      });
+    };
+    
+    window.addEventListener('openWorkPopup', handleWorkPopup);
+    window.addEventListener('openSpeakingPopup', handleSpeakingPopup);
+    
+    return () => {
+      window.removeEventListener('openWorkPopup', handleWorkPopup);
+      window.removeEventListener('openSpeakingPopup', handleSpeakingPopup);
+    };
+  }, []);
+
   const handleButtonClick = (section: string) => {
-    setActivePopup(section);
-    console.log(`Opening popup for ${section}`);
+    if (section === 'about') {
+      setOpenPopups(prev => {
+        if (!prev.includes('about')) {
+          const newPopups = [...prev, 'about'];
+          setActivePopup('about');
+          return newPopups;
+        }
+        return prev;
+      });
+    }
+    // Other buttons are now disabled but still visible
   };
   
-  const handleClosePopup = () => {
-    setActivePopup(null);
+  const handleClosePopup = (section: string) => {
+    setOpenPopups(prev => prev.filter(popup => popup !== section));
+    if (activePopup === section) {
+      const remaining = openPopups.filter(popup => popup !== section);
+      setActivePopup(remaining.length > 0 ? remaining[remaining.length - 1] : null);
+    }
   };
 
-  // Get initial position for popups based on window size
+  const handlePopupFocus = (section: string) => {
+    setActivePopup(section);
+  };
+
+  // Get initial position for popups based on window size and active window
   const getInitialPosition = (section: string) => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
+    const padding = 40;
     
-    // Center position with some randomness
-    const centerX = (windowWidth / 2) - 200; // half of popup width
-    const centerY = (windowHeight / 2) - 200; // approximate half of popup height
+    // Base position (center of screen)
+    const centerX = windowWidth / 2 - 325;
+    const centerY = windowHeight / 2 - 250;
     
-    // Add some randomness based on section
-    switch(section) {
-      case 'about':
-        return { x: centerX - 50, y: centerY - 30 };
-      case 'work':
-        return { x: centerX + 50, y: centerY - 50 };
-      case 'projects':
-        return { x: centerX - 30, y: centerY + 50 };
-      case 'speaking':
-        return { x: centerX + 70, y: centerY + 20 };
-      default:
-        return { x: centerX, y: centerY };
+    // Calculate position based on which windows are open
+    const isActive = section === activePopup;
+    const currentIndex = openPopups.indexOf(section);
+    const totalPopups = openPopups.length;
+    
+    // If this is the active window, center it with a slight offset based on total windows
+    if (isActive) {
+      const offsetX = (totalPopups - 1) * -15;
+      const offsetY = (totalPopups - 1) * -10;
+      return { 
+        x: centerX + offsetX,
+        y: centerY + offsetY
+      };
     }
+    
+    // Calculate offset based on window index and position relative to active window
+    const activeIndex = openPopups.indexOf(activePopup || '');
+    const offsetX = 80; // Horizontal offset between windows
+    const offsetY = 60; // Vertical offset between windows
+    
+    // Position windows in a grid-like pattern around the active window
+    const row = Math.floor(currentIndex / 2);
+    const col = currentIndex % 2;
+    
+    if (currentIndex < activeIndex) {
+      // Windows before active window go to the left and up
+      return {
+        x: Math.max(padding, centerX - (activeIndex - currentIndex + 1) * offsetX),
+        y: Math.max(padding, centerY - row * offsetY)
+      };
+    } else if (currentIndex > activeIndex) {
+      // Windows after active window go to the right and down
+      return {
+        x: Math.min(windowWidth - 650 - padding, centerX + (currentIndex - activeIndex) * offsetX),
+        y: Math.max(padding, centerY + row * offsetY)
+      };
+    }
+    
+    // Fallback position
+    return {
+      x: centerX + col * offsetX,
+      y: centerY + row * offsetY
+    };
+  };
+
+  // Calculate z-index for each popup
+  const getZIndex = (section: string) => {
+    const baseZIndex = 50;
+    const activeZIndex = baseZIndex + openPopups.length + 2;
+    const inactiveZIndex = baseZIndex + openPopups.indexOf(section);
+    return section === activePopup ? activeZIndex : inactiveZIndex;
   };
 
   // SVG paths for different icons
   const iconPaths = {
     // Star/sparkle icon for About
     about: {
-      path: "M54.96,0l8.61,31.3,25.36-20.26-11.43,30.38,32.43-1.49-27.11,17.86,27.11,17.86-32.43-1.49,11.43,30.38-25.36-20.26-8.61,31.3-8.61-31.3-25.36,20.26,11.43-30.38-32.43,1.49,27.11-17.86L0,39.93l32.43,1.49-11.43-30.38,25.36,20.26L54.96,0Z",
-      viewBox: "0 0 109.93 115.58"
+      path: "M108.19,63.76c-6.8-1.29-14.24-2.59-20.07-6.8-1.62-2.91.97-5.5,2.91-7.77,4.85-6.8,8.74-12.95,10.68-21.04.32-2.27-.65-5.5-3.24-5.18-5.18,4.53-11.65,8.09-18.45,9.06-1.62.32-2.59-1.29-2.91-2.59-.97-9.06-3.56-17.8-7.12-25.89-.97-1.94-2.91-3.56-5.18-3.56-2.27.32-1.62,3.24-1.94,4.85-1.29,5.83-2.59,11.33-6.15,15.86-.97,1.29-2.59.65-3.88,0-8.09-5.83-15.54-11-24.92-13.59-1.62-.32-2.91.32-4.21.97s-.65,1.62-.65,2.27c3.56,6.15,8.09,11.33,9.06,18.45,0,1.62-1.29,2.59-2.59,2.59-9.39,1.29-17.8,3.56-26.22,7.44-2.27,1.29-4.21,3.88-2.91,6.47,6.8.97,13.27,2.27,19.42,6.15,1.29.65,1.94,1.94,1.29,3.24-3.56,6.15-8.09,11.33-11,17.8-1.29,2.91-2.27,5.5-3.24,8.41-.32,1.94.32,3.88,1.94,4.85.65.32,1.62.32,2.27-.32l.97-.97c.97-.32,1.62-.97,2.27-1.62,4.85-2.59,9.06-6.15,14.56-5.83.97,0,1.94,0,2.27,1.29.97,3.88.97,7.44,1.94,11.33.32,1.29.65,2.27.97,3.56,1.62,4.53,2.59,9.06,5.5,13.27.97,1.62,3.24,3.24,5.5,1.94,1.29-5.5,1.94-10.68,4.21-15.86,1.29-2.27,2.59-5.83,5.5-4.53,1.62.65,3.24,1.94,4.85,3.24,6.47,4.85,13.59,8.09,21.04,10.68,1.29.32,2.59,0,3.56-.65.65-.65,2.27-1.62,1.62-2.59-4.21-5.83-8.09-11.98-9.39-18.77.65-2.59,3.56-2.91,5.83-2.91,8.41-.97,16.18-3.56,23.95-7.44,1.62-.97,3.56-3.88,1.94-5.83Z",
+      viewBox: "0 0 108.8 108.89"
     },
     // Updated Work icon with star/snowflake design
     work: {
@@ -378,14 +485,14 @@ export function Header() {
     },
     // Speaking icon (provided)
     speaking: {
-      path: "M92.94,15.95C82.67,5.66,68.99,0,54.45,0S26.23,5.66,15.95,15.95C5.66,26.23,0,39.9,0,54.45s5.66,28.21,15.95,38.5c10.28,10.28,23.96,15.95,38.5,15.95s28.22-5.66,38.5-15.95c10.28-10.28,15.95-23.96,15.95-38.5s-5.66-28.22-15.95-38.5ZM106.73,53.38h-.16c-6,0-10.99-4.44-11.93-10.37-1.62-10.13-5.4-19.44-11.03-26.95-.13-.17-.27-.34-.4-.51,1.39-.57,2.76-1.17,4.08-1.83,1.44,1.16,2.83,2.4,4.15,3.73,9.63,9.63,15.02,22.35,15.29,35.92ZM81.13,92.52c-2.68-.99-5.48-1.83-8.38-2.51,3.65-9.6,5.69-21.67,5.8-34.5h1.29c7.72,0,13.53,7.18,11.77,14.7-1.97,8.4-5.52,16.06-10.45,22.31h-.02ZM27.74,92.52c-4.94-6.25-8.49-13.91-10.46-22.31-1.76-7.52,4.05-14.69,11.77-14.69h1.29c.11,12.83,2.15,24.9,5.8,34.5-2.91.68-5.7,1.52-8.38,2.51h-.02ZM27.76,16.37c2.68.99,5.48,1.83,8.38,2.51-3.65,9.6-5.69,21.67-5.8,34.5h-1.29c-7.72,0-13.53-7.18-11.77-14.69,1.97-8.4,5.52-16.06,10.46-22.31h.02ZM32.48,55.57c5.46.27,10.56,2.49,14.46,6.39,4.15,4.15,6.44,9.68,6.44,15.55v10.47c-5.16.06-10.23.61-15.12,1.6-3.63-9.39-5.67-21.31-5.78-34.01ZM53.38,18.78c-4.89-.06-9.69-.57-14.32-1.49.02-.05.04-.12.07-.17,3.92-9.06,8.94-14.31,14.26-14.93v16.59ZM38.26,19.32c4.89,1,9.95,1.54,15.12,1.6v10.47c0,5.88-2.29,11.4-6.44,15.55-3.9,3.9-9,6.12-14.46,6.39.11-12.7,2.15-24.62,5.78-34.01ZM53.38,90.11v16.58c-5.31-.62-10.34-5.86-14.26-14.93-.02-.06-.04-.12-.07-.17,4.63-.92,9.43-1.42,14.33-1.48ZM55.51,90.11c4.89.06,9.69.57,14.33,1.48-.02.06-.04.12-.07.17-3.92,9.06-8.94,14.31-14.26,14.93v-16.58ZM70.63,89.58c-4.88-.99-9.95-1.54-15.12-1.6v-10.47c0-5.88,2.29-11.4,6.44-15.55,3.9-3.89,9-6.12,14.46-6.39-.11,12.7-2.15,24.62-5.78,34.01ZM61.95,46.94c-4.15-4.15-6.44-9.68-6.44-15.55v-10.47c5.16-.06,10.23-.61,15.12-1.6,3.63,9.39,5.67,21.31,5.78,34.01-5.46-.27-10.56-2.49-14.46-6.39ZM55.51,18.78V2.2c5.32.62,10.34,5.87,14.26,14.93.02.05.04.12.07.17-4.64.92-9.43,1.42-14.32,1.49ZM71.73,16.28c-2.5-5.79-5.5-10.14-8.78-12.88,6.16,1.84,11.88,5.66,16.75,11.24-2.47.88-5.05,1.63-7.73,2.24-.08-.19-.15-.41-.23-.6ZM37.16,16.28c-.08.19-.15.4-.23.6-2.67-.61-5.25-1.36-7.73-2.24,4.86-5.58,10.59-9.4,16.74-11.24-3.29,2.74-6.28,7.09-8.78,12.88ZM36.93,92.02c.08.19.15.41.23.6,2.5,5.79,5.49,10.14,8.78,12.88-6.16-1.83-11.88-5.66-16.75-11.24,2.48-.88,5.06-1.63,7.73-2.24ZM71.73,92.61c.08-.19.15-.4.23-.6,2.67.61,5.25,1.36,7.73,2.24-4.86,5.58-10.59,9.4-16.75,11.24,3.29-2.74,6.28-7.09,8.78-12.88ZM78.55,53.38c-.11-12.83-2.15-24.91-5.8-34.5,2.91-.68,5.7-1.52,8.38-2.51h.02c4.94,6.26,8.49,13.91,10.46,22.31,1.76,7.52-4.05,14.7-11.77,14.7h-1.29ZM85.39,12.26c-1.16.55-2.36,1.07-3.58,1.55-3.01-3.57-6.36-6.49-9.94-8.71,4.82,1.7,9.37,4.1,13.52,7.16ZM27.09,13.81c-1.22-.48-2.42-1-3.58-1.55,4.15-3.06,8.7-5.46,13.52-7.16-3.58,2.22-6.93,5.15-9.94,8.71ZM17.46,17.46c1.33-1.33,2.72-2.57,4.15-3.73,1.32.65,2.68,1.26,4.07,1.83-.13.17-.27.33-.4.51-5.63,7.51-9.41,16.82-11.03,26.95-.95,5.93-5.93,10.37-11.93,10.37h-.16c.27-13.57,5.67-26.29,15.3-35.92ZM2.16,55.51h.16c6,0,10.98,4.44,11.93,10.37,1.62,10.13,5.39,19.44,11.03,26.95.13.17.27.34.4.51-1.39.57-2.76,1.17-4.07,1.83-1.44-1.16-2.83-2.4-4.15-3.73-9.63-9.63-15.02-22.35-15.3-35.92ZM23.51,96.63c1.16-.55,2.36-1.07,3.58-1.55,3.01,3.57,6.35,6.49,9.94,8.71-4.81-1.7-9.36-4.1-13.52-7.16ZM81.81,95.08c1.22.48,2.42,1,3.58,1.55-4.15,3.06-8.7,5.46-13.52,7.16,3.58-2.22,6.93-5.15,9.94-8.71ZM91.44,91.44c-1.33,1.33-2.72,2.57-4.15,3.73-1.32-.65-2.68-1.26-4.08-1.83.13-.17.27-.33.4-.51,5.63-7.51,9.41-16.82,11.03-26.95.95-5.93,5.93-10.37,11.93-10.37h.16c-.27,13.57-5.67,26.29-15.29,35.92Z",
+      path: "M92.94,15.95C82.67,5.66,68.99,0,54.45,0S26.23,5.66,15.95,15.95C5.66,26.23,0,39.9,0,54.45s5.66,28.21,15.95,38.5c10.28,10.28,23.96,15.95,38.5,15.95s28.22-5.66,38.5-15.95c10.28-10.28,15.95-23.96,15.95-38.5s-5.66-28.22-15.95-38.5ZM106.73,53.38h-.16c-6,0-10.99-4.44-11.93-10.37-1.62-10.13-5.4-19.44-11.03-26.95-.13-.17-.27-.34-.4-.51,1.39-.57,2.76-1.17,4.08-1.83,1.44,1.16,2.83,2.4,4.15,3.73,9.63,9.63,15.02,22.35,15.29,35.92ZM81.13,92.52c-2.68-.99-5.48-1.83-8.38-2.51,3.65-9.6,5.69-21.67,5.8-34.5h1.29c7.72,0,13.53,7.18,11.77,14.7-1.97,8.4-5.52,16.06-10.45,22.31h-.02ZM27.74,92.52c-4.94-6.25-8.49-13.91-10.46-22.31-1.76-7.52,4.05-14.69,11.77-14.69h1.29c.11,12.83,2.15,24.9,5.8,34.5-2.91.68-5.7,1.52-8.38,2.51h-.02ZM27.76,16.37c2.68.99,5.48,1.83,8.38,2.51-3.65,9.6-5.69,21.67-5.8,34.5h-1.29c-7.72,0-13.53-7.18-11.77-14.69,1.97-8.4,5.52-16.06,10.46-22.31h.02ZM32.48,55.57c5.46.27,10.56,2.49,14.46,6.39,4.15,4.15,6.44,9.68,6.44,15.55v10.47c-5.16.06-10.23.61-15.12,1.6-3.63-9.39-5.67-21.31-5.78-34.01ZM53.38,18.78c-4.89-.06-9.69-.57-14.32-1.49.02-.05.04-.12.07-.17,3.92-9.06,8.94-14.31,14.26-14.93v16.59ZM38.26,19.32c4.89,1,9.95,1.54,15.12,1.6v10.47c0,5.88-2.29,11.4-6.44,15.55-3.9,3.9-9,6.12-14.46,6.39.11-12.7,2.15-24.62,5.78-34.01ZM53.38,90.11v16.58c-5.31-.62-10.34-5.86-14.26-14.93-.02-.04-.12-.07-.17,4.63-.92,9.43-1.42,14.33-1.48ZM55.51,90.11c4.89.06,9.69.57,14.33,1.48-.02.06-.04.12-.07.17-3.92,9.06-8.94,14.31-14.26,14.93v-16.58ZM70.63,89.58c-4.88-.99-9.95-1.54-15.12-1.6v-10.47c0-5.88,2.29-11.4,6.44-15.55,3.9-3.89,9-6.12,14.46-6.39-.11,12.7-2.15,24.62-5.78,34.01ZM61.95,46.94c-4.15-4.15-6.44-9.68-6.44-15.55v-10.47c5.16-.06,10.23-.61,15.12-1.6,3.63,9.39,5.67,21.31,5.78,34.01-5.46-.27-10.56-2.49-14.46-6.39ZM55.51,18.78V2.2c5.32.62,10.34,5.87,14.26,14.93.02.05.04.12.07.17-4.64.92-9.43,1.42-14.32,1.49ZM71.73,16.28c-2.5-5.79-5.5-10.14-8.78-12.88,6.16,1.84,11.88,5.66,16.75,11.24-2.47.88-5.05,1.63-7.73,2.24-.08-.19-.15-.41-.23-.6ZM37.16,16.28c-.08.19-.15.4-.23.6-2.67-.61-5.25-1.36-7.73-2.24,4.86-5.58,10.59-9.4,16.74-11.24-3.29,2.74-6.28,7.09-8.78,12.88ZM36.93,92.02c.08.19.15.41.23.6,2.5,5.79,5.49,10.14,8.78,12.88-6.16-1.83-11.88-5.66-16.75-11.24,2.48-.88,5.06-1.63,7.73-2.24ZM71.73,92.61c.08-.19.15-.4.23-.6,2.67.61,5.25,1.36,7.73,2.24-4.86,5.58-10.59,9.4-16.75,11.24,3.29-2.74,6.28-7.09,8.78-12.88ZM78.55,53.38c-.11-12.83-2.15-24.91-5.8-34.5,2.91-.68,5.7-1.52,8.38-2.51h.02c4.94,6.26,8.49,13.91,10.46,22.31,1.76,7.52-4.05,14.7-11.77,14.7h-1.29ZM85.39,12.26c-1.16.55-2.36,1.07-3.58,1.55-3.01-3.57-6.36-6.49-9.94-8.71,4.82,1.7,9.37,4.1,13.52,7.16ZM27.09,13.81c-1.22-.48-2.42-1-3.58-1.55,4.15-3.06,8.7-5.46,13.52-7.16-3.58,2.22-6.93,5.15-9.94,8.71ZM17.46,17.46c1.33-1.33,2.72-2.57,4.15-3.73,1.32.65,2.68,1.26,4.07,1.83-.13.17-.27.33-.4.51-5.63,7.51-9.41,16.82-11.03,26.95-.95,5.93-5.93,10.37-11.93,10.37h-.16c.27-13.57,5.67-26.29,15.3-35.92ZM2.16,55.51h.16c6,0,10.98,4.44,11.93,10.37,1.62,10.13,5.39,19.44,11.03,26.95.13.17.27.34.4.51-1.39.57-2.76,1.17-4.07,1.83-1.44-1.16-2.83-2.4-4.15-3.73-9.63-9.63-15.02-22.35-15.3-35.92ZM23.51,96.63c1.16-.55,2.36-1.07,3.58-1.55,3.01,3.57,6.35,6.49,9.94,8.71-4.81-1.7-9.36-4.1-13.52-7.16ZM81.81,95.08c1.22.48,2.42,1,3.58,1.55-4.15,3.06-8.7,5.46-13.52,7.16,3.58-2.22,6.93-5.15,9.94-8.71ZM91.44,91.44c-1.33,1.33-2.72,2.57-4.15,3.73-1.32-.65-2.68-1.26-4.08-1.83.13-.17.27-.33.4-.51,5.63-7.51,9.41-16.82,11.03-26.95.95-5.93,5.93-10.37,11.93-10.37h.16c-.27,13.57-5.67,26.29-15.29,35.92Z",
       viewBox: "0 0 108.89 108.89"
     }
   };
 
   // Popup colors for each section
   const popupColors = {
-    about: '#f8e8ff', // Light purple
+    about: '#f0e6ff', // Lighter purple
     work: '#e0f7f6', // Light teal
     projects: '#fff7e0', // Light yellow
     speaking: '#e8ffe0'  // Light green
@@ -407,8 +514,8 @@ export function Header() {
           label="About"
           onClick={() => handleButtonClick('about')}
           rotation={-8}
-          fillColor="#e879f9"
-          hoverColor="#d946ef"
+          fillColor="#73b6ff"
+          hoverColor="#5a92cc"
           svgPath={iconPaths.about.path}
           viewBox={iconPaths.about.viewBox}
           position={{
@@ -469,45 +576,61 @@ export function Header() {
       </div>
 
       {/* Popups for each section */}
-      <NotepadPopup
-        isOpen={activePopup === 'about'}
-        onClose={handleClosePopup}
-        title="About Me"
-        content={<AboutContent />}
-        initialPosition={getInitialPosition('about')}
-        color={popupColors.about}
-        width={650}
-      />
+      {openPopups.includes('about') && (
+        <NotepadPopup
+          isOpen={true}
+          onClose={() => handleClosePopup('about')}
+          onFocus={() => handlePopupFocus('about')}
+          title="About Me"
+          content={<AboutContent />}
+          initialPosition={getInitialPosition('about')}
+          color={popupColors.about}
+          width={650}
+          zIndex={getZIndex('about')}
+        />
+      )}
       
-      <NotepadPopup
-        isOpen={activePopup === 'work'}
-        onClose={handleClosePopup}
-        title="Work Experience"
-        content={<WorkContent />}
-        initialPosition={getInitialPosition('work')}
-        color={popupColors.work}
-        width={700}
-      />
+      {openPopups.includes('work') && (
+        <NotepadPopup
+          isOpen={true}
+          onClose={() => handleClosePopup('work')}
+          onFocus={() => handlePopupFocus('work')}
+          title="Work Experience"
+          content={<WorkContent />}
+          initialPosition={getInitialPosition('work')}
+          color={popupColors.work}
+          width={700}
+          zIndex={getZIndex('work')}
+        />
+      )}
       
-      <NotepadPopup
-        isOpen={activePopup === 'projects'}
-        onClose={handleClosePopup}
-        title="Projects"
-        content={<ProjectsContent />}
-        initialPosition={getInitialPosition('projects')}
-        color={popupColors.projects}
-        width={700}
-      />
+      {openPopups.includes('projects') && (
+        <NotepadPopup
+          isOpen={true}
+          onClose={() => handleClosePopup('projects')}
+          onFocus={() => handlePopupFocus('projects')}
+          title="Projects"
+          content={<ProjectsContent />}
+          initialPosition={getInitialPosition('projects')}
+          color={popupColors.projects}
+          width={700}
+          zIndex={getZIndex('projects')}
+        />
+      )}
       
-      <NotepadPopup
-        isOpen={activePopup === 'speaking'}
-        onClose={handleClosePopup}
-        title="Speaking"
-        content={<SpeakingContent />}
-        initialPosition={getInitialPosition('speaking')}
-        color={popupColors.speaking}
-        width={650}
-      />
+      {openPopups.includes('speaking') && (
+        <NotepadPopup
+          isOpen={true}
+          onClose={() => handleClosePopup('speaking')}
+          onFocus={() => handlePopupFocus('speaking')}
+          title="Speaking"
+          content={<SpeakingContent />}
+          initialPosition={getInitialPosition('speaking')}
+          color={popupColors.speaking}
+          width={650}
+          zIndex={getZIndex('speaking')}
+        />
+      )}
     </header>
   );
 }
