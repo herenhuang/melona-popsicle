@@ -14,13 +14,9 @@ function HomePage() {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col items-center min-h-screen px-8 md:px-16 lg:px-24 grid-bg">
+    <div className="flex flex-col items-center h-screen px-8 md:px-16 lg:px-24 grid-bg overflow-hidden">
       <Confetti />
       <Header />
-      <Experience />
-      <GardenDemo />
-      <FunFooter />
-      <ContactBar isPersonal={true} />
       <ChatBox />
     </div>
   );
