@@ -138,74 +138,168 @@ const ProfessionalContent = () => (
 
 // Content for each section popup
 const AboutContent = () => (
-  <div className="space-y-4">
-    <p>
-      I'm Helen, a curious explorer at the intersection of technology, education, and creativity. 
-      With a background in earth science, I've navigated through various roles in tech and education.
-    </p>
-    <p>
-      My journey has been shaped by a deep curiosity about how things work and how people learn. 
-      I believe in the power of technology to create meaningful connections and educational experiences.
-    </p>
-    <p>
-      When I'm not working, you might find me dancing, exploring new places, or diving into a new creative project.
-    </p>
+  <div className="space-y-6">
+    <div className="prose prose-lg">
+      <p className="text-lg">
+        Hi there. I'm an operator with 10+ years of experience in strategy, product and marketing. I'm highly collaborative, and love turning chaos into clear process with a creative twist.
+      </p>
+      <p className="text-lg mt-4">
+        I'm currently "on sabbatical", taking time to explore new perspectives and opportunities.
+      </p>
+    </div>
+    
+    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
+        <h4 className="font-bold text-lg mb-2">Background</h4>
+        <p>Earth science grad turned tech professional, bringing a unique perspective to digital products and experiences.</p>
+      </div>
+      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
+        <h4 className="font-bold text-lg mb-2">Interests</h4>
+        <p>Exploring creative coding, dancing, and finding inspiration in unexpected places.</p>
+      </div>
+    </div>
   </div>
 );
 
 const WorkContent = () => (
-  <div className="space-y-4">
-    <p>
-      My professional journey spans over a decade across strategy, product, and marketing roles.
-    </p>
-    <h4 className="font-bold mt-4">Experience:</h4>
-    <ul className="list-disc pl-5 space-y-2">
-      <li>EdTech Founder - Built educational platforms focused on accessible learning</li>
-      <li>Product Manager at Big Tech - Led cross-functional teams to deliver user-centered products</li>
-      <li>Strategy Consultant - Helped organizations navigate complex challenges and opportunities</li>
-    </ul>
-    <p className="mt-4">
-      I excel at turning chaos into clear processes with a creative twist, and I'm known for my collaborative approach to problem-solving.
-    </p>
+  <div className="space-y-6">
+    <div className="prose prose-lg">
+      <ul className="list-none space-y-3">
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>freelance strategic generalist</strong> — helping indie founders and small teams with product strategy, ops, and marketing</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>cofounder @ co.lab</strong> — creating immersive, real-world tech learning programs for busy professionals</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>program + product @ microsoft</strong> — worked on edge devrel & azure devops, focusing on dev advocacy and product iteration</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>product manager intern @ zynga</strong> — contributed to wordstreak with friends (300k dau), spearheaded app revamp from 1 to 4 stars in four months</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>interned @ cibc & scotiabank</strong> — business analyst roles back in university days</span>
+        </li>
+      </ul>
+    </div>
+    
+    <div className="mt-8 bg-white/50 p-4 rounded-lg shadow-sm">
+      <h4 className="font-bold text-lg mb-2">Skills & Expertise</h4>
+      <div className="flex flex-wrap gap-2">
+        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Product Strategy</span>
+        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Team Leadership</span>
+        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Marketing</span>
+        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Operations</span>
+        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Growth</span>
+        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Community Building</span>
+      </div>
+    </div>
   </div>
 );
 
 const ProjectsContent = () => (
-  <div className="space-y-4">
-    <p>
-      Here are some of the projects I've worked on:
-    </p>
-    <div className="grid gap-4">
-      <div className="p-3 bg-yellow-50 rounded-lg">
-        <h4 className="font-bold">Educational Platform</h4>
-        <p>A platform designed to make learning accessible to everyone, regardless of background or resources.</p>
+  <div className="space-y-6">
+    <div className="prose prose-lg">
+      <ul className="list-none space-y-3">
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>co.lab learning</strong> — a group-driven, blended learning environment with 30k+ hours of collaboration</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>how to product</strong> — e-book, #1 product of the day, sharing product management insights</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>solana portraits</strong> — nft art commissions for digital collectible enthusiasts</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>you belong in tech</strong> — career-switch stories and resources to inspire folks entering tech</span>
+        </li>
+      </ul>
+    </div>
+    
+    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
+        <h4 className="font-bold text-lg mb-2">Featured Project</h4>
+        <div className="aspect-video bg-yellow-100 rounded-md mb-3 flex items-center justify-center">
+          <span className="text-yellow-800">Project Image</span>
+        </div>
+        <p>Co.lab has helped hundreds of professionals transition into tech careers through hands-on learning.</p>
       </div>
-      <div className="p-3 bg-yellow-50 rounded-lg">
-        <h4 className="font-bold">Community Building Tool</h4>
-        <p>A tool that helps communities connect, share resources, and grow together.</p>
-      </div>
-      <div className="p-3 bg-yellow-50 rounded-lg">
-        <h4 className="font-bold">Creative Coding Workshops</h4>
-        <p>Workshops that introduce coding concepts through creative projects, making technology more approachable.</p>
+      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
+        <h4 className="font-bold text-lg mb-2">Impact</h4>
+        <div className="space-y-2">
+          <div className="flex justify-between">
+            <span>Students Helped</span>
+            <span className="font-bold">500+</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="bg-yellow-400 h-2 rounded-full" style={{ width: '80%' }}></div>
+          </div>
+          
+          <div className="flex justify-between mt-3">
+            <span>Collaboration Hours</span>
+            <span className="font-bold">30,000+</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="bg-yellow-400 h-2 rounded-full" style={{ width: '90%' }}></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 );
 
 const SpeakingContent = () => (
-  <div className="space-y-4">
-    <p>
-      I occasionally speak at events and conferences on topics related to education, technology, and creativity.
-    </p>
-    <h4 className="font-bold mt-4">Recent Talks:</h4>
-    <ul className="list-disc pl-5 space-y-2">
-      <li>The Future of Learning in a Digital Age</li>
-      <li>Building Inclusive Technology</li>
-      <li>Creativity as a Catalyst for Innovation</li>
-    </ul>
-    <p className="mt-4">
-      If you're interested in having me speak at your event, please reach out!
-    </p>
+  <div className="space-y-6">
+    <div className="prose prose-lg">
+      <ul className="list-none space-y-3">
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>dmz women of the year</strong> — recognized for contributions to tech education</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>glory 30x30 honoree</strong> — named one of canada's standout young entrepreneurs</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>forbes 30 under 30</strong> — honored for co.lab's impact</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>waterloo innovation summit</strong> — spoke on flipped classrooms & peer-led learning</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>dmz</strong> — discussed founder-led sales strategies & marketing funnels</span>
+        </li>
+        <li className="flex items-start">
+          <span className="text-xl mr-2">★</span>
+          <span><strong>founder institute</strong> — insights on community-driven growth & product-led strategies</span>
+        </li>
+      </ul>
+    </div>
+    
+    <div className="mt-8 bg-white/50 p-4 rounded-lg shadow-sm">
+      <h4 className="font-bold text-lg mb-2">Featured Recognition</h4>
+      <div className="flex items-center space-x-4">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+          <span className="text-2xl">🏆</span>
+        </div>
+        <div>
+          <h5 className="font-bold">Forbes 30 Under 30</h5>
+          <p>Recognized for innovation in education technology and impact on career transitions.</p>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
@@ -384,6 +478,7 @@ export function Header() {
         content={<AboutContent />}
         initialPosition={getInitialPosition('about')}
         color={popupColors.about}
+        width={650}
       />
       
       <NotepadPopup
@@ -393,6 +488,7 @@ export function Header() {
         content={<WorkContent />}
         initialPosition={getInitialPosition('work')}
         color={popupColors.work}
+        width={700}
       />
       
       <NotepadPopup
@@ -402,6 +498,7 @@ export function Header() {
         content={<ProjectsContent />}
         initialPosition={getInitialPosition('projects')}
         color={popupColors.projects}
+        width={700}
       />
       
       <NotepadPopup
@@ -411,6 +508,7 @@ export function Header() {
         content={<SpeakingContent />}
         initialPosition={getInitialPosition('speaking')}
         color={popupColors.speaking}
+        width={650}
       />
     </header>
   );
