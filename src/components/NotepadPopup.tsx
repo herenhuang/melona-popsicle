@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, PanInfo } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 interface NotepadPopupProps {
@@ -25,72 +25,110 @@ export function NotepadPopup({
   width = 600,
   zIndex = 50
 }: NotepadPopupProps) {
-  const [position, setPosition] = useState(initialPosition);
   const popupRef = useRef<HTMLDivElement>(null);
-  
+  const [position, setPosition] = useState(initialPosition);
+  const dragInfo = useRef({
+    isDragging: false,
+    offsetX: 0,
+    offsetY: 0
+  });
+
+  // Update position when initialPosition changes
   useEffect(() => {
     setPosition(initialPosition);
-  }, [initialPosition]);
+  }, [initialPosition.x, initialPosition.y]);
+
+  const constrainPosition = (x: number, y: number) => {
+    if (!popupRef.current) return { x, y };
+
+    const padding = 20;
+    const rect = popupRef.current.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    return {
+      x: Math.max(padding, Math.min(viewportWidth - rect.width - padding, x)),
+      y: Math.max(padding, Math.min(viewportHeight - rect.height - padding, y))
+    };
+  };
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+      if (e.key === 'Escape') onClose();
     };
-    
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  const handleDragStart = () => {
-    if (popupRef.current) {
-      onFocus();
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      const constrained = constrainPosition(position.x, position.y);
+      setPosition(constrained);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [position.x, position.y]);
 
-  const handleDrag = (_: any, info: PanInfo) => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     if (!popupRef.current) return;
 
-    const padding = 20;
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    const popupRect = popupRef.current.getBoundingClientRect();
+    e.preventDefault();
+    onFocus();
 
-    const newX = Math.max(
-      padding,
-      Math.min(windowWidth - popupRect.width - padding, position.x + info.delta.x)
-    );
-    const newY = Math.max(
-      padding,
-      Math.min(windowHeight - popupRect.height - padding, position.y + info.delta.y)
-    );
-
-    setPosition({ x: newX, y: newY });
+    const rect = popupRef.current.getBoundingClientRect();
+    dragInfo.current = {
+      isDragging: true,
+      offsetX: e.clientX - rect.left,
+      offsetY: e.clientY - rect.top
+    };
   };
 
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!dragInfo.current.isDragging) return;
+
+    const newX = e.clientX - dragInfo.current.offsetX;
+    const newY = e.clientY - dragInfo.current.offsetY;
+    const constrained = constrainPosition(newX, newY);
+    setPosition(constrained);
+  };
+
+  const handleMouseUp = () => {
+    dragInfo.current.isDragging = false;
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isOpen]);
+
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           ref={popupRef}
-          className="fixed bg-white rounded-lg"
+          className="fixed bg-white rounded-lg select-none"
           style={{
             width: `${width}px`,
-            maxHeight: 'calc(100vh - 40px)',
+            maxHeight: 'min(calc(100vh - 160px), 800px)',
             zIndex,
-            left: 0,
-            top: 0,
-            x: position.x,
-            y: position.y,
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
             border: `2px solid ${color}`,
+            touchAction: 'none',
+            top: 0,
+            left: 0,
+            transform: `translate(${position.x}px, ${position.y}px)`
           }}
           initial={{ 
             opacity: 0, 
             scale: 0.95,
-            x: window.innerWidth / 2 - width / 2,
-            y: window.innerHeight / 2 - 200
+            x: position.x,
+            y: position.y
           }}
           animate={{ 
             opacity: 1, 
@@ -98,26 +136,18 @@ export function NotepadPopup({
             x: position.x,
             y: position.y,
             transition: { 
-              type: 'spring', 
-              damping: 30, 
-              stiffness: 350,
-              mass: 0.8
+              duration: 0.15,
+              type: "tween"
             }
           }}
           exit={{ 
-            opacity: 0, 
+            opacity: 0,
             scale: 0.95,
-            transition: {
-              duration: 0.2
+            transition: { 
+              duration: 0.1,
+              type: "tween"
             }
           }}
-          drag
-          dragMomentum={false}
-          dragElastic={0}
-          onDragStart={handleDragStart}
-          onDrag={handleDrag}
-          onMouseDown={onFocus}
-          whileHover={{ boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' }}
         >
           <div 
             className="flex items-center justify-between p-4 cursor-move rounded-t-lg"
@@ -125,6 +155,7 @@ export function NotepadPopup({
               backgroundColor: color,
               borderBottom: '1px solid rgba(0, 0, 0, 0.1)'
             }}
+            onMouseDown={handleMouseDown}
           >
             <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
             <button
@@ -137,7 +168,7 @@ export function NotepadPopup({
           <div 
             className="p-6 overflow-y-auto bg-white/95 rounded-b-lg"
             style={{ 
-              maxHeight: 'calc(100vh - 140px)',
+              maxHeight: 'calc(100vh - 240px)',
               overscrollBehavior: 'contain'
             }}
           >
