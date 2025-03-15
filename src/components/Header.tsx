@@ -89,10 +89,11 @@ const Icon: React.FC<IconProps> = ({
         </svg>
       </motion.div>
       
-      {/* Label always visible, but emphasized on hover */}
+      {/* Label only visible on hover */}
       <motion.div 
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center font-bold text-white text-lg pointer-events-none drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
         animate={{ 
+          opacity: isHovered ? 1 : 0,
           scale: isHovered ? 1.1 : 1,
           textShadow: isHovered ? "0 0 8px rgba(0,0,0,0.5)" : "0 0 0 rgba(0,0,0,0)"
         }}
