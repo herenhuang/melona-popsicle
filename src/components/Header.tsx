@@ -5,6 +5,12 @@ import { SabbaticalNote } from './SabbaticalNote';
 import { motion } from 'framer-motion';
 import NotepadPopup from './NotepadPopup';
 import { ContactPopup } from './ContactPopup';
+import { AboutContent } from './AboutContent';
+import { BackgroundContent } from './BackgroundContent';
+import { InterestsContent } from './InterestsContent';
+import { WorkContent } from './WorkContent';
+import { SpeakingContent } from './SpeakingContent';
+import { ProjectsContent } from './ProjectsContent';
 
 // Define types for the IconProps
 interface IconProps {
@@ -156,200 +162,200 @@ const ProfessionalContent = () => (
   </span>
 );
 
-// Content for each section popup
-const AboutContent = () => (
-  <div className="space-y-6">
-    <div className="prose prose-lg">
-      <p className="text-lg">
-        Hi there. I'm an operator with 10+ years of experience in strategy, product and marketing. I'm highly collaborative, and love turning chaos into clear process with a creative twist.
-      </p>
-      <p className="text-lg mt-4">
-        I'm currently "on sabbatical", taking time to explore new perspectives and opportunities.
-      </p>
-    </div>
-    
-    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
-        <h4 className="font-bold text-lg mb-2">Background</h4>
-        <p>Earth science grad turned tech professional, bringing a unique perspective to digital products and experiences.</p>
-      </div>
-      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
-        <h4 className="font-bold text-lg mb-2">Interests</h4>
-        <p>Exploring creative coding, dancing, and finding inspiration in unexpected places.</p>
-      </div>
-    </div>
-
-    <div className="mt-4 flex justify-center">
-      <button
-        onClick={() => window.dispatchEvent(new CustomEvent('openWorkPopup'))}
-        className="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors shadow-md hover:shadow-lg"
-      >
-        Work
-      </button>
-    </div>
-  </div>
-);
-
-const WorkContent = () => (
-  <div className="space-y-6">
-    <div className="prose prose-lg">
-      <ul className="list-none space-y-3">
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>freelance strategic generalist</strong> — helping indie founders and small teams with product strategy, ops, and marketing</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>cofounder @ co.lab</strong> — creating immersive, real-world tech learning programs for busy professionals</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>program + product @ microsoft</strong> — worked on edge devrel & azure devops, focusing on dev advocacy and product iteration</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>product manager intern @ zynga</strong> — contributed to wordstreak with friends (300k dau), spearheaded app revamp from 1 to 4 stars in four months</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>interned @ cibc & scotiabank</strong> — business analyst roles back in university days</span>
-        </li>
-      </ul>
-    </div>
-    
-    <div className="mt-8 bg-white/50 p-4 rounded-lg shadow-sm">
-      <h4 className="font-bold text-lg mb-2">Skills & Expertise</h4>
-      <div className="flex flex-wrap gap-2">
-        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Product Strategy</span>
-        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Team Leadership</span>
-        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Marketing</span>
-        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Operations</span>
-        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Growth</span>
-        <span className="px-3 py-1 bg-teal-100 rounded-full text-sm">Community Building</span>
-      </div>
-    </div>
-
-    <div className="mt-4 flex justify-center">
-      <button
-        onClick={() => window.dispatchEvent(new CustomEvent('openSpeakingPopup'))}
-        className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-md hover:shadow-lg"
-      >
-        Speaking
-      </button>
-    </div>
-  </div>
-);
-
-const ProjectsContent = () => (
-  <div className="space-y-6">
-    <div className="prose prose-lg">
-      <ul className="list-none space-y-3">
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>co.lab learning</strong> — a group-driven, blended learning environment with 30k+ hours of collaboration</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>how to product</strong> — e-book, #1 product of the day, sharing product management insights</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>solana portraits</strong> — nft art commissions for digital collectible enthusiasts</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>you belong in tech</strong> — career-switch stories and resources to inspire folks entering tech</span>
-        </li>
-      </ul>
-    </div>
-    
-    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
-        <h4 className="font-bold text-lg mb-2">Featured Project</h4>
-        <div className="aspect-video bg-yellow-100 rounded-md mb-3 flex items-center justify-center">
-          <span className="text-yellow-800">Project Image</span>
-        </div>
-        <p>Co.lab has helped hundreds of professionals transition into tech careers through hands-on learning.</p>
-      </div>
-      <div className="bg-white/50 p-4 rounded-lg shadow-sm">
-        <h4 className="font-bold text-lg mb-2">Impact</h4>
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span>Students Helped</span>
-            <span className="font-bold">500+</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div className="bg-yellow-400 h-2 rounded-full" style={{ width: '80%' }}></div>
-          </div>
-          
-          <div className="flex justify-between mt-3">
-            <span>Collaboration Hours</span>
-            <span className="font-bold">30,000+</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div className="bg-yellow-400 h-2 rounded-full" style={{ width: '90%' }}></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const SpeakingContent = () => (
-  <div className="space-y-6">
-    <div className="prose prose-lg">
-      <ul className="list-none space-y-3">
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>dmz women of the year</strong> — recognized for contributions to tech education</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>glory 30x30 honoree</strong> — named one of canada's standout young entrepreneurs</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>forbes 30 under 30</strong> — honored for co.lab's impact</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>waterloo innovation summit</strong> — spoke on flipped classrooms & peer-led learning</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>dmz</strong> — discussed founder-led sales strategies & marketing funnels</span>
-        </li>
-        <li className="flex items-start">
-          <span className="text-xl mr-2">★</span>
-          <span><strong>founder institute</strong> — insights on community-driven growth & product-led strategies</span>
-        </li>
-      </ul>
-    </div>
-    
-    <div className="mt-8 bg-white/50 p-4 rounded-lg shadow-sm">
-      <h4 className="font-bold text-lg mb-2">Featured Recognition</h4>
-      <div className="flex items-center space-x-4">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-          <span className="text-2xl">🏆</span>
-        </div>
-        <div>
-          <h5 className="font-bold">Forbes 30 Under 30</h5>
-          <p>Recognized for innovation in education technology and impact on career transitions.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 export function Header() {
   const [openPopups, setOpenPopups] = useState<string[]>([]);
   const [activePopup, setActivePopup] = useState<string | null>(null);
+  const [popupPositions, setPopupPositions] = useState<Record<string, { x: number; y: number; rotation: number }>>({});
   
+  // Predefined positions for each window
+  const getPresetPosition = (section: string, isActiveSection: boolean = false) => {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const padding = 40;
+
+    // Get window width based on section
+    const getWindowWidth = (section: string) => {
+      switch (section) {
+        case 'work':
+          return 550;
+        case 'speaking':
+          return 500;
+        case 'background':
+          return 250; // Small width for rock formation image
+        case 'interests':
+          return 350; // Width for Twitter embed with video
+        default:
+          return 500;
+      }
+    };
+
+    // Get window height based on section
+    const getWindowHeight = (section: string) => {
+      switch (section) {
+        case 'about':
+          return 300;
+        case 'background':
+          return 250; // Small height for rock formation image
+        case 'interests':
+          return 620; // Further increased height for Twitter embed with video
+        default:
+          return 400;
+      }
+    };
+
+    const windowWidth = getWindowWidth(section);
+    const windowHeight = getWindowHeight(section);
+    
+    // Calculate center position
+    const centerX = Math.max(padding, (viewportWidth - windowWidth) / 2);
+    const centerY = Math.max(padding, (viewportHeight - windowHeight) / 2);
+
+    // If this is the active section, center it
+    if (isActiveSection) {
+      return {
+        x: centerX,
+        y: centerY,
+        rotation: 0
+      };
+    }
+
+    // Otherwise position the windows in a formation around the active window
+    // Ensure positions are always within viewport boundaries
+    const ensureInViewport = (x: number, y: number, width: number, height: number) => {
+      // Make sure there's always at least 40px of the top part visible (for drag handle)
+      const minVisibleTop = 40;
+      // Ensure windows are always at least partially visible
+      return {
+        x: Math.max(padding, Math.min(viewportWidth - width/2, x)),
+        y: Math.max(minVisibleTop, Math.min(viewportHeight - height/2, y))
+      };
+    };
+    
+    let position;
+    switch (section) {
+      case 'about':
+        position = ensureInViewport(
+          centerX - 250, 
+          centerY,
+          windowWidth,
+          windowHeight
+        );
+        return { 
+          x: position.x, 
+          y: position.y,
+          rotation: -2
+        };
+      case 'background':
+        position = ensureInViewport(
+          centerX - 300, 
+          centerY - 150,
+          windowWidth,
+          windowHeight
+        );
+        return { 
+          x: position.x, 
+          y: position.y,
+          rotation: 3
+        };
+      case 'interests':
+        position = ensureInViewport(
+          centerX + 250, 
+          centerY - 100,
+          windowWidth,
+          windowHeight
+        );
+        return { 
+          x: position.x, 
+          y: position.y,
+          rotation: -3
+        };
+      case 'work':
+        position = ensureInViewport(
+          centerX + 200, 
+          centerY + 100,
+          windowWidth, 
+          windowHeight
+        );
+        return { 
+          x: position.x, 
+          y: position.y,
+          rotation: 2
+        };
+      case 'speaking':
+        position = ensureInViewport(
+          centerX - 200, 
+          centerY + 150,
+          windowWidth,
+          windowHeight
+        );
+        return { 
+          x: position.x, 
+          y: position.y,
+          rotation: -1
+        };
+      default:
+        return { 
+          x: centerX, 
+          y: centerY,
+          rotation: 0
+        };
+    }
+  };
+
+  // Update positions when window is resized
   useEffect(() => {
+    const handleResize = () => {
+      if (openPopups.length > 0) {
+        const newPositions = { ...popupPositions };
+        openPopups.forEach(popup => {
+          newPositions[popup] = getPresetPosition(popup, popup === activePopup);
+        });
+        setPopupPositions(newPositions);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [openPopups, activePopup]);
+  
+  // Update all window positions when active popup changes
+  useEffect(() => {
+    if (activePopup && openPopups.length > 0) {
+      // Create a new positions object
+      const newPositions = { ...popupPositions };
+      
+      // Update positions for all open popups based on active popup
+      openPopups.forEach(popup => {
+        newPositions[popup] = getPresetPosition(popup, popup === activePopup);
+      });
+      
+      // Set the new positions
+      setPopupPositions(newPositions);
+    }
+  }, [activePopup]);
+
+  useEffect(() => {
+    // Event handler for "Work Experience" button in About window
     const handleWorkPopup = () => {
+      // First update positions of any open popups to make room
+      const newPositions = { ...popupPositions };
+      openPopups.forEach(popup => {
+        if (popup !== 'work') {
+          newPositions[popup] = getPresetPosition(popup, false);
+        }
+      });
+      
+      // Add work to open popups if not already open
       setOpenPopups(prev => {
         if (!prev.includes('work')) {
           const newPopups = [...prev, 'work'];
+          // Set the new positions first
+          setPopupPositions({
+            ...newPositions,
+            'work': getPresetPosition('work', true) // Center the newly opened work window
+          });
+          // Then set as active popup
           setActivePopup('work');
           return newPopups;
         }
@@ -357,10 +363,26 @@ export function Header() {
       });
     };
     
+    // Event handler for Speaking button in Work window
     const handleSpeakingPopup = () => {
+      // First update positions of any open popups to make room
+      const newPositions = { ...popupPositions };
+      openPopups.forEach(popup => {
+        if (popup !== 'speaking') {
+          newPositions[popup] = getPresetPosition(popup, false);
+        }
+      });
+      
+      // Add speaking to open popups if not already open
       setOpenPopups(prev => {
         if (!prev.includes('speaking')) {
           const newPopups = [...prev, 'speaking'];
+          // Set the new positions
+          setPopupPositions({
+            ...newPositions,
+            'speaking': getPresetPosition('speaking', true) // Center the newly opened speaking window
+          });
+          // Then set as active popup
           setActivePopup('speaking');
           return newPopups;
         }
@@ -375,20 +397,54 @@ export function Header() {
       window.removeEventListener('openWorkPopup', handleWorkPopup);
       window.removeEventListener('openSpeakingPopup', handleSpeakingPopup);
     };
-  }, []);
+  }, [openPopups, popupPositions]);
 
   const handleButtonClick = (section: string) => {
     if (section === 'about') {
+      // Create positions for all three windows
+      const aboutPosition = getPresetPosition('about', true); // Center about window
+      const backgroundPosition = getPresetPosition('background', false);
+      const interestsPosition = getPresetPosition('interests', false);
+      
       setOpenPopups(prev => {
         if (!prev.includes('about')) {
-          const newPopups = [...prev, 'about'];
+          // Open all three popups at once
+          const newPopups = [...prev, 'about', 'background', 'interests'];
+          
+          // Set positions for all three windows
+          setPopupPositions({
+            'about': aboutPosition,
+            'background': backgroundPosition,
+            'interests': interestsPosition
+          });
+          
+          // Set about as the active popup
           setActivePopup('about');
           return newPopups;
         }
         return prev;
       });
+    } else if (section === 'work') {
+      // Create position for work window
+      const workPosition = getPresetPosition('work', true); // Center work window
+      
+      setOpenPopups(prev => {
+        if (!prev.includes('work')) {
+          const newPopups = [...prev, 'work'];
+          
+          // Set position for work window
+          setPopupPositions(prevPositions => ({
+            ...prevPositions,
+            'work': workPosition
+          }));
+          
+          // Set work as the active popup
+          setActivePopup('work');
+          return newPopups;
+        }
+        return prev;
+      });
     }
-    // Other buttons are now disabled but still visible
   };
   
   const handleClosePopup = (section: string) => {
@@ -397,73 +453,69 @@ export function Header() {
       const remaining = openPopups.filter(popup => popup !== section);
       setActivePopup(remaining.length > 0 ? remaining[remaining.length - 1] : null);
     }
+    // Remove the position when popup is closed
+    setPopupPositions(prev => {
+      const newPositions = { ...prev };
+      delete newPositions[section];
+      return newPositions;
+    });
   };
 
   const handlePopupFocus = (section: string) => {
-    setActivePopup(section);
+    if (section !== activePopup) {
+      // Update active popup to bring it to front
+      setActivePopup(section);
+      
+      // Get new position for the newly active popup (centered)
+      const centeredPosition = getPresetPosition(section, true);
+      
+      // Update positions - center the active one, move others out of the way
+      const newPositions = { ...popupPositions };
+      
+      // First update the active popup position to center it
+      newPositions[section] = centeredPosition;
+      
+      // Then update all other positions
+      openPopups.forEach(popup => {
+        if (popup !== section) {
+          newPositions[popup] = getPresetPosition(popup, false);
+        }
+      });
+      
+      // Set the new positions
+      setPopupPositions(newPositions);
+    }
   };
 
-  // Get initial position for popups based on window size and active window
-  const getInitialPosition = (section: string) => {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+  // Get initial position for popups based on window size
+  const getInitialPosition = (index: number, activePopupIndex: number) => {
     const padding = 40;
-    
-    // Base position (center of screen)
-    const centerX = windowWidth / 2 - 325;
-    const centerY = windowHeight / 2 - 250;
-    
-    // Calculate position based on which windows are open
-    const isActive = section === activePopup;
-    const currentIndex = openPopups.indexOf(section);
-    const totalPopups = openPopups.length;
-    
-    // If this is the active window, center it with a slight offset based on total windows
-    if (isActive) {
-      const offsetX = (totalPopups - 1) * -15;
-      const offsetY = (totalPopups - 1) * -10;
-      return { 
-        x: centerX + offsetX,
-        y: centerY + offsetY
-      };
-    }
-    
-    // Calculate offset based on window index and position relative to active window
-    const activeIndex = openPopups.indexOf(activePopup || '');
-    const offsetX = 80; // Horizontal offset between windows
-    const offsetY = 60; // Vertical offset between windows
-    
-    // Position windows in a grid-like pattern around the active window
-    const row = Math.floor(currentIndex / 2);
-    const col = currentIndex % 2;
-    
-    if (currentIndex < activeIndex) {
-      // Windows before active window go to the left and up
-      return {
-        x: Math.max(padding, centerX - (activeIndex - currentIndex + 1) * offsetX),
-        y: Math.max(padding, centerY - row * offsetY)
-      };
-    } else if (currentIndex > activeIndex) {
-      // Windows after active window go to the right and down
-      return {
-        x: Math.min(windowWidth - 650 - padding, centerX + (currentIndex - activeIndex) * offsetX),
-        y: Math.max(padding, centerY + row * offsetY)
-      };
-    }
-    
-    // Fallback position
-    return {
-      x: centerX + col * offsetX,
-      y: centerY + row * offsetY
-    };
+    const staggerX = 60;
+    const staggerY = 40;
+
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Calculate center position (accounting for typical popup width)
+    const centerX = (viewportWidth - 600) / 2;
+    const centerY = (viewportHeight - 400) / 2;
+
+    // Calculate position based on index
+    let x = centerX + (index * staggerX);
+    let y = centerY + (index * staggerY);
+
+    // Ensure the popup stays within viewport bounds with padding
+    x = Math.max(padding, Math.min(viewportWidth - 600 - padding, x));
+    y = Math.max(padding, Math.min(viewportHeight - 400 - padding, y));
+
+    return { x, y };
   };
 
   // Calculate z-index for each popup
   const getZIndex = (section: string) => {
     const baseZIndex = 50;
-    const activeZIndex = baseZIndex + openPopups.length + 2;
-    const inactiveZIndex = baseZIndex + openPopups.indexOf(section);
-    return section === activePopup ? activeZIndex : inactiveZIndex;
+    return section === activePopup ? baseZIndex + openPopups.length + 2 : baseZIndex + openPopups.indexOf(section);
   };
 
   // SVG paths for different icons
@@ -485,7 +537,7 @@ export function Header() {
     },
     // Speaking icon (provided)
     speaking: {
-      path: "M92.94,15.95C82.67,5.66,68.99,0,54.45,0S26.23,5.66,15.95,15.95C5.66,26.23,0,39.9,0,54.45s5.66,28.21,15.95,38.5c10.28,10.28,23.96,15.95,38.5,15.95s28.22-5.66,38.5-15.95c10.28-10.28,15.95-23.96,15.95-38.5s-5.66-28.22-15.95-38.5ZM106.73,53.38h-.16c-6,0-10.99-4.44-11.93-10.37-1.62-10.13-5.4-19.44-11.03-26.95-.13-.17-.27-.34-.4-.51,1.39-.57,2.76-1.17,4.08-1.83,1.44,1.16,2.83,2.4,4.15,3.73,9.63,9.63,15.02,22.35,15.29,35.92ZM81.13,92.52c-2.68-.99-5.48-1.83-8.38-2.51,3.65-9.6,5.69-21.67,5.8-34.5h1.29c7.72,0,13.53,7.18,11.77,14.7-1.97,8.4-5.52,16.06-10.45,22.31h-.02ZM27.74,92.52c-4.94-6.25-8.49-13.91-10.46-22.31-1.76-7.52,4.05-14.69,11.77-14.69h1.29c.11,12.83,2.15,24.9,5.8,34.5-2.91.68-5.7,1.52-8.38,2.51h-.02ZM27.76,16.37c2.68.99,5.48,1.83,8.38,2.51-3.65,9.6-5.69,21.67-5.8,34.5h-1.29c-7.72,0-13.53-7.18-11.77-14.69,1.97-8.4,5.52-16.06,10.46-22.31h.02ZM32.48,55.57c5.46.27,10.56,2.49,14.46,6.39,4.15,4.15,6.44,9.68,6.44,15.55v10.47c-5.16.06-10.23.61-15.12,1.6-3.63-9.39-5.67-21.31-5.78-34.01ZM53.38,18.78c-4.89-.06-9.69-.57-14.32-1.49.02-.05.04-.12.07-.17,3.92-9.06,8.94-14.31,14.26-14.93v16.59ZM38.26,19.32c4.89,1,9.95,1.54,15.12,1.6v10.47c0,5.88-2.29,11.4-6.44,15.55-3.9,3.9-9,6.12-14.46,6.39.11-12.7,2.15-24.62,5.78-34.01ZM53.38,90.11v16.58c-5.31-.62-10.34-5.86-14.26-14.93-.02-.04-.12-.07-.17,4.63-.92,9.43-1.42,14.33-1.48ZM55.51,90.11c4.89.06,9.69.57,14.33,1.48-.02.06-.04.12-.07.17-3.92,9.06-8.94,14.31-14.26,14.93v-16.58ZM70.63,89.58c-4.88-.99-9.95-1.54-15.12-1.6v-10.47c0-5.88,2.29-11.4,6.44-15.55,3.9-3.89,9-6.12,14.46-6.39-.11,12.7-2.15,24.62-5.78,34.01ZM61.95,46.94c-4.15-4.15-6.44-9.68-6.44-15.55v-10.47c5.16-.06,10.23-.61,15.12-1.6,3.63,9.39,5.67,21.31,5.78,34.01-5.46-.27-10.56-2.49-14.46-6.39ZM55.51,18.78V2.2c5.32.62,10.34,5.87,14.26,14.93.02.05.04.12.07.17-4.64.92-9.43,1.42-14.32,1.49ZM71.73,16.28c-2.5-5.79-5.5-10.14-8.78-12.88,6.16,1.84,11.88,5.66,16.75,11.24-2.47.88-5.05,1.63-7.73,2.24-.08-.19-.15-.41-.23-.6ZM37.16,16.28c-.08.19-.15.4-.23.6-2.67-.61-5.25-1.36-7.73-2.24,4.86-5.58,10.59-9.4,16.74-11.24-3.29,2.74-6.28,7.09-8.78,12.88ZM36.93,92.02c.08.19.15.41.23.6,2.5,5.79,5.49,10.14,8.78,12.88-6.16-1.83-11.88-5.66-16.75-11.24,2.48-.88,5.06-1.63,7.73-2.24ZM71.73,92.61c.08-.19.15-.4.23-.6,2.67.61,5.25,1.36,7.73,2.24-4.86,5.58-10.59,9.4-16.75,11.24,3.29-2.74,6.28-7.09,8.78-12.88ZM78.55,53.38c-.11-12.83-2.15-24.91-5.8-34.5,2.91-.68,5.7-1.52,8.38-2.51h.02c4.94,6.26,8.49,13.91,10.46,22.31,1.76,7.52-4.05,14.7-11.77,14.7h-1.29ZM85.39,12.26c-1.16.55-2.36,1.07-3.58,1.55-3.01-3.57-6.36-6.49-9.94-8.71,4.82,1.7,9.37,4.1,13.52,7.16ZM27.09,13.81c-1.22-.48-2.42-1-3.58-1.55,4.15-3.06,8.7-5.46,13.52-7.16-3.58,2.22-6.93,5.15-9.94,8.71ZM17.46,17.46c1.33-1.33,2.72-2.57,4.15-3.73,1.32.65,2.68,1.26,4.07,1.83-.13.17-.27.33-.4.51-5.63,7.51-9.41,16.82-11.03,26.95-.95,5.93-5.93,10.37-11.93,10.37h-.16c.27-13.57,5.67-26.29,15.3-35.92ZM2.16,55.51h.16c6,0,10.98,4.44,11.93,10.37,1.62,10.13,5.39,19.44,11.03,26.95.13.17.27.34.4.51-1.39.57-2.76,1.17-4.07,1.83-1.44-1.16-2.83-2.4-4.15-3.73-9.63-9.63-15.02-22.35-15.3-35.92ZM23.51,96.63c1.16-.55,2.36-1.07,3.58-1.55,3.01,3.57,6.35,6.49,9.94,8.71-4.81-1.7-9.36-4.1-13.52-7.16ZM81.81,95.08c1.22.48,2.42,1,3.58,1.55-4.15,3.06-8.7,5.46-13.52,7.16,3.58-2.22,6.93-5.15,9.94-8.71ZM91.44,91.44c-1.33,1.33-2.72,2.57-4.15,3.73-1.32-.65-2.68-1.26-4.08-1.83.13-.17.27-.33.4-.51,5.63-7.51,9.41-16.82,11.03-26.95.95-5.93,5.93-10.37,11.93-10.37h.16c-.27,13.57-5.67,26.29-15.29,35.92Z",
+      path: "M92.94,15.95C82.67,5.66,68.99,0,54.45,0S26.23,5.66,15.95,15.95C5.66,26.23,0,39.9,0,54.45s5.66,28.21,15.95,38.5c10.28,10.28,23.96,15.95,38.5,15.95s28.22-5.66,38.5-15.95c10.28-10.28,15.95-23.96,15.95-38.5s-5.66-28.22-15.95-38.5ZM106.73,53.38h-.16c-6,0-10.99-4.44-11.93-10.37-1.62-10.13-5.4-19.44-11.03-26.95-.13-.17-.27-.34-.4-.51,1.39-.57,2.76-1.17,4.08-1.83,4.15,1.16,2.83,2.4,4.15,2.4,4.15,3.73,9.63,9.63,15.02,22.35,15.29,35.92ZM81.13,92.52c-2.68-.99-5.48-1.83-8.38-2.51,3.65-9.6,5.69-21.67,5.8-34.5h1.29c7.72,0,13.53,7.18,11.77,14.7-1.97,8.4-5.52,16.06-10.45,22.31h-.02ZM27.74,92.52c-4.94-6.25-8.49-13.91-10.46-22.31-1.76-7.52,4.05-14.69,11.77-14.69h1.29c.11,12.83,2.15,24.9,5.8,34.5-2.91.68-5.7,1.52-8.38,2.51h-.02ZM27.76,16.37c2.68.99,5.48,1.83,8.38,2.51-3.65,9.6-5.69,21.67-5.8,34.5h-1.29c-7.72,0-13.53-7.18-11.77-14.69,1.97-8.4,5.52-16.06,10.46-22.31h.02ZM32.48,55.57c5.46.27,10.56,2.49,14.46,6.39,4.15,4.15,4.15,6.44,9.68,6.44,15.55v10.47c-5.16.06-10.23.61-15.12,1.6-3.63-9.39-5.67-21.31-5.78-34.01ZM53.38,18.78c-4.89-.06-9.69-.57-14.32-1.49.02-.05.04-.12.07-.17,3.92-9.06,8.94-14.31,14.26-14.93v16.59ZM38.26,19.32c4.89,1,9.95,1.54,15.12,1.6v10.47c0,5.88-2.29,11.4-6.44,15.55-3.9,3.9-9,6.12-14.46,6.39.11-12.7,2.15-24.62,5.78-34.01ZM53.38,90.11v16.58c-5.31-.62-10.34-5.86-14.26-14.93-.02-.04-.12-.07-.17,4.63-.92,9.43-1.42,14.33-1.48ZM55.51,90.11c4.89.06,9.69.57,14.33,1.48-.02.06-.04.12-.07.17-3.92,9.06-8.94,14.31-14.26,14.93v-16.58ZM70.63,89.58c-4.88-.99-9.95-1.54-15.12-1.6v-10.47c0-5.88,2.29-11.4,6.44-15.55,3.9-3.89,9-6.12,14.46-6.39-.11,12.7-2.15,24.62-5.78,34.01ZM61.95,46.94c-4.15-4.15-6.44-9.68-6.44-15.55v-10.47c5.16-.06,10.23-.61,15.12-1.6,3.63,9.39,5.67,21.31,5.78,34.01-5.46-.27-10.56-2.49-14.46-6.39ZM55.51,18.78V2.2c5.32.62,10.34,5.87,14.26,14.93.02.05.04.12.07.17-4.64.92-9.43,1.42-14.32,1.49ZM71.73,16.28c-2.5-5.79-5.5-10.14-8.78-12.88,6.16,1.84,11.88,5.66,16.75,11.24-2.47.88-5.05,1.63-7.73,2.24-.08-.19-.15-.41-.23-.6ZM37.16,16.28c-.08.19-.15.4-.23.6-2.67-.61-5.25-1.36-7.73-2.24,4.86-5.58,10.59-9.4,16.74-11.24-3.29,2.74-6.28,7.09-8.78,12.88ZM36.93,92.02c.08.19.15.41.23.6,2.5,5.79,5.49,10.14,8.78,12.88,12.88-6.16-1.83-11.88-5.66-16.75-11.24,2.48-.88,5.06-1.63,7.73-2.24ZM71.73,92.61c.08-.19.15-.4.23-.6,2.67.61,5.25,1.36,7.73,2.24-4.86,5.58-10.59,9.4-16.75,11.24,3.29-2.74,6.28-7.09,8.78-12.88ZM78.55,53.38c-.11-12.83-2.15-24.91-5.8-34.5,2.91-.68,5.7-1.52,8.38-2.51h.02c4.94,6.26,8.49,13.91,10.46,22.31,1.76,7.52-4.05,14.7-11.77,14.7h-1.29ZM85.39,12.26c-1.16.55-2.36,1.07-3.58,1.55-3.01-3.57-6.36-6.49-9.94-8.71,4.82,1.7,9.37,4.1,13.52,7.16ZM27.09,13.81c-1.22-.48-2.42-1-3.58-1.55,4.15-3.06,8.7-5.46,13.52-7.16-3.58,2.22-6.93,5.15-9.94,8.71ZM17.46,17.46c1.33-1.33,2.72-2.57,4.15-3.73,1.32.65,2.68,1.26,4.07,1.83-.13.17-.27.33-.4.51-5.63,7.51-9.41,16.82-11.03,26.95-.95,5.93-5.93,10.37-11.93,10.37h-.16c.27-13.57,5.67-26.29,15.3-35.92ZM2.16,55.51h.16c6,0,10.98,4.44,11.93,10.37,1.62,10.13,5.39,19.44,11.03,26.95.13.17.27.34.4.51-1.39.57-2.76,1.17-4.07,1.83-1.44-1.16-2.83-2.4-4.15-3.73-9.63-9.63-15.02-22.35-15.3-35.92ZM23.51,96.63c1.16-.55,2.36-1.07,3.58-1.55,3.01,3.57,6.35,6.49,9.94,8.71-4.81-1.7-9.36-4.1-13.52-7.16ZM81.81,95.08c1.22.48,2.42,1,3.58,1.55-4.15,3.06-8.7,5.46-13.52,7.16,3.58-2.22,6.93-5.15,9.94-8.71ZM91.44,91.44c-1.33,1.33-2.72,2.57-4.15,3.73-1.32-.65-2.68-1.26-4.08-1.83.13-.17.27-.33.4-.51,5.63-7.51,9.41-16.82,11.03-26.95.95-5.93,5.93-10.37,11.93-10.37h.16c-.27,13.57-5.67,26.29-15.29,35.92Z",
       viewBox: "0 0 108.89 108.89"
     }
   };
@@ -495,7 +547,9 @@ export function Header() {
     about: '#f0e6ff', // Lighter purple
     work: '#e0f7f6', // Light teal
     projects: '#fff7e0', // Light yellow
-    speaking: '#e8ffe0'  // Light green
+    speaking: '#e8ffe0',  // Light green
+    background: '#f3e8ff', // Light purple
+    interests: '#ffe8f3'  // Light pink
   };
 
   return (
@@ -583,10 +637,50 @@ export function Header() {
           onFocus={() => handlePopupFocus('about')}
           title="About Me"
           content={<AboutContent />}
-          initialPosition={getInitialPosition('about')}
+          initialPosition={popupPositions.about || getPresetPosition('about', activePopup === 'about')}
           color={popupColors.about}
-          width={650}
+          width={500}
           zIndex={getZIndex('about')}
+          style={{ 
+            transform: `rotate(${(popupPositions.about || getPresetPosition('about', activePopup === 'about')).rotation}deg)`,
+            height: '300px'
+          }}
+        />
+      )}
+      
+      {openPopups.includes('background') && (
+        <NotepadPopup
+          isOpen={true}
+          onClose={() => handleClosePopup('background')}
+          onFocus={() => handlePopupFocus('background')}
+          title="Uni Major: Earth Science"
+          content={<BackgroundContent />}
+          initialPosition={popupPositions.background || getPresetPosition('background', activePopup === 'background')}
+          color={popupColors.background}
+          width={250} // Smaller width for rock formation image
+          zIndex={getZIndex('background')}
+          style={{ 
+            transform: `rotate(${(popupPositions.background || getPresetPosition('background', activePopup === 'background')).rotation}deg)`,
+            height: '250px' // Smaller height
+          }}
+        />
+      )}
+      
+      {openPopups.includes('interests') && (
+        <NotepadPopup
+          isOpen={true}
+          onClose={() => handleClosePopup('interests')}
+          onFocus={() => handlePopupFocus('interests')}
+          title="7 Hours in Delhi"
+          content={<InterestsContent />}
+          initialPosition={popupPositions.interests || getPresetPosition('interests', activePopup === 'interests')}
+          color={popupColors.interests}
+          width={350} // For Twitter embed with video
+          zIndex={getZIndex('interests')}
+          style={{ 
+            transform: `rotate(${(popupPositions.interests || getPresetPosition('interests', activePopup === 'interests')).rotation}deg)`,
+            height: '620px' // Further increased height to show full tweet with video
+          }}
         />
       )}
       
@@ -597,10 +691,14 @@ export function Header() {
           onFocus={() => handlePopupFocus('work')}
           title="Work Experience"
           content={<WorkContent />}
-          initialPosition={getInitialPosition('work')}
+          initialPosition={popupPositions.work || getPresetPosition('work', activePopup === 'work')}
           color={popupColors.work}
-          width={700}
+          width={550}
           zIndex={getZIndex('work')}
+          style={{ 
+            transform: `rotate(${(popupPositions.work || getPresetPosition('work', activePopup === 'work')).rotation}deg)`,
+            height: '400px'
+          }}
         />
       )}
       
@@ -611,10 +709,14 @@ export function Header() {
           onFocus={() => handlePopupFocus('projects')}
           title="Projects"
           content={<ProjectsContent />}
-          initialPosition={getInitialPosition('projects')}
+          initialPosition={popupPositions.projects || getPresetPosition('projects', activePopup === 'projects')}
           color={popupColors.projects}
-          width={700}
+          width={550}
           zIndex={getZIndex('projects')}
+          style={{ 
+            transform: `rotate(${(popupPositions.projects || getPresetPosition('projects', activePopup === 'projects')).rotation}deg)`,
+            height: '400px'
+          }}
         />
       )}
       
@@ -625,10 +727,14 @@ export function Header() {
           onFocus={() => handlePopupFocus('speaking')}
           title="Speaking"
           content={<SpeakingContent />}
-          initialPosition={getInitialPosition('speaking')}
+          initialPosition={popupPositions.speaking || getPresetPosition('speaking', activePopup === 'speaking')}
           color={popupColors.speaking}
-          width={650}
+          width={500}
           zIndex={getZIndex('speaking')}
+          style={{ 
+            transform: `rotate(${(popupPositions.speaking || getPresetPosition('speaking', activePopup === 'speaking')).rotation}deg)`,
+            height: '400px'
+          }}
         />
       )}
     </header>
