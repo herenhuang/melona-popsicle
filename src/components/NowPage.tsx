@@ -156,8 +156,13 @@ export function NowPage() {
                     <div className="font-medium text-sm text-[#464646] truncate pr-2">
                       {note.title}
                     </div>
-                    <div className="text-[#969696] text-xs truncate mt-0.5 pr-2">
-                      {note.preview}
+                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                      <span className="text-[#464646]">
+                        {new Date(note.date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}
+                      </span>
+                      <span className="text-[#969696] truncate">
+                        {note.preview}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -185,8 +190,13 @@ export function NowPage() {
                     <div className="font-medium text-sm text-[#464646] truncate pr-2">
                       {note.title}
                     </div>
-                    <div className="text-[#969696] text-xs truncate mt-0.5 pr-2">
-                      {note.preview}
+                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                      <span className="text-[#464646]">
+                        {new Date(note.date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}
+                      </span>
+                      <span className="text-[#969696] truncate">
+                        {note.preview}
+                      </span>
                     </div>
                   </div>
                 </div>
