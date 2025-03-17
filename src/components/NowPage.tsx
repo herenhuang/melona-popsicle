@@ -185,8 +185,8 @@ export function NowPage({ defaultNote }: NowPageProps) {
         )}
         <div className="h-screen bg-white">
           {/* Notes List View */}
-          <div className={selectedNote ? 'hidden' : 'min-h-screen pb-20 overflow-auto'}>
-            {/* Fixed Header - Now without search bar */}
+          <div className={selectedNote ? 'hidden' : 'min-h-screen pb-20 flex flex-col'}>
+            {/* Fixed Header - With window controls */}
             <div className="bg-[#f7f7f7] z-20 sticky top-0 left-0 right-0 shadow-sm">
               {/* Window Controls */}
               <div className="flex items-center gap-2 p-3">
@@ -203,11 +203,8 @@ export function NowPage({ defaultNote }: NowPageProps) {
                   <Edit className="w-4 h-4" />
                 </button>
               </div>
-            </div>
-
-            {/* Notes List Content */}
-            <div>
-              {/* Search Bar - Now regular (not sticky) */}
+            
+              {/* Search Bar - Now part of the sticky header */}
               <div className="px-4 py-3 bg-[#f7f7f7]">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4.5 h-4.5 text-[#969696]" />
@@ -220,6 +217,10 @@ export function NowPage({ defaultNote }: NowPageProps) {
                   />
                 </div>
               </div>
+            </div>
+
+            {/* Notes List Content - Scrollable */}
+            <div className="flex-1 overflow-auto">
               
               <div className="px-4">
                 {/* Pinned Section */}
@@ -300,8 +301,8 @@ export function NowPage({ defaultNote }: NowPageProps) {
               </div>
             </div>
 
-            {/* Fixed Footer */}
-            <div className="py-2 text-center bg-[#f7f7f7] sticky bottom-0 left-0 right-0 z-20 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+            {/* Regular Footer - Not fixed/sticky */}
+            <div className="py-2 text-center bg-[#f7f7f7] mt-auto">
               <span className="text-xs text-[#969696]">
                 {notes.length} note{notes.length !== 1 ? 's' : ''}
               </span>
@@ -310,7 +311,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
 
           {/* Note Detail View */}
           {selectedNoteContent && (
-            <div className={!selectedNote ? 'hidden' : 'min-h-screen pb-20 overflow-auto'}>
+            <div className={!selectedNote ? 'hidden' : 'min-h-screen pb-20 flex flex-col'}>
               {/* Fixed Header */}
               <div className="px-8 py-3 flex items-center bg-white z-10 sticky top-0 left-0 right-0 shadow-sm">
                 <button 
@@ -325,10 +326,10 @@ export function NowPage({ defaultNote }: NowPageProps) {
                 </button>
               </div>
               
-              {/* Content */}
+              {/* Content - Scrollable */}
               <div 
                 ref={contentViewRef}
-                className="pt-4 pb-16"
+                className="pt-4 pb-16 flex-1 overflow-auto"
               >
                 <div className="w-full px-8 py-6">
                   <div className="mb-6 text-center">
