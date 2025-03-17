@@ -51,7 +51,11 @@ export const notes: Note[] = [
     id: 'about',
     title: '🤠 about me',
     date: '2025-03-17T01:25:00Z',
-    content: `howdy, I'm Helen Huang. i have over 10 years of experience in product, ops and strategy. super enthusiastic about anything experiential: content, learning, marketing, community, events, food. i enjoy solo travelling (11 countries so far) and dance (hip hop/jazz funk/traditional chinese dancing).
+    content: `howdy, I'm Helen Huang. 
+    
+i have over 10 years of experience in product, ops and strategy. super enthusiastic about anything experiential: content, learning, marketing, community, events, food. 
+    
+i enjoy solo travelling 🗺️ (11 countries so far) and dance 💃 (hip hop/jazz funk/bachata/traditional chinese dancing).
 
 # currently
 - on a sabbatical (length: tbd)
@@ -97,13 +101,13 @@ check out my [projects](/now/projects) for more info ~ `,
   },
   {
     id: 'recognition',
-    title: '🎖️ recognition and stuff',
+    title: '🎖️ recognition and speaking',
     date: '2025-03-17T00:54:00Z',
     content: `some stuff i've been recognized for recently ~ ill connect the links soon. 
 
+- forbes 30 under 30: honored for co.lab's impact
 - dmz women of the year: recognized for contributions to tech education
 - glory 30x30 honoree: named one of canada's standout young entrepreneurs
-- forbes 30 under 30: honored for co.lab's impact
 - waterloo innovation summit: spoke on flipped classrooms & peer-led learning
 - dmz: discussed founder-led sales strategies & marketing funnels
 - founder institute: insights on community-driven growth & product-led strategies`,
@@ -149,7 +153,11 @@ For now though... I'm going to continue focusing on my nearterm goals below and 
 
 The current UI is heavily inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website which I found super cool.
 
-All the code here was written with the help of AI (I don't code). I used a blend of cursor (with the help of MCPs), Cursor Code (for any times when I really struggled), Claude/o1 to do back and forth prompting review)! Wild right?`,
+All the code here was written with the help of AI cause I don't code... or I guess now I do?? 
+
+I used a blend of Cursor (with the help of MCPs), Cursor Code (for any times when I really struggled), and Claude/o1 (to do back and forth prompting review)! 
+
+Wild right?`,
     isPinned: false
   },
   {
