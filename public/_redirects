@@ -1,2 +1,4 @@
-/* /now/about 301
-/index.html /now/about 301
+/* /index.html 200
+/index.html / 301
+/now/about /about 301
+/now/* /:splat 301

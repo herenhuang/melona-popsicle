@@ -6,13 +6,17 @@ import { MarkdownContent } from './MarkdownContent';
 import { formatDateForContent, formatDateForPreview } from '../utils/dateFormatters';
 import { generatePreview } from '../data/notes';
 
-export function NowPage() {
+interface NowPageProps {
+  defaultNote?: string;
+}
+
+export function NowPage({ defaultNote }: NowPageProps) {
   const navigate = useNavigate();
   const { noteId } = useParams();
   
   // Initialize with false and update in useEffect to avoid SSR issues
   const [isMobile, setIsMobile] = useState(false);
-  const [selectedNote, setSelectedNote] = useState(noteId || notes[0].id);
+  const [selectedNote, setSelectedNote] = useState(noteId || defaultNote || notes[0].id);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Refs for scrollable containers
@@ -34,11 +38,16 @@ export function NowPage() {
   // Update selectedNote when noteId changes or mobile status changes
   useEffect(() => {
     if (isMobile && !noteId) {
+      // On mobile with no specific note ID, show the navigation view
       setSelectedNote('');
     } else if (noteId) {
+      // If a specific note ID is provided in the URL, select it
       setSelectedNote(noteId);
+    } else if (defaultNote && !noteId) {
+      // On desktop with no specific note ID, use the default note
+      setSelectedNote(defaultNote);
     }
-  }, [noteId, isMobile]);
+  }, [noteId, defaultNote, isMobile]);
   
   // Reset scroll position when switching views
   useEffect(() => {
@@ -93,7 +102,13 @@ export function NowPage() {
 
   const handleNoteSelect = (id: string) => {
     setSelectedNote(id);
-    navigate(`/now/${id}`);
+    
+    // Special case for mar172025 note
+    if (id === 'mar172025') {
+      navigate('/now');
+    } else {
+      navigate(`/${id}`);
+    }
     
     // Force scroll to top immediately when selecting a note
     if (contentViewRef.current) {

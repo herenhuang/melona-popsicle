@@ -70,7 +70,7 @@ i enjoy solo travelling 🗺️ (11 countries so far) and dance 💃 (hip hop/ja
 # education
 - b.sc in science and business (earth sci specialization) @ university of waterloo
 
-check out my [projects](/now/projects) for more info ~ `,
+check out my [projects](/projects) for more info ~ `,
     isPinned: true,
     pinnedOrder: 1
   },

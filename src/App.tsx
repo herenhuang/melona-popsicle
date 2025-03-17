@@ -55,9 +55,17 @@ function AppContent() {
       {isLoading && isInitialLoad && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
       <div style={{ opacity: isLoading && isInitialLoad ? 0 : 1, transition: 'opacity 0.5s ease-in-out' }}>
         <Routes>
-          <Route path="/" element={<Navigate to="/now/about" replace />} />
-          <Route path="/now" element={<NowPage />} />
-          <Route path="/now/:noteId" element={<NowPage />} />
+          {/* Root path - show about page on desktop, nav on mobile */}
+          <Route path="/" element={<NowPage defaultNote="about" />} />
+          
+          {/* /now path - show the mar172025 note */}
+          <Route path="/now" element={<NowPage defaultNote="mar172025" />} />
+          
+          {/* Legacy /now/:noteId paths - redirect to new structure */}
+          <Route path="/now/:noteId" element={<Navigate to="/:noteId" replace />} />
+          
+          {/* New direct note paths */}
+          <Route path="/:noteId" element={<NowPage />} />
         </Routes>
       </div>
     </>

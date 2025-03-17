@@ -124,7 +124,7 @@ export function ChatBox() {
         isUrl: true,
         urlPreview: {
           title: "Helen Huang | About Me",
-          url: "helenhuang.io/now/about",
+          url: "helenhuang.io/about",
           image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=300&auto=format&fit=crop"  // Make sure this image exists in your public folder
         }
       }
