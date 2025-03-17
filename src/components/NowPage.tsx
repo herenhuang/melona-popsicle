@@ -180,6 +180,15 @@ export function NowPage() {
             </>
           )}
         </div>
+
+        {/* Footer with note count - only show on mobile */}
+        {isMobile && (
+          <div className="py-4 text-center border-t border-[#e4e4e4]">
+            <span className="text-xs text-[#969696]">
+              {notes.length} note{notes.length !== 1 ? 's' : ''}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Main Content */}
@@ -188,33 +197,35 @@ export function NowPage() {
       }`}>
         {/* Mobile back button */}
         {isMobile && (
-          <div className="px-8 py-4 flex items-center">
+          <div className="px-8 py-3 flex items-center">
             <button 
               onClick={() => {
                 setSelectedNote('');
                 navigate('/now');
               }}
-              className="text-[#969696] hover:text-[#636363] transition-colors flex items-center gap-2"
+              className="flex items-center gap-2"
             >
-              <ArrowLeft className="w-5 h-5 md:w-4 md:h-4" />
-              <span className="text-base md:text-sm">Notes</span>
+              <ArrowLeft className="w-5 h-5 md:w-4 md:h-4 text-[#CC9900]" />
+              <span className="text-base md:text-sm font-medium text-[#969696]">Notes</span>
             </button>
           </div>
         )}
         
         {selectedNoteContent && (
-          <div className="w-full px-8 py-8">
-            <div className="mb-8 text-center">
-              <p className="text-base md:text-sm text-[#969696] flex items-center justify-center gap-2">
-                <Calendar size={18} className="md:w-4 md:h-4" />
+          <div className="w-full px-8 py-6">
+            <div className="mb-6 text-center">
+              <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
+                <Calendar size={16} className="md:w-4 md:h-4" />
                 {formatDateForContent(selectedNoteContent.date)}
               </p>
             </div>
-            <div className="text-[#464646] text-base md:text-sm">
-              <h1 className="text-3xl md:text-2xl font-medium mb-6">
+            <div className="text-[#464646]">
+              <h1 className="text-2xl md:text-xl font-medium mb-6">
                 {selectedNoteContent.title}
               </h1>
-              <MarkdownContent content={selectedNoteContent.content} />
+              <div className="text-base md:text-sm">
+                <MarkdownContent content={selectedNoteContent.content} />
+              </div>
             </div>
           </div>
         )}
