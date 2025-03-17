@@ -113,37 +113,7 @@ check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
     isPinned: true,
     pinnedOrder: 6
   },
-  {
-    id: 'bingo',
-    title: '📇 bingo card',
-    date: '2025-01-24T13:24:00Z',
-    content: `In January, I led a workshop where we made bingo cards (rather than your usual new years resolutions). This is what's on mine, it represents all the things I want to complete (or at least get started on) in in this first half of 2025.
 
-# Not Yet Started
-
-- write a creative workbook
-- complete a chinese course
-- move to NY
-- do an essay on why i stopped doing my nails and lashes
-- try pottery
-- take pictures of all my clothes
-- set up trading view for my stocks and rebalance them
-
-# In Progress
-
-- finish this website
-- restart my blog
-- finish AI coding course
-- finish dance classes
-- get a drivers license
-- host a fake fashion show for my fake trash bag brand for my real birthday
-
-# Completed
-
-- host a fake fashion show for my fake trash bag brand for my real birthday (completed March 2nd, 2025)`,
-    isPinned: true,
-    pinnedOrder: 7
-  },
   
   // Non-pinned notes (in descending date order)
   {
@@ -174,6 +144,36 @@ These pages you're currently reading, these are mainly my /now pages, inspired b
 The UI is heavily inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website which I found super cool.
 
 All the code here was written by AI (blend of o1, claude, cursor, v0)! Wild right?`,
+    isPinned: false
+  },
+  {
+    id: 'bingo',
+    title: '📇 bingo card',
+    date: '2025-03-17T02:51:00Z',
+    content: `In January, I led a workshop where we made bingo cards (rather than your usual new years resolutions). This is what's on mine, it represents all the things I want to complete (or at least get started on) in in this first half of 2025.
+
+# Not Yet Started
+
+- write a creative workbook
+- complete a chinese course
+- move to NY
+- do an essay on why i stopped doing my nails and lashes
+- try pottery
+- take pictures of all my clothes
+- set up trading view for my stocks and rebalance them
+
+# In Progress
+
+- finish this website
+- restart my blog
+- finish AI coding course
+- finish dance classes
+- get a drivers license
+- host a fake fashion show for my fake trash bag brand for my real birthday
+
+# Completed
+
+- host a fake fashion show for my fake trash bag brand for my real birthday (completed March 2nd, 2025)`,
     isPinned: false
   }
 ]; 
