@@ -152,13 +152,12 @@ For now though... I'm going to continue focusing on my nearterm goals below and 
     date: '2025-02-17T02:01:00Z',
     content: `This is the current version of my personal website. It's a work in progress, but I'm slowly adding more and changing things up.
 
-The current UI is heavily inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website which I found super cool.
+The current UI is inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website, with additional whimsical touches from yours truly ~
 
 All the code here was written with the help of AI cause I don't code... or I guess now I do?? 
 
 I used a blend of Cursor (with the help of MCPs), Cursor Code (for any times when I really struggled), and Claude/o1 (to do back and forth prompting review)! 
-
-Wild right?`,
+`,
     isPinned: false
   },
   {

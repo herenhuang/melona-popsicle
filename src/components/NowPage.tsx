@@ -5,6 +5,7 @@ import { notes } from '../data/notes';
 import { MarkdownContent } from './MarkdownContent';
 import { formatDateForContent, formatDateForPreview } from '../utils/dateFormatters';
 import { generatePreview } from '../data/notes';
+import { Helmet } from 'react-helmet-async';
 
 interface NowPageProps {
   defaultNote?: string;
@@ -128,334 +129,408 @@ export function NowPage({ defaultNote }: NowPageProps) {
     };
   }, [filteredNotes]);
 
+  // Generate SEO description from note content
+  const seoDescription = useMemo(() => {
+    if (!selectedNoteContent) return '';
+    
+    // Use the first 150 characters of the content for the description
+    const cleanContent = selectedNoteContent.content
+      .replace(/[#*_]/g, '') // Remove markdown symbols
+      .replace(/\n+/g, ' ') // Replace newlines with spaces
+      .trim();
+      
+    return cleanContent.length > 150 
+      ? cleanContent.substring(0, 147) + '...' 
+      : cleanContent;
+  }, [selectedNoteContent]);
+  
+  // Generate structured data for the current note
+  const structuredData = useMemo(() => {
+    if (!selectedNoteContent) return null;
+    
+    // Format date for schema.org
+    const datePublished = new Date(selectedNoteContent.date).toISOString();
+    
+    // Create schema.org Article data
+    return {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": selectedNoteContent.title,
+      "description": seoDescription,
+      "author": {
+        "@type": "Person",
+        "name": "Helen Huang",
+        "url": "https://helenhuang.io"
+      },
+      "datePublished": datePublished,
+      "dateModified": datePublished,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://helenhuang.io/${selectedNoteContent.id === 'mar172025' ? 'now' : selectedNoteContent.id}`
+      }
+    };
+  }, [selectedNoteContent, seoDescription]);
+
   // Mobile layout with fixed header and footer
   if (isMobile) {
     return (
-      <div className="h-screen bg-white overflow-hidden">
-        {/* Notes List View */}
-        <div className={selectedNote ? 'hidden' : 'h-full flex flex-col'}>
-          {/* Fixed Header - Now without search bar */}
-          <div className="bg-[#f7f7f7] z-20 fixed top-0 left-0 right-0 shadow-sm">
-            {/* Window Controls */}
-            <div className="flex items-center gap-2 p-3">
-              <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
-                <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
-              </button>
-              <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
-                <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
-              </button>
-              <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
-                <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
-              </button>
-              <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
-                <Edit className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Scrollable Notes List - with padding for header and footer */}
-          <div 
-            ref={notesListRef}
-            className="overflow-y-auto bg-[#f7f7f7]" 
-            style={{ 
-              paddingTop: '50px', 
-              paddingBottom: '50px',
-              height: '100vh',
-              WebkitOverflowScrolling: 'touch'
-            }}
-          >
-            {/* Search Bar - Now regular (not sticky) */}
-            <div className="px-4 py-3 bg-[#f7f7f7]">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4.5 h-4.5 text-[#969696]" />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#e4e4e4]/20 rounded-md text-sm placeholder-[#969696] focus:outline-none focus:ring-1 focus:ring-[#e4e4e4]"
-                />
+      <>
+        {selectedNoteContent && (
+          <Helmet>
+            <title>{selectedNoteContent.title} | Helen Huang</title>
+            <meta name="description" content={seoDescription} />
+            <meta property="og:title" content={`${selectedNoteContent.title} | Helen Huang`} />
+            <meta property="og:description" content={seoDescription} />
+            <meta property="og:url" content={`https://helenhuang.io/${selectedNoteContent.id === 'mar172025' ? 'now' : selectedNoteContent.id}`} />
+            <meta name="twitter:title" content={`${selectedNoteContent.title} | Helen Huang`} />
+            <meta name="twitter:description" content={seoDescription} />
+            <script type="application/ld+json">
+              {JSON.stringify(structuredData)}
+            </script>
+          </Helmet>
+        )}
+        <div className="h-screen bg-white overflow-hidden">
+          {/* Notes List View */}
+          <div className={selectedNote ? 'hidden' : 'h-full flex flex-col'}>
+            {/* Fixed Header - Now without search bar */}
+            <div className="bg-[#f7f7f7] z-20 fixed top-0 left-0 right-0 shadow-sm">
+              {/* Window Controls */}
+              <div className="flex items-center gap-2 p-3">
+                <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
+                  <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
+                </button>
+                <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
+                  <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
+                </button>
+                <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
+                  <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
+                </button>
+                <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
+                  <Edit className="w-4 h-4" />
+                </button>
               </div>
             </div>
-            
-            <div className="px-4">
-              {/* Pinned Section */}
-              {pinnedNotes.length > 0 && (
-                <>
-                  <div className="mt-4">
-                    <h3 className="text-sm font-medium text-[#969696] mb-2">
-                      Pinned
-                    </h3>
-                  </div>
-                  <div>
-                    {pinnedNotes.map((note) => (
-                      <button 
-                        key={note.id}
-                        onClick={() => handleNoteSelect(note.id)}
-                        className="group w-full text-left"
-                      >
-                        <div className={`transition-colors ${
-                          selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                        } py-5 px-4 rounded-md`}>
-                          <div className="flex flex-col min-w-0">
-                            <div className="font-medium text-base text-[#464646] truncate pr-2">
-                              {note.title}
-                            </div>
-                            <div className="flex items-center gap-2 text-sm mt-1 pr-2">
-                              <span className="text-[#464646]">
-                                {formatDateForPreview(note.date)}
-                              </span>
-                              <span className="text-[#969696] truncate">
-                                {generatePreview(note.content)}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
 
-              {/* Older Notes Section */}
-              {olderNotes.length > 0 && (
-                <>
-                  <div className="mt-6">
-                    <h3 className="text-sm font-medium text-[#969696] mb-2">
-                      Older Notes
-                    </h3>
-                  </div>
-                  <div className="mb-6">
-                    {olderNotes.map((note) => (
-                      <button 
-                        key={note.id}
-                        onClick={() => handleNoteSelect(note.id)}
-                        className="group w-full text-left"
-                      >
-                        <div className={`transition-colors ${
-                          selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                        } py-5 px-4 rounded-md`}>
-                          <div className="flex flex-col min-w-0">
-                            <div className="font-medium text-base text-[#464646] truncate pr-2">
-                              {note.title}
-                            </div>
-                            <div className="flex items-center gap-2 text-sm mt-1 pr-2">
-                              <span className="text-[#464646]">
-                                {formatDateForPreview(note.date)}
-                              </span>
-                              <span className="text-[#969696] truncate">
-                                {generatePreview(note.content)}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Fixed Footer */}
-          <div className="py-2 text-center bg-[#f7f7f7] fixed bottom-0 left-0 right-0 z-20 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
-            <span className="text-xs text-[#969696]">
-              {notes.length} note{notes.length !== 1 ? 's' : ''}
-            </span>
-          </div>
-        </div>
-
-        {/* Note Detail View */}
-        {selectedNoteContent && (
-          <div className={!selectedNote ? 'hidden' : 'h-full flex flex-col'}>
-            {/* Fixed Header */}
-            <div className="px-8 py-3 flex items-center bg-white z-10 fixed top-0 left-0 right-0 shadow-sm">
-              <button 
-                onClick={() => {
-                  setSelectedNote('');
-                  navigate('/now');
-                }}
-                className="flex items-center gap-2"
-              >
-                <ArrowLeft className="w-5 h-5 text-[#CC9900]" />
-                <span className="text-base font-medium text-[#969696]">Notes</span>
-              </button>
-            </div>
-            
-            {/* Scrollable Content - with padding for header */}
+            {/* Scrollable Notes List - with padding for header and footer */}
             <div 
-              ref={contentViewRef}
-              className="overflow-y-auto bg-white" 
+              ref={notesListRef}
+              className="overflow-y-auto bg-[#f7f7f7]" 
               style={{ 
-                paddingTop: '56px',
-                paddingBottom: '30px',
+                paddingTop: '50px', 
+                paddingBottom: '50px',
                 height: '100vh',
-                WebkitOverflowScrolling: 'touch',
-                overscrollBehavior: 'none'
+                WebkitOverflowScrolling: 'touch'
               }}
             >
-              <div className="w-full px-8 py-6">
-                <div className="mb-6 text-center">
-                  <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
-                    <Calendar size={16} />
-                    {formatDateForContent(selectedNoteContent.date)}
-                  </p>
+              {/* Search Bar - Now regular (not sticky) */}
+              <div className="px-4 py-3 bg-[#f7f7f7]">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4.5 h-4.5 text-[#969696]" />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#e4e4e4]/20 rounded-md text-sm placeholder-[#969696] focus:outline-none focus:ring-1 focus:ring-[#e4e4e4]"
+                  />
                 </div>
-                <div className="text-[#464646]">
-                  <h1 className="text-2xl font-medium mb-6">
-                    {selectedNoteContent.title}
-                  </h1>
-                  <div className="text-base">
-                    <MarkdownContent content={selectedNoteContent.content} />
+              </div>
+              
+              <div className="px-4">
+                {/* Pinned Section */}
+                {pinnedNotes.length > 0 && (
+                  <>
+                    <div className="mt-4">
+                      <h3 className="text-sm font-medium text-[#969696] mb-2">
+                        Pinned
+                      </h3>
+                    </div>
+                    <div>
+                      {pinnedNotes.map((note) => (
+                        <button 
+                          key={note.id}
+                          onClick={() => handleNoteSelect(note.id)}
+                          className="group w-full text-left"
+                        >
+                          <div className={`transition-colors ${
+                            selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                          } py-5 px-4 rounded-md`}>
+                            <div className="flex flex-col min-w-0">
+                              <div className="font-medium text-base text-[#464646] truncate pr-2">
+                                {note.title}
+                              </div>
+                              <div className="flex items-center gap-2 text-sm mt-1 pr-2">
+                                <span className="text-[#464646]">
+                                  {formatDateForPreview(note.date)}
+                                </span>
+                                <span className="text-[#969696] truncate">
+                                  {generatePreview(note.content)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {/* Older Notes Section */}
+                {olderNotes.length > 0 && (
+                  <>
+                    <div className="mt-6">
+                      <h3 className="text-sm font-medium text-[#969696] mb-2">
+                        Older Notes
+                      </h3>
+                    </div>
+                    <div className="mb-6">
+                      {olderNotes.map((note) => (
+                        <button 
+                          key={note.id}
+                          onClick={() => handleNoteSelect(note.id)}
+                          className="group w-full text-left"
+                        >
+                          <div className={`transition-colors ${
+                            selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                          } py-5 px-4 rounded-md`}>
+                            <div className="flex flex-col min-w-0">
+                              <div className="font-medium text-base text-[#464646] truncate pr-2">
+                                {note.title}
+                              </div>
+                              <div className="flex items-center gap-2 text-sm mt-1 pr-2">
+                                <span className="text-[#464646]">
+                                  {formatDateForPreview(note.date)}
+                                </span>
+                                <span className="text-[#969696] truncate">
+                                  {generatePreview(note.content)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Fixed Footer */}
+            <div className="py-2 text-center bg-[#f7f7f7] fixed bottom-0 left-0 right-0 z-20 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+              <span className="text-xs text-[#969696]">
+                {notes.length} note{notes.length !== 1 ? 's' : ''}
+              </span>
+            </div>
+          </div>
+
+          {/* Note Detail View */}
+          {selectedNoteContent && (
+            <div className={!selectedNote ? 'hidden' : 'h-full flex flex-col'}>
+              {/* Fixed Header */}
+              <div className="px-8 py-3 flex items-center bg-white z-10 fixed top-0 left-0 right-0 shadow-sm">
+                <button 
+                  onClick={() => {
+                    setSelectedNote('');
+                    navigate('/now');
+                  }}
+                  className="flex items-center gap-2"
+                >
+                  <ArrowLeft className="w-5 h-5 text-[#CC9900]" />
+                  <span className="text-base font-medium text-[#969696]">Notes</span>
+                </button>
+              </div>
+              
+              {/* Scrollable Content - with padding for header */}
+              <div 
+                ref={contentViewRef}
+                className="overflow-y-auto bg-white" 
+                style={{ 
+                  paddingTop: '56px',
+                  paddingBottom: '30px',
+                  height: '100vh',
+                  WebkitOverflowScrolling: 'touch',
+                  overscrollBehavior: 'none'
+                }}
+              >
+                <div className="w-full px-8 py-6">
+                  <div className="mb-6 text-center">
+                    <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
+                      <Calendar size={16} />
+                      {formatDateForContent(selectedNoteContent.date)}
+                    </p>
+                  </div>
+                  <div className="text-[#464646]">
+                    <h1 className="text-2xl font-medium mb-6">
+                      {selectedNoteContent.title}
+                    </h1>
+                    <div className="text-base">
+                      <MarkdownContent content={selectedNoteContent.content} />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </>
     );
   }
 
   // Desktop layout (unchanged)
   return (
-    <div className="flex flex-row h-screen bg-white">
-      {/* Sidebar */}
-      <div className={`${sidebarClassName} flex flex-col`}>
-        {/* Fixed Header Section */}
-        <div className="sticky top-0 z-20 bg-[#f7f7f7]">
-        {/* Window Controls */}
-        <div className="flex items-center gap-2 p-3">
-          <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
-            <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
-          </button>
-          <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
-            <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
-          </button>
-          <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
-            <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
-          </button>
-          <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
-            <Edit className="w-3.5 h-3.5" />
-          </button>
-        </div>
+    <>
+      {selectedNoteContent && (
+        <Helmet>
+          <title>{selectedNoteContent.title} | Helen Huang</title>
+          <meta name="description" content={seoDescription} />
+          <meta property="og:title" content={`${selectedNoteContent.title} | Helen Huang`} />
+          <meta property="og:description" content={seoDescription} />
+          <meta property="og:url" content={`https://helenhuang.io/${selectedNoteContent.id === 'mar172025' ? 'now' : selectedNoteContent.id}`} />
+          <meta name="twitter:title" content={`${selectedNoteContent.title} | Helen Huang`} />
+          <meta name="twitter:description" content={seoDescription} />
+          <script type="application/ld+json">
+            {JSON.stringify(structuredData)}
+          </script>
+        </Helmet>
+      )}
+      <div className="flex flex-row h-screen bg-white">
+        {/* Sidebar */}
+        <div className={`${sidebarClassName} flex flex-col`}>
+          {/* Fixed Header Section */}
+          <div className="sticky top-0 z-20 bg-[#f7f7f7]">
+          {/* Window Controls */}
+          <div className="flex items-center gap-2 p-3">
+            <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
+              <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
+            </button>
+            <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
+              <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
+            </button>
+            <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
+              <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
+            </button>
+            <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
+              <Edit className="w-3.5 h-3.5" />
+            </button>
+          </div>
 
-        {/* Search Bar */}
-          <div className="px-3 py-2 border-b border-[#e4e4e4]">
-          <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-[#969696]" />
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-1.5 bg-[#e4e4e4]/20 rounded-md text-xs placeholder-[#969696] focus:outline-none focus:ring-1 focus:ring-[#e4e4e4]"
-            />
+          {/* Search Bar */}
+            <div className="px-3 py-2 border-b border-[#e4e4e4]">
+            <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-[#969696]" />
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-1.5 bg-[#e4e4e4]/20 rounded-md text-xs placeholder-[#969696] focus:outline-none focus:ring-1 focus:ring-[#e4e4e4]"
+              />
+              </div>
             </div>
           </div>
+
+          {/* Notes List - Scrollable Area */}
+          <div className="flex-1 overflow-y-auto px-3 pb-10">
+            {/* Pinned Section */}
+            {pinnedNotes.length > 0 && (
+              <>
+            <div className="mt-4">
+              <h3 className="text-xs font-medium text-[#969696] mb-2">
+                Pinned
+              </h3>
+            </div>
+            <div>
+                  {pinnedNotes.map((note) => (
+                <button 
+                  key={note.id}
+                  onClick={() => handleNoteSelect(note.id)}
+                  className="group w-full text-left"
+                >
+                  <div className={`transition-colors ${
+                    selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                  } py-4 px-3 rounded-md`}>
+                    <div className="flex flex-col min-w-0">
+                      <div className="font-medium text-sm text-[#464646] truncate pr-2">
+                        {note.title}
+                      </div>
+                      <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                        <span className="text-[#464646]">
+                              {formatDateForPreview(note.date)}
+                        </span>
+                        <span className="text-[#969696] truncate">
+                              {generatePreview(note.content)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+              </>
+            )}
+
+            {/* Older Notes Section */}
+            {olderNotes.length > 0 && (
+              <>
+            <div className="mt-6">
+              <h3 className="text-xs font-medium text-[#969696] mb-2">
+                Older Notes
+              </h3>
+            </div>
+                <div className="mb-6">
+                  {olderNotes.map((note) => (
+                <button 
+                  key={note.id}
+                  onClick={() => handleNoteSelect(note.id)}
+                  className="group w-full text-left"
+                >
+                  <div className={`transition-colors ${
+                    selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                  } py-4 px-3 rounded-md`}>
+                    <div className="flex flex-col min-w-0">
+                      <div className="font-medium text-sm text-[#464646] truncate pr-2">
+                        {note.title}
+                      </div>
+                      <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                        <span className="text-[#464646]">
+                              {formatDateForPreview(note.date)}
+                        </span>
+                        <span className="text-[#969696] truncate">
+                              {generatePreview(note.content)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Notes List - Scrollable Area */}
-        <div className="flex-1 overflow-y-auto px-3 pb-10">
-          {/* Pinned Section */}
-          {pinnedNotes.length > 0 && (
-            <>
-          <div className="mt-4">
-            <h3 className="text-xs font-medium text-[#969696] mb-2">
-              Pinned
-            </h3>
-          </div>
-          <div>
-                {pinnedNotes.map((note) => (
-              <button 
-                key={note.id}
-                onClick={() => handleNoteSelect(note.id)}
-                className="group w-full text-left"
-              >
-                <div className={`transition-colors ${
-                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                } py-4 px-3 rounded-md`}>
-                  <div className="flex flex-col min-w-0">
-                    <div className="font-medium text-sm text-[#464646] truncate pr-2">
-                      {note.title}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
-                      <span className="text-[#464646]">
-                            {formatDateForPreview(note.date)}
-                      </span>
-                      <span className="text-[#969696] truncate">
-                            {generatePreview(note.content)}
-                      </span>
-                    </div>
-                  </div>
+        {/* Main Content */}
+        <div className={mainContentClassName}>
+          {selectedNoteContent && (
+            <div className="w-full px-8 py-6 overflow-y-auto h-full">
+              <div className="mb-6 text-center">
+              <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
+                  <Calendar size={16} className="w-4 h-4" />
+                  {formatDateForContent(selectedNoteContent.date)}
+              </p>
+            </div>
+              <div className="text-[#464646]">
+                <h1 className="text-xl font-medium mb-6">
+                  {selectedNoteContent.title}
+              </h1>
+                <div className="text-sm">
+                  <MarkdownContent content={selectedNoteContent.content} />
                 </div>
-              </button>
-            ))}
-          </div>
-            </>
-          )}
-
-          {/* Older Notes Section */}
-          {olderNotes.length > 0 && (
-            <>
-          <div className="mt-6">
-            <h3 className="text-xs font-medium text-[#969696] mb-2">
-              Older Notes
-            </h3>
-          </div>
-              <div className="mb-6">
-                {olderNotes.map((note) => (
-              <button 
-                key={note.id}
-                onClick={() => handleNoteSelect(note.id)}
-                className="group w-full text-left"
-              >
-                <div className={`transition-colors ${
-                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                } py-4 px-3 rounded-md`}>
-                  <div className="flex flex-col min-w-0">
-                    <div className="font-medium text-sm text-[#464646] truncate pr-2">
-                      {note.title}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
-                      <span className="text-[#464646]">
-                            {formatDateForPreview(note.date)}
-                      </span>
-                      <span className="text-[#969696] truncate">
-                            {generatePreview(note.content)}
-                      </span>
-                    </div>
-                  </div>
                 </div>
-              </button>
-            ))}
-          </div>
-            </>
+            </div>
           )}
         </div>
       </div>
-
-      {/* Main Content */}
-      <div className={mainContentClassName}>
-        {selectedNoteContent && (
-          <div className="w-full px-8 py-6 overflow-y-auto h-full">
-            <div className="mb-6 text-center">
-            <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
-                <Calendar size={16} className="w-4 h-4" />
-                {formatDateForContent(selectedNoteContent.date)}
-            </p>
-          </div>
-            <div className="text-[#464646]">
-              <h1 className="text-xl font-medium mb-6">
-                {selectedNoteContent.title}
-            </h1>
-              <div className="text-sm">
-                <MarkdownContent content={selectedNoteContent.content} />
-              </div>
-              </div>
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 } 

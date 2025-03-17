@@ -7,6 +7,33 @@ interface MarkdownContentProps {
   content: string;
 }
 
+// Custom optimized image component
+const OptimizedImage = ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  // Extract filename without extension for SEO if no alt text is provided
+  const getDefaultAlt = (src: string = '') => {
+    const filename = src.split('/').pop()?.split('.')[0] || '';
+    return filename
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const imageAlt = alt || getDefaultAlt(src);
+  
+  return (
+    <div className="my-4">
+      <img 
+        className="max-w-full" 
+        style={{ maxWidth: '40%', display: 'block', marginBottom: '4px' }} 
+        src={src}
+        alt={imageAlt}
+        loading="lazy"
+        {...props} 
+      />
+      {imageAlt && <p className="text-xs text-left mt-0 text-gray-500 font-light">{imageAlt}</p>}
+    </div>
+  );
+};
+
 export function MarkdownContent({ content }: MarkdownContentProps) {
   console.log('Markdown content:', content);
   const navigate = useNavigate();
@@ -50,16 +77,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
           ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4" {...props} />,
           ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4" {...props} />,
           li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-          img: ({ node, ...props }) => (
-            <div className="my-4">
-              <img 
-                className="max-w-full" 
-                style={{ maxWidth: '40%', display: 'block', marginBottom: '4px' }} 
-                {...props} 
-              />
-              {props.alt && <p className="text-xs text-left mt-0 text-gray-500 font-light">{props.alt}</p>}
-            </div>
-          ),
+          img: OptimizedImage,
         }}
       >
         {content}
