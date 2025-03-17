@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ContactBar } from './components/ContactBar';
@@ -25,24 +25,49 @@ function HomePage() {
   );
 }
 
-function App() {
+function AppContent() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const location = useLocation();
+
+  // Only show loading screen on initial page load
+  useEffect(() => {
+    if (!isInitialLoad) {
+      setIsLoading(false);
+    }
+  }, [location.pathname, isInitialLoad]);
+
+  // Mark initial load as complete after first render
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 2000); // Match this with your loading screen duration
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
   };
 
   return (
-    <BrowserRouter>
-      {isLoading ? (
-        <LoadingScreen onLoadingComplete={handleLoadingComplete} />
-      ) : (
+    <>
+      {isLoading && isInitialLoad && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
+      <div style={{ opacity: isLoading && isInitialLoad ? 0 : 1, transition: 'opacity 0.5s ease-in-out' }}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Navigate to="/now" replace />} />
           <Route path="/now" element={<NowPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/now/:noteId" element={<NowPage />} />
         </Routes>
-      )}
+      </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
