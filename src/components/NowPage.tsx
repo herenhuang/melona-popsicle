@@ -208,7 +208,7 @@ export function NowPage() {
 
       {/* Main Content */}
       <div className="flex-1 bg-white overflow-y-auto">
-        <div className="max-w-3xl mx-auto px-8 py-8">
+        <div className="w-full px-8 py-8">
           <div className="mb-8 text-center">
             <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
               <Calendar size={14} />
