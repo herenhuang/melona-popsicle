@@ -1,13 +1,16 @@
 export function formatDateForContent(date: string): string {
-  // Create date in Eastern Time
+  // Create date in Eastern Time with time
   const options = {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
     timeZone: 'America/New_York' // Eastern Time
   } as Intl.DateTimeFormatOptions;
   
-  return new Date(date).toLocaleDateString('en-US', options);
+  return new Date(date).toLocaleString('en-US', options);
 }
 
 export function formatDateForPreview(date: string): string {
