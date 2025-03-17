@@ -21,15 +21,16 @@ const OptimizedImage = ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImag
   
   return (
     <div className="my-4">
-      <img 
-        className="max-w-full" 
-        style={{ maxWidth: '40%', display: 'block', marginBottom: '4px' }} 
-        src={src}
-        alt={imageAlt}
-        loading="lazy"
-        {...props} 
-      />
-      {imageAlt && <p className="text-xs text-left mt-0 text-gray-500 font-light">{imageAlt}</p>}
+      <div className="max-w-[80%] md:max-w-[400px] w-full" style={{ minWidth: '240px' }}>
+        <img 
+          className="w-full h-auto object-contain rounded-md shadow-sm" 
+          src={src}
+          alt={imageAlt}
+          loading="lazy"
+          {...props} 
+        />
+        {imageAlt && <p className="text-xs text-left mt-1 text-gray-500 font-light">{imageAlt}</p>}
+      </div>
     </div>
   );
 };
