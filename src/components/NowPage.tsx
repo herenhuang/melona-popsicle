@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { X, Minus, Plus, Search, Edit, Calendar, ArrowLeft } from 'lucide-react';
 import { notes } from '../data/notes';
@@ -14,6 +14,10 @@ export function NowPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedNote, setSelectedNote] = useState(noteId || notes[0].id);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Refs for scrollable containers
+  const notesListRef = useRef<HTMLDivElement>(null);
+  const contentViewRef = useRef<HTMLDivElement>(null);
 
   // Initialize isMobile on mount
   useEffect(() => {
@@ -35,6 +39,20 @@ export function NowPage() {
       setSelectedNote(noteId);
     }
   }, [noteId, isMobile]);
+  
+  // Reset scroll position when switching views
+  useEffect(() => {
+    // Use setTimeout to ensure the DOM has updated before scrolling
+    const timer = setTimeout(() => {
+      if (selectedNote && contentViewRef.current) {
+        contentViewRef.current.scrollTop = 0;
+      } else if (!selectedNote && notesListRef.current) {
+        notesListRef.current.scrollTop = 0;
+      }
+    }, 50);
+    
+    return () => clearTimeout(timer);
+  }, [selectedNote]);
 
   // Calculate sidebar visibility class
   const sidebarClassName = useMemo(() => {
@@ -76,6 +94,15 @@ export function NowPage() {
   const handleNoteSelect = (id: string) => {
     setSelectedNote(id);
     navigate(`/now/${id}`);
+    
+    // Force scroll to top immediately when selecting a note
+    if (contentViewRef.current) {
+      setTimeout(() => {
+        if (contentViewRef.current) {
+          contentViewRef.current.scrollTop = 0;
+        }
+      }, 0);
+    }
   };
 
   // Split notes into pinned and unpinned
@@ -92,8 +119,8 @@ export function NowPage() {
       <div className="h-screen bg-white overflow-hidden">
         {/* Notes List View */}
         <div className={selectedNote ? 'hidden' : 'h-full flex flex-col'}>
-          {/* Fixed Header */}
-          <div className="bg-[#f7f7f7] z-20 fixed top-0 left-0 right-0">
+          {/* Fixed Header - Now without search bar */}
+          <div className="bg-[#f7f7f7] z-20 fixed top-0 left-0 right-0 shadow-sm">
             {/* Window Controls */}
             <div className="flex items-center gap-2 p-3">
               <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
@@ -109,9 +136,21 @@ export function NowPage() {
                 <Edit className="w-4 h-4" />
               </button>
             </div>
+          </div>
 
-            {/* Search Bar */}
-            <div className="px-4 py-3 border-b border-[#e4e4e4]">
+          {/* Scrollable Notes List - with padding for header and footer */}
+          <div 
+            ref={notesListRef}
+            className="overflow-y-auto bg-[#f7f7f7]" 
+            style={{ 
+              paddingTop: '50px', 
+              paddingBottom: '50px',
+              height: '100vh',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            {/* Search Bar - Now regular (not sticky) */}
+            <div className="px-4 py-3 bg-[#f7f7f7]">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4.5 h-4.5 text-[#969696]" />
                 <input
@@ -123,17 +162,7 @@ export function NowPage() {
                 />
               </div>
             </div>
-          </div>
-
-          {/* Scrollable Notes List - with padding for header and footer */}
-          <div 
-            className="overflow-y-auto bg-[#f7f7f7]" 
-            style={{ 
-              paddingTop: '110px', 
-              paddingBottom: '40px',
-              height: '100vh'
-            }}
-          >
+            
             <div className="px-4">
               {/* Pinned Section */}
               {pinnedNotes.length > 0 && (
@@ -214,7 +243,7 @@ export function NowPage() {
           </div>
 
           {/* Fixed Footer */}
-          <div className="py-2 text-center border-t border-[#e4e4e4] bg-[#f7f7f7] fixed bottom-0 left-0 right-0 z-20">
+          <div className="py-2 text-center bg-[#f7f7f7] fixed bottom-0 left-0 right-0 z-20 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
             <span className="text-xs text-[#969696]">
               {notes.length} note{notes.length !== 1 ? 's' : ''}
             </span>
@@ -225,7 +254,7 @@ export function NowPage() {
         {selectedNoteContent && (
           <div className={!selectedNote ? 'hidden' : 'h-full flex flex-col'}>
             {/* Fixed Header */}
-            <div className="px-8 py-3 flex items-center bg-white z-10 border-b border-[#e4e4e4] fixed top-0 left-0 right-0">
+            <div className="px-8 py-3 flex items-center bg-white z-10 fixed top-0 left-0 right-0 shadow-sm">
               <button 
                 onClick={() => {
                   setSelectedNote('');
@@ -240,13 +269,17 @@ export function NowPage() {
             
             {/* Scrollable Content - with padding for header */}
             <div 
+              ref={contentViewRef}
               className="overflow-y-auto bg-white" 
               style={{ 
                 paddingTop: '56px',
-                height: '100vh'
+                paddingBottom: '30px',
+                height: '100vh',
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehavior: 'none'
               }}
             >
-              <div className="w-full px-8 py-6 pb-16">
+              <div className="w-full px-8 py-6">
                 <div className="mb-6 text-center">
                   <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
                     <Calendar size={16} />
