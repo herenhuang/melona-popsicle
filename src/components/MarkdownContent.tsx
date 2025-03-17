@@ -52,8 +52,12 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
           li: ({ node, ...props }) => <li className="mb-1" {...props} />,
           img: ({ node, ...props }) => (
             <div className="my-4">
-              <img className="max-w-full rounded-md" {...props} />
-              {props.alt && <p className="text-sm text-center mt-1 text-gray-600">{props.alt}</p>}
+              <img 
+                className="max-w-full" 
+                style={{ maxWidth: '40%', display: 'block', marginBottom: '4px' }} 
+                {...props} 
+              />
+              {props.alt && <p className="text-xs text-left mt-0 text-gray-500 font-light">{props.alt}</p>}
             </div>
           ),
         }}

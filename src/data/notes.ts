@@ -37,7 +37,7 @@ export const notes: Note[] = [
 
 Main update from last time which really was just about a month ago literally, is that I'm thinking about actually starting the job search with teh goal of moving to NYC. Also been really into looking at ethical breeders for british short hairs...
 
-![Me pondering life decisions](/images/pondering.jpg)
+![Me pondering life decisions and why I'm working on this website so late](/images/pondering.jpg)
 
 *BTW, this is my /now page, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm exactly up to these days. I'm keeping my old /now pages though, check out the other notes below.*
 `,
