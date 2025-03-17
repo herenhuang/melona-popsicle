@@ -218,7 +218,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
           {/* Fixed Header - With window controls - Always persistent */}
           <div className="bg-[#f7f7f7] z-20 fixed top-0 left-0 right-0 shadow-sm">
             {/* Window Controls */}
-            <div className="flex items-center gap-2 p-3">
+            <div className="flex items-center gap-2 py-3 px-2 h-[46px]">
               <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
                 <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
               </button>
@@ -238,7 +238,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
           <div 
             ref={notesListRef}
             className="absolute inset-0 overflow-y-auto" 
-            style={{ paddingTop: "48px" }}
+            style={{ paddingTop: "46px" }}
           >
             {/* Search Bar - Not part of persistent header, with distinct styling - Removed border */}
             <div className="px-4 py-3 bg-white">
@@ -338,7 +338,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
         {selectedNoteContent && (
           <div className={!selectedNote ? 'hidden' : 'h-screen bg-white'}>
             {/* Fixed Header */}
-            <div className="px-8 py-3 flex items-center bg-white z-10 fixed top-0 left-0 right-0 shadow-sm">
+            <div className="px-4 py-3 flex items-center bg-white z-10 fixed top-0 left-0 right-0 shadow-sm h-[46px]">
               <button 
                 onClick={() => {
                   setSelectedNote('');
@@ -347,7 +347,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
                 className="flex items-center gap-2"
               >
                 <ArrowLeft className="w-5 h-5 text-[#CC9900]" />
-                <span className="text-base font-medium text-[#969696]">Notes</span>
+                <span className="text-lg font-medium text-[#969696]">Notes</span>
               </button>
             </div>
             
@@ -355,7 +355,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
             <div 
               ref={contentViewRef}
               className="absolute inset-0 overflow-y-auto"
-              style={{ paddingTop: "48px" }}
+              style={{ paddingTop: "46px" }}
               onLoad={() => {
                 // Reset scroll position when content loads
                 if (contentViewRef.current) {
@@ -371,7 +371,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
                   </p>
                 </div>
                 <div className="text-[#464646]">
-                  <h1 className="text-2xl font-medium mb-6">
+                  <h1 className="text-xl font-medium mb-6">
                     {selectedNoteContent.title}
                   </h1>
                   <div className="text-base">
@@ -409,7 +409,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
           {/* Fixed Header Section */}
           <div className="sticky top-0 z-20 bg-[#f7f7f7]">
           {/* Window Controls */}
-          <div className="flex items-center gap-2 p-3">
+          <div className="flex items-center gap-2 py-3 px-2 h-[46px]">
             <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
               <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
             </button>
