@@ -23,7 +23,7 @@ export function formatDateForContent(date: string): string {
   const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
   
   // Return formatted date string
-  return `${monthNames[month]} ${day}, ${year}, ${hour12}:${minutesFormatted} ${ampm}`;
+  return `${monthNames[month]} ${day}, ${year} at ${hour12}:${minutesFormatted} ${ampm}`;
 }
 
 export function formatDateForPreview(date: string): string {
