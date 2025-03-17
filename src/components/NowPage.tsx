@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { X, Minus, Plus, Search, Edit, Bookmark, Calendar, ArrowLeft } from 'lucide-react';
-import { nowUpdates } from '../data/now-updates';
+import { X, Minus, Plus, Search, Edit, Calendar, ArrowLeft } from 'lucide-react';
+import { notes } from '../data/notes';
+import { MarkdownContent } from './MarkdownContent';
+import { formatDateForContent, formatDateForPreview, generatePreview } from '../utils/dateFormatters';
 
 export function NowPage() {
   const navigate = useNavigate();
   const { noteId } = useParams();
-  const [selectedNote, setSelectedNote] = useState(noteId || nowUpdates[0].id);
+  const [selectedNote, setSelectedNote] = useState(noteId || notes[0].id);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -25,92 +27,47 @@ export function NowPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const selectedNoteContent = nowUpdates.find(note => note.id === selectedNote);
+  const selectedNoteContent = notes.find(note => note.id === selectedNote);
+
+  // Sort notes: pinned first (by pinnedOrder), then unpinned by date
+  const sortedNotes = useMemo(() => {
+    return [...notes].sort((a, b) => {
+      if (a.isPinned && b.isPinned) {
+        return (a.pinnedOrder || 0) - (b.pinnedOrder || 0);
+      }
+      if (a.isPinned) return -1;
+      if (b.isPinned) return 1;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+  }, [notes]);
 
   // Filter notes based on search query
   const filteredNotes = useMemo(() => {
     const query = searchQuery.toLowerCase();
-    return nowUpdates.filter(note => {
-      // Search in title, preview, and formatted date
-      if (
+    return sortedNotes.filter(note => {
+      return (
         note.title.toLowerCase().includes(query) ||
-        note.preview.toLowerCase().includes(query) ||
-        note.formattedDate.toLowerCase().includes(query)
-      ) {
-        return true;
-      }
-
-      // Search in content blocks
-      return note.content.blocks.some(block => {
-        if (block.type === 'paragraph') {
-          // Search in paragraph content
-          return block.content.some(paragraph => 
-            paragraph.toLowerCase().includes(query)
-          );
-        }
-        if (block.type === 'header') {
-          // Search in header title and content
-          return (
-            (block.title && block.title.toLowerCase().includes(query)) ||
-            block.content.some(item => 
-              item.toLowerCase().includes(query)
-            )
-          );
-        }
-        if (block.type === 'bullets') {
-          // Search in bullet points
-          return block.content.some(item => 
-            item.toLowerCase().includes(query)
-          );
-        }
-        return false;
-      });
+        note.content.toLowerCase().includes(query)
+      );
     });
-  }, [searchQuery]);
+  }, [sortedNotes, searchQuery]);
 
   const handleNoteSelect = (id: string) => {
     setSelectedNote(id);
-    navigate(id === '2025-02-18' ? '/now' : `/now/${id}`);
+    navigate(`/now/${id}`);
   };
 
-  const renderTextWithLinks = (text: string) => {
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-    const parts = [];
-    let lastIndex = 0;
-    let match;
-
-    while ((match = linkRegex.exec(text)) !== null) {
-      if (match.index > lastIndex) {
-        parts.push(text.slice(lastIndex, match.index));
-      }
-      parts.push(
-        <a 
-          key={match.index} 
-          href={match[2]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#CC9900] underline underline-offset-2 hover:opacity-80"
-        >
-          {match[1]}
-        </a>
-      );
-      lastIndex = match.index + match[0].length;
-    }
-    if (lastIndex < text.length) {
-      parts.push(text.slice(lastIndex));
-    }
-    return parts;
-  };
-
-  const truncateText = (text: string, limit: number) => {
-    if (!text) return '';
-    if (text.length <= limit) return text;
-    return text.slice(0, limit).trim() + '...';
-  };
+  // Split notes into pinned and unpinned
+  const { pinnedNotes, olderNotes } = useMemo(() => {
+    return {
+      pinnedNotes: filteredNotes.filter(note => note.isPinned),
+      olderNotes: filteredNotes.filter(note => !note.isPinned)
+    };
+  }, [filteredNotes]);
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-white">
-      {/* Sidebar - full width on mobile, normal width on desktop */}
+      {/* Sidebar */}
       <div className={`w-full md:w-[320px] border-r border-[#e4e4e4] flex flex-col bg-[#f7f7f7] overflow-hidden ${
         selectedNote && isMobile ? 'hidden' : ''
       }`}>
@@ -147,78 +104,84 @@ export function NowPage() {
         {/* Notes List */}
         <div className="flex-1 overflow-y-auto px-3">
           {/* Pinned Section */}
-          <div className="mt-4">
-            <h3 className="text-xs font-medium text-[#969696] mb-2">
-              Pinned
-            </h3>
-          </div>
-
-          {/* Pinned Notes List */}
-          <div>
-            {filteredNotes.slice(0, 1).map((note) => (
-              <button 
-                key={note.id}
-                onClick={() => handleNoteSelect(note.id)}
-                className="group w-full text-left"
-              >
-                <div className={`transition-colors ${
-                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                } py-4 px-3 rounded-md`}>
-                  <div className="flex flex-col min-w-0">
-                    <div className="font-medium text-sm text-[#464646] truncate pr-2">
-                      {note.title}
+          {pinnedNotes.length > 0 && (
+            <>
+              <div className="mt-4">
+                <h3 className="text-xs font-medium text-[#969696] mb-2">
+                  Pinned
+                </h3>
+              </div>
+              <div>
+                {pinnedNotes.map((note) => (
+                  <button 
+                    key={note.id}
+                    onClick={() => handleNoteSelect(note.id)}
+                    className="group w-full text-left"
+                  >
+                    <div className={`transition-colors ${
+                      selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                    } py-4 px-3 rounded-md`}>
+                      <div className="flex flex-col min-w-0">
+                        <div className="font-medium text-sm text-[#464646] truncate pr-2">
+                          {note.title}
+                        </div>
+                        <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                          <span className="text-[#464646]">
+                            {formatDateForPreview(note.date)}
+                          </span>
+                          <span className="text-[#969696] truncate">
+                            {generatePreview(note.content)}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
-                      <span className="text-[#464646]">
-                        {new Date(note.date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}
-                      </span>
-                      <span className="text-[#969696] truncate">
-                        {note.preview}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
 
           {/* Older Notes Section */}
-          <div className="mt-6">
-            <h3 className="text-xs font-medium text-[#969696] mb-2">
-              Older Notes
-            </h3>
-          </div>
-          <div>
-            {filteredNotes.slice(1).map((note) => (
-              <button 
-                key={note.id}
-                onClick={() => handleNoteSelect(note.id)}
-                className="group w-full text-left"
-              >
-                <div className={`transition-colors ${
-                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                } py-4 px-3 rounded-md`}>
-                  <div className="flex flex-col min-w-0">
-                    <div className="font-medium text-sm text-[#464646] truncate pr-2">
-                      {note.title}
+          {olderNotes.length > 0 && (
+            <>
+              <div className="mt-6">
+                <h3 className="text-xs font-medium text-[#969696] mb-2">
+                  Older Notes
+                </h3>
+              </div>
+              <div>
+                {olderNotes.map((note) => (
+                  <button 
+                    key={note.id}
+                    onClick={() => handleNoteSelect(note.id)}
+                    className="group w-full text-left"
+                  >
+                    <div className={`transition-colors ${
+                      selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                    } py-4 px-3 rounded-md`}>
+                      <div className="flex flex-col min-w-0">
+                        <div className="font-medium text-sm text-[#464646] truncate pr-2">
+                          {note.title}
+                        </div>
+                        <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                          <span className="text-[#464646]">
+                            {formatDateForPreview(note.date)}
+                          </span>
+                          <span className="text-[#969696] truncate">
+                            {generatePreview(note.content)}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
-                      <span className="text-[#464646]">
-                        {new Date(note.date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}
-                      </span>
-                      <span className="text-[#969696] truncate">
-                        {note.preview}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Main Content - full width on mobile, flex-1 on desktop */}
+      {/* Main Content */}
       <div className={`flex-1 bg-white overflow-y-auto ${
         !selectedNote && isMobile ? 'hidden' : ''
       }`}>
@@ -235,81 +198,22 @@ export function NowPage() {
           </div>
         )}
         
-        <div className="w-full px-8 py-8">
-          <div className="mb-8 text-center">
-            <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
-              <Calendar size={14} />
-              {selectedNoteContent?.formattedDate}
-            </p>
+        {selectedNoteContent && (
+          <div className="w-full px-8 py-8">
+            <div className="mb-8 text-center">
+              <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
+                <Calendar size={14} />
+                {formatDateForContent(selectedNoteContent.date)}
+              </p>
+            </div>
+            <div className="text-[#464646] text-sm">
+              <h1 className="text-2xl font-medium mb-6">
+                {selectedNoteContent.title}
+              </h1>
+              <MarkdownContent content={selectedNoteContent.content} />
+            </div>
           </div>
-          <div className="text-[#464646] text-sm">
-            <h1 className="text-2xl font-medium mb-6">
-              {selectedNoteContent?.title}
-              {selectedNoteContent?.id === 'nownownow' && (
-                <span className="text-sm font-normal ml-2">
-                  (<a 
-                    href="https://nownownow.com/about" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:underline"
-                  >
-                    learn more about /now pages
-                  </a>)
-                </span>
-              )}
-            </h1>
-            
-            {/* Content Blocks */}
-            {selectedNoteContent?.content.blocks.map((block, index) => (
-              <div key={index} className="mb-6">
-                {block.type === 'header' && block.title && (
-                  <>
-                    <h2 className="text-xl font-medium mb-4">{block.title}</h2>
-                    <ul className="list-disc pl-5 space-y-2">
-                      {block.content.map((item, bIndex) => (
-                        <li key={bIndex}>{renderTextWithLinks(item)}</li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                {block.type === 'paragraph' && (
-                  <div className="space-y-4">
-                    {block.content.map((paragraph, pIndex) => (
-                      <p key={pIndex} className="leading-relaxed">{renderTextWithLinks(paragraph)}</p>
-                    ))}
-                  </div>
-                )}
-                {block.type === 'bullets' && (
-                  <ul className="list-disc pl-5 space-y-2">
-                    {block.content.map((item, bIndex) => (
-                      <li key={bIndex}>{renderTextWithLinks(item)}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-
-            {/* Images */}
-            {selectedNoteContent?.content.images && selectedNoteContent.content.images.length > 0 && (
-              <div className="space-y-6 mt-8">
-                {selectedNoteContent.content.images.map((image, index) => (
-                  <figure key={index} className="rounded-lg overflow-hidden">
-                    <img 
-                      src={image.src} 
-                      alt={image.alt}
-                      className="w-full h-auto"
-                    />
-                    {image.caption && (
-                      <figcaption className="text-sm text-[#969696] mt-2">
-                        {image.caption}
-                      </figcaption>
-                    )}
-                  </figure>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
