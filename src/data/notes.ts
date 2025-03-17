@@ -17,14 +17,14 @@ export function generatePreview(content: string): string {
   const cleanContent = trimmedContent
     .replace(/^#.*$/gm, '') // Remove headers
     .replace(/^[-*+]\s+/gm, '') // Remove list markers but keep the text
-    .replace(/\n{2,}/g, '\n') // Replace multiple newlines with single newline
+    .replace(/\n{2,}/g, ' ') // Replace multiple newlines with space
+    .replace(/\n/g, ' ')    // Replace all remaining newlines with spaces
     .trim();
 
-  // Get first non-empty line or paragraph
-  const lines = cleanContent.split('\n');
-  const firstNonEmptyLine = lines.find(line => line.trim().length > 0);
-  
-  return firstNonEmptyLine || '';
+  // Get the first 100 characters for preview
+  return cleanContent.length > 100 
+    ? cleanContent.substring(0, 100) + '...'
+    : cleanContent;
 }
 
 export const notes: Note[] = [

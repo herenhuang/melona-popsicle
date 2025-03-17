@@ -54,10 +54,10 @@ export function NowPage({ defaultNote }: NowPageProps) {
   useEffect(() => {
     // Use setTimeout to ensure the DOM has updated before scrolling
     const timer = setTimeout(() => {
-      if (selectedNote && contentViewRef.current) {
-        contentViewRef.current.scrollTop = 0;
-      } else if (!selectedNote && notesListRef.current) {
-        notesListRef.current.scrollTop = 0;
+      if (selectedNote) {
+        window.scrollTo(0, 0);
+      } else {
+        window.scrollTo(0, 0);
       }
     }, 50);
     
@@ -112,13 +112,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
     }
     
     // Force scroll to top immediately when selecting a note
-    if (contentViewRef.current) {
-      setTimeout(() => {
-        if (contentViewRef.current) {
-          contentViewRef.current.scrollTop = 0;
-        }
-      }, 0);
-    }
+    window.scrollTo(0, 0);
   };
 
   // Split notes into pinned and unpinned
@@ -189,11 +183,11 @@ export function NowPage({ defaultNote }: NowPageProps) {
             </script>
           </Helmet>
         )}
-        <div className="h-screen bg-white overflow-hidden">
+        <div className="h-screen bg-white">
           {/* Notes List View */}
-          <div className={selectedNote ? 'hidden' : 'h-full flex flex-col'}>
+          <div className={selectedNote ? 'hidden' : 'min-h-screen pb-20 overflow-auto'}>
             {/* Fixed Header - Now without search bar */}
-            <div className="bg-[#f7f7f7] z-20 fixed top-0 left-0 right-0 shadow-sm">
+            <div className="bg-[#f7f7f7] z-20 sticky top-0 left-0 right-0 shadow-sm">
               {/* Window Controls */}
               <div className="flex items-center gap-2 p-3">
                 <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
@@ -211,17 +205,8 @@ export function NowPage({ defaultNote }: NowPageProps) {
               </div>
             </div>
 
-            {/* Scrollable Notes List - with padding for header and footer */}
-            <div 
-              ref={notesListRef}
-              className="overflow-y-auto bg-[#f7f7f7]" 
-              style={{ 
-                paddingTop: '50px', 
-                paddingBottom: '50px',
-                height: '100vh',
-                WebkitOverflowScrolling: 'touch'
-              }}
-            >
+            {/* Notes List Content */}
+            <div>
               {/* Search Bar - Now regular (not sticky) */}
               <div className="px-4 py-3 bg-[#f7f7f7]">
                 <div className="relative">
@@ -316,7 +301,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
             </div>
 
             {/* Fixed Footer */}
-            <div className="py-2 text-center bg-[#f7f7f7] fixed bottom-0 left-0 right-0 z-20 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+            <div className="py-2 text-center bg-[#f7f7f7] sticky bottom-0 left-0 right-0 z-20 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
               <span className="text-xs text-[#969696]">
                 {notes.length} note{notes.length !== 1 ? 's' : ''}
               </span>
@@ -325,9 +310,9 @@ export function NowPage({ defaultNote }: NowPageProps) {
 
           {/* Note Detail View */}
           {selectedNoteContent && (
-            <div className={!selectedNote ? 'hidden' : 'h-full flex flex-col'}>
+            <div className={!selectedNote ? 'hidden' : 'min-h-screen pb-20 overflow-auto'}>
               {/* Fixed Header */}
-              <div className="px-8 py-3 flex items-center bg-white z-10 fixed top-0 left-0 right-0 shadow-sm">
+              <div className="px-8 py-3 flex items-center bg-white z-10 sticky top-0 left-0 right-0 shadow-sm">
                 <button 
                   onClick={() => {
                     setSelectedNote('');
@@ -340,17 +325,10 @@ export function NowPage({ defaultNote }: NowPageProps) {
                 </button>
               </div>
               
-              {/* Scrollable Content - with padding for header */}
+              {/* Content */}
               <div 
                 ref={contentViewRef}
-                className="overflow-y-auto bg-white" 
-                style={{ 
-                  paddingTop: '56px',
-                  paddingBottom: '30px',
-                  height: '100vh',
-                  WebkitOverflowScrolling: 'touch',
-                  overscrollBehavior: 'none'
-                }}
+                className="pt-4 pb-16"
               >
                 <div className="w-full px-8 py-6">
                   <div className="mb-6 text-center">
