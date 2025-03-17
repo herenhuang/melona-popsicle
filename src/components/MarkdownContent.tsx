@@ -55,7 +55,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
                     e.preventDefault();
                     navigate(href);
                   }}
-                  className="text-[#CC9900] hover:underline cursor-pointer"
+                  className="text-[#CC9900] underline cursor-pointer"
                 />
               );
             }
@@ -66,7 +66,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
                 {...props}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#CC9900] hover:underline"
+                className="text-[#CC9900] underline"
               />
             );
           },
