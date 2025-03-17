@@ -1,20 +1,25 @@
 export function formatDateForContent(date: string): string {
-  return new Date(date).toLocaleString('en-US', {
+  // Create date in Eastern Time
+  const options = {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  });
+    timeZone: 'America/New_York' // Eastern Time
+  } as Intl.DateTimeFormatOptions;
+  
+  return new Date(date).toLocaleDateString('en-US', options);
 }
 
 export function formatDateForPreview(date: string): string {
-  return new Date(date).toLocaleDateString('en-US', {
+  // Create date in Eastern Time
+  const options = {
     month: '2-digit',
     day: '2-digit',
-    year: 'numeric'
-  });
+    year: 'numeric',
+    timeZone: 'America/New_York' // Eastern Time
+  } as Intl.DateTimeFormatOptions;
+  
+  return new Date(date).toLocaleDateString('en-US', options);
 }
 
 export function generatePreview(content: string): string {

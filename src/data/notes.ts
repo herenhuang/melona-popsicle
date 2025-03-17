@@ -32,7 +32,7 @@ export const notes: Note[] = [
   {
     id: 'mar172025',
     title: '🌱 now',
-    date: '2025-03-17T00:25:00Z',
+    date: '2025-03-17T05:25:00Z',
     content: `Spent way too long trying to do-redo-erase-revert-build this website... it's pretty late now LOL.
 
 Main update from last time which really was just about a month ago literally, is that I'm thinking about actually starting the job search with teh goal of moving to NYC. Also been really into looking at ethical breeders for british short hairs...`,
@@ -42,7 +42,7 @@ Main update from last time which really was just about a month ago literally, is
   {
     id: 'about_me',
     title: '🤠 about me',
-    date: '2025-03-17T00:25:00Z',
+    date: '2025-03-17T05:25:00Z',
     content: `howdy, I'm Helen Huang.
 
 # currently
@@ -64,7 +64,7 @@ check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
   {
     id: 'links',
     title: '🔗 links',
-    date: '2025-03-17T01:24:00Z',
+    date: '2025-03-17T06:24:00Z',
     content: `feel free to reach out! if i don't respond right away, definitely follow up again - it's me, not you. :(
 - email: [chat@heyohelen.io](mailto:chat@heyohelen.io)
 - linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
@@ -76,7 +76,7 @@ check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
   {
     id: 'projects',
     title: '📙 projects',
-    date: '2025-03-17T00:25:00Z',
+    date: '2025-03-17T05:25:00Z',
     content: `i love building things (even if they're not perfect). ill upload pics soon. :) 
 
 - baggy: a trash bag fashion show (pics coming)
@@ -90,7 +90,7 @@ check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
   {
     id: 'recognition',
     title: '🎖️ recognition and stuff',
-    date: '2025-03-17T01:24:00Z',
+    date: '2025-03-17T06:24:00Z',
     content: `some stuff i've been recognized for recently ~ ill connect the links soon. 
 
 - dmz women of the year: recognized for contributions to tech education
@@ -105,7 +105,7 @@ check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
   {
     id: 'reminders',
     title: '🌸 reminders',
-    date: '2025-03-17T01:24:00Z',
+    date: '2025-03-17T06:24:00Z',
     content: `
 - Happiness is when what you think, what you say, and what you do are in harmony.
 - What if the sky isn't the limit?
@@ -119,7 +119,7 @@ check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
   {
     id: 'feb182025',
     title: '❄️ feb update',
-    date: '2025-02-18T15:14:00Z',
+    date: '2025-02-18T20:14:00Z',
     content: `After a pretty rough last half year, I've been feeling my energy and enthusiasm coming back recently! So I've been spending these past few weeks finally completing some of my personal projects.
 
 Currently still residing in Toronto, though the plan is to move to NYC by the middle of the year. And maybe get a cute little british shorthair (or two!).
@@ -136,7 +136,7 @@ For now though... I'm going to continue focusing on my nearterm goals below and 
   {
     id: 'whatdis',
     title: '🐓 what is this?',
-    date: '2025-02-16T21:01:00Z',
+    date: '2025-02-17T02:01:00Z',
     content: `This is just one part of my personal website. But why are there so many different pieces and contrasting styles? Well, if you know me at all, you'll know I love variety and anything whimsical. So now you're forced to join me.
 
 These pages you're currently reading, these are mainly my /now pages, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm up to these days, while keeping historical context on /nows past.
@@ -149,7 +149,7 @@ All the code here was written by AI (blend of o1, claude, cursor, v0)! Wild righ
   {
     id: 'bingo',
     title: '📇 bingo card',
-    date: '2025-03-17T02:51:00Z',
+    date: '2025-03-17T07:51:00Z',
     content: `In January, I led a workshop where we made bingo cards (rather than your usual new years resolutions). This is what's on mine, it represents all the things I want to complete (or at least get started on) in in this first half of 2025.
 
 # Not Yet Started
