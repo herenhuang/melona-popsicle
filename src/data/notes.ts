@@ -31,16 +31,21 @@ export const notes: Note[] = [
   // Pinned notes (in order of pinnedOrder)
   {
     id: 'mar172025',
-    title: '🌱 now',
+    title: '🌱 now (read me!)',
     date: '2025-03-17T05:25:00Z',
     content: `Spent way too long trying to do-redo-erase-revert-build this website... it's pretty late now LOL.
 
-Main update from last time which really was just about a month ago literally, is that I'm thinking about actually starting the job search with teh goal of moving to NYC. Also been really into looking at ethical breeders for british short hairs...`,
+Main update from last time which really was just about a month ago literally, is that I'm thinking about actually starting the job search with teh goal of moving to NYC. Also been really into looking at ethical breeders for british short hairs...
+
+![Me pondering life decisions](/images/pondering.jpg)
+
+*BTW, this is my /now page, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm exactly up to these days. I'm keeping my old /now pages though, check out the other notes below.*
+`,
     isPinned: true,
-    pinnedOrder: 1
+    pinnedOrder: 2
   },
   {
-    id: 'about_me',
+    id: 'about',
     title: '🤠 about me',
     date: '2025-03-17T05:25:00Z',
     content: `howdy, I'm Helen Huang.
@@ -59,7 +64,7 @@ Main update from last time which really was just about a month ago literally, is
 
 check out my [projects](/now/projects) for more info ~ `,
     isPinned: true,
-    pinnedOrder: 2
+    pinnedOrder: 1
   },
   {
     id: 'links',
@@ -137,13 +142,11 @@ For now though... I'm going to continue focusing on my nearterm goals below and 
     id: 'whatdis',
     title: '🐓 what is this?',
     date: '2025-02-17T02:01:00Z',
-    content: `This is just one part of my personal website. But why are there so many different pieces and contrasting styles? Well, if you know me at all, you'll know I love variety and anything whimsical. So now you're forced to join me.
+    content: `This is the current version of my personal website. It's a work in progress, but I'm slowly adding more and changing things up.
 
-These pages you're currently reading, these are mainly my /now pages, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm up to these days, while keeping historical context on /nows past.
+The current UI is heavily inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website which I found super cool.
 
-The UI is heavily inspired by [Alana Goyal's](https://www.alanagoyal.com/notes/about-me) personal website which I found super cool.
-
-All the code here was written by AI (blend of o1, claude, cursor, v0)! Wild right?`,
+All the code here was written with the help of AI (I don't code). I used a blend of cursor (with the help of MCPs), Cursor Code (for any times when I really struggled), Claude/o1 to do back and forth prompting review)! Wild right?`,
     isPinned: false
   },
   {
