@@ -78,7 +78,7 @@ check out my [projects](/projects) for more info ~ `,
     id: 'links',
     title: '🔗 links',
     date: '2025-03-17T00:24:00Z',
-    content: `feel free to reach out! if i don't respond right away, definitely follow up again - it's me, not you. :(
+    content: `feel free to reach out! if you don't hear back quickly, definitely follow up again - it's me, not you. i tend to take long breaks from social media.
 - email: [chat@helenhuang.com](mailto:chat@helenhuang.com)
 - linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
 - twitter: [x.com/heyohelen](https://x.com/heyohelen)
