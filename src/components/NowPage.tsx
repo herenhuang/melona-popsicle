@@ -73,18 +73,18 @@ export function NowPage() {
         selectedNote && isMobile ? 'hidden' : ''
       }`}>
         {/* Window Controls */}
-        <div className="flex items-center gap-2 p-4 md:p-3">
-          <button className="w-4 h-4 md:w-3 md:h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
-            <X className="w-3 h-3 md:w-2 md:h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
+        <div className="flex items-center gap-2 p-3 md:p-3">
+          <button className="w-3 h-3 md:w-3 md:h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
+            <X className="w-2 h-2 md:w-2 md:h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
           </button>
-          <button className="w-4 h-4 md:w-3 md:h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
-            <Minus className="w-3 h-3 md:w-2 md:h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
+          <button className="w-3 h-3 md:w-3 md:h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
+            <Minus className="w-2 h-2 md:w-2 md:h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
           </button>
-          <button className="w-4 h-4 md:w-3 md:h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
-            <Plus className="w-3 h-3 md:w-2 md:h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
+          <button className="w-3 h-3 md:w-3 md:h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
+            <Plus className="w-2 h-2 md:w-2 md:h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
           </button>
           <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
-            <Edit className="w-4.5 h-4.5 md:w-3.5 md:h-3.5" />
+            <Edit className="w-4 h-4 md:w-3.5 md:h-3.5" />
           </button>
         </div>
 
