@@ -3,7 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { X, Minus, Plus, Search, Edit, Calendar, ArrowLeft } from 'lucide-react';
 import { notes } from '../data/notes';
 import { MarkdownContent } from './MarkdownContent';
-import { formatDateForContent, formatDateForPreview, generatePreview } from '../utils/dateFormatters';
+import { formatDateForContent, formatDateForPreview } from '../utils/dateFormatters';
+import { generatePreview } from '../data/notes';
 
 export function NowPage() {
   const navigate = useNavigate();

@@ -7,6 +7,26 @@ export interface Note {
   pinnedOrder?: number; // 1 = top, only for pinned notes
 }
 
+export function generatePreview(content: string): string {
+  if (!content) return '';
+  
+  // Remove empty lines at start and end
+  const trimmedContent = content.trim();
+  
+  // Remove markdown headers, list markers, and multiple newlines
+  const cleanContent = trimmedContent
+    .replace(/^#.*$/gm, '') // Remove headers
+    .replace(/^[-*+]\s+/gm, '') // Remove list markers but keep the text
+    .replace(/\n{2,}/g, '\n') // Replace multiple newlines with single newline
+    .trim();
+
+  // Get first non-empty line or paragraph
+  const lines = cleanContent.split('\n');
+  const firstNonEmptyLine = lines.find(line => line.trim().length > 0);
+  
+  return firstNonEmptyLine || '';
+}
+
 export const notes: Note[] = [
   {
     id: 'mar172025',
