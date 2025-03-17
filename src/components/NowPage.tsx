@@ -135,23 +135,23 @@ export function NowPage() {
         {/* Notes List */}
         <div className="flex-1 overflow-y-auto px-3">
           {/* Pinned Section */}
-          <div className="mt-4 pr-2">
+          <div className="mt-4">
             <h3 className="text-xs font-medium text-[#969696] mb-2">
               Pinned
             </h3>
           </div>
 
           {/* Pinned Notes List */}
-          <div className="-mx-3">
+          <div>
             {filteredNotes.slice(0, 1).map((note) => (
               <button 
                 key={note.id}
                 onClick={() => handleNoteSelect(note.id)}
-                className={`group w-full text-left transition-colors ${
-                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                }`}
+                className="group w-full text-left"
               >
-                <div className="py-4 px-3 mx-1.5 rounded-md">
+                <div className={`transition-colors ${
+                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                } py-4 px-3 rounded-md`}>
                   <div className="flex flex-col min-w-0">
                     <div className="font-medium text-sm text-[#464646] truncate pr-2">
                       {note.title}
@@ -166,21 +166,21 @@ export function NowPage() {
           </div>
 
           {/* Older Notes Section */}
-          <div className="mt-6 pr-2">
+          <div className="mt-6">
             <h3 className="text-xs font-medium text-[#969696] mb-2">
               Older Notes
             </h3>
           </div>
-          <div className="-mx-3">
+          <div>
             {filteredNotes.slice(1).map((note) => (
               <button 
                 key={note.id}
                 onClick={() => handleNoteSelect(note.id)}
-                className={`group w-full text-left transition-colors ${
-                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                }`}
+                className="group w-full text-left"
               >
-                <div className="py-4 px-3 mx-1.5 rounded-md">
+                <div className={`transition-colors ${
+                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                } py-4 px-3 rounded-md`}>
                   <div className="flex flex-col min-w-0">
                     <div className="font-medium text-sm text-[#464646] truncate pr-2">
                       {note.title}
