@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { ContactBar } from './components/ContactBar';
@@ -7,6 +7,7 @@ import { GardenDemo } from './components/GardenDemo';
 import { ChatBox } from './components/ChatBox';
 import { NowPage } from './components/NowPage';
 import { Experience } from './components/Experience';
+import { LoadingScreen } from './components/LoadingScreen';
 import './styles/grid.css';
 
 function HomePage() {
@@ -25,13 +26,23 @@ function HomePage() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/now" element={<NowPage />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      {isLoading ? (
+        <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+      ) : (
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/now" element={<NowPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      )}
     </BrowserRouter>
   );
 }
