@@ -9,17 +9,16 @@ import { generatePreview } from '../data/notes';
 export function NowPage() {
   const navigate = useNavigate();
   const { noteId } = useParams();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [selectedNote, setSelectedNote] = useState(isMobile ? '' : (noteId || notes[0].id));
+  
+  // Initialize with false and update in useEffect to avoid SSR issues
+  const [isMobile, setIsMobile] = useState(false);
+  const [selectedNote, setSelectedNote] = useState(noteId || notes[0].id);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Initialize isMobile on mount
   useEffect(() => {
-    if (noteId && !isMobile) {
-      setSelectedNote(noteId);
-    }
-  }, [noteId, isMobile]);
-
-  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -27,6 +26,27 @@ export function NowPage() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Update selectedNote when noteId changes or mobile status changes
+  useEffect(() => {
+    if (isMobile && !noteId) {
+      setSelectedNote('');
+    } else if (noteId) {
+      setSelectedNote(noteId);
+    }
+  }, [noteId, isMobile]);
+
+  // Calculate sidebar visibility class
+  const sidebarClassName = useMemo(() => {
+    const baseClass = "w-full md:w-[320px] border-r border-[#e4e4e4] flex flex-col bg-[#f7f7f7] relative";
+    return `${baseClass} ${selectedNote && isMobile ? 'hidden' : ''}`;
+  }, [selectedNote, isMobile]);
+
+  // Calculate main content visibility class
+  const mainContentClassName = useMemo(() => {
+    const baseClass = "flex-1 bg-white overflow-y-auto";
+    return `${baseClass} ${!selectedNote && isMobile ? 'hidden' : ''}`;
+  }, [selectedNote, isMobile]);
 
   const selectedNoteContent = notes.find(note => note.id === selectedNote);
 
@@ -69,9 +89,7 @@ export function NowPage() {
   return (
     <div className="flex flex-col md:flex-row h-screen bg-white">
       {/* Sidebar */}
-      <div className={`w-full md:w-[320px] border-r border-[#e4e4e4] flex flex-col bg-[#f7f7f7] relative ${
-        selectedNote && isMobile ? 'hidden' : ''
-      }`}>
+      <div className={sidebarClassName}>
         {/* Fixed Header Section */}
         <div className="sticky top-0 z-10 bg-[#f7f7f7]">
           {/* Window Controls */}
@@ -195,9 +213,7 @@ export function NowPage() {
       </div>
 
       {/* Main Content */}
-      <div className={`flex-1 bg-white overflow-y-auto ${
-        !selectedNote && isMobile ? 'hidden' : ''
-      }`}>
+      <div className={mainContentClassName}>
         {/* Mobile back button */}
         {isMobile && (
           <div className="px-8 py-3 flex items-center">

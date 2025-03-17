@@ -57,7 +57,7 @@ Main update from last time which really was just about a month ago literally, is
 # education
 - b.sc in science and business (earth sci specialization) @ university of waterloo
 
-check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
+check out my [projects](/now/projects) for more info ~ `,
     isPinned: true,
     pinnedOrder: 2
   },
@@ -109,7 +109,8 @@ check out my [projects](www.helenhuang.io/now/projects) for more info ~ `,
     content: `
 - Happiness is when what you think, what you say, and what you do are in harmony.
 - What if the sky isn't the limit?
-- All of the time spent on worrying about things can probably be better used in other ways.`,
+- All of the time spent on worrying about things can probably be better used in other ways.
+- Check out my [bingo card](/now/bingo) for this year's goals!`,
     isPinned: true,
     pinnedOrder: 6
   },
