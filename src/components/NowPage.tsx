@@ -218,7 +218,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
           {/* Fixed Header - With window controls - Always persistent */}
           <div className="bg-[#f7f7f7] z-20 fixed top-0 left-0 right-0 shadow-sm">
             {/* Window Controls */}
-            <div className="flex items-center gap-2 py-3 px-2 h-[46px]">
+            <div className="flex items-center gap-2 py-3 px-4 h-[46px]">
               <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
                 <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
               </button>
@@ -409,7 +409,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
           {/* Fixed Header Section */}
           <div className="sticky top-0 z-20 bg-[#f7f7f7]">
           {/* Window Controls */}
-          <div className="flex items-center gap-2 py-3 px-2 h-[46px]">
+          <div className="flex items-center gap-2 py-3 px-4 h-[46px]">
             <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
               <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
             </button>
