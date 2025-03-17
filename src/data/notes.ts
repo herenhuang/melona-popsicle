@@ -109,8 +109,7 @@ check out my [projects](/now/projects) for more info ~ `,
     content: `
 - Happiness is when what you think, what you say, and what you do are in harmony.
 - What if the sky isn't the limit?
-- All of the time spent on worrying about things can probably be better used in other ways.
-- Check out my [bingo card](/now/bingo) for this year's goals!`,
+- All of the time spent on worrying about things can probably be better used in other ways.`,
     isPinned: true,
     pinnedOrder: 6
   },
