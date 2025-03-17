@@ -103,11 +103,11 @@ All the code here was written by AI (blend of o1, claude, cursor, v0)! Wild righ
     id: 'links',
     title: '🔗 links',
     date: '2025-03-17T01:24:00Z',
-    content: `
-
-- linkedin: 
-- twitter:
-- instagram: 
+    content: `feel free to reach out! if i don't respond right away, definitely follow up again - it's me, not you. :(
+- email: [chat@heyohelen.io](mailto:chat@heyohelen.io)
+- linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
+- twitter: [x.com/heyohelen](https://x.com/heyohelen)
+- instagram: [instagram.com/heyohelen](https://www.instagram.com/heyohelen)
 `,
     isPinned: true,
     pinnedOrder: 2
