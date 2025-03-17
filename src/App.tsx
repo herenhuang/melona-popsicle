@@ -55,7 +55,7 @@ function AppContent() {
       {isLoading && isInitialLoad && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
       <div style={{ opacity: isLoading && isInitialLoad ? 0 : 1, transition: 'opacity 0.5s ease-in-out' }}>
         <Routes>
-          <Route path="/" element={<Navigate to="/now" replace />} />
+          <Route path="/" element={<Navigate to="/now/about" replace />} />
           <Route path="/now" element={<NowPage />} />
           <Route path="/now/:noteId" element={<NowPage />} />
         </Routes>

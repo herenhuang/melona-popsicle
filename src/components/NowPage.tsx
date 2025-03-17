@@ -14,7 +14,7 @@ export function NowPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedNote, setSelectedNote] = useState(noteId || notes[0].id);
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   // Refs for scrollable containers
   const notesListRef = useRef<HTMLDivElement>(null);
   const contentViewRef = useRef<HTMLDivElement>(null);
@@ -22,7 +22,7 @@ export function NowPage() {
   // Initialize isMobile on mount
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
-    
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -309,33 +309,33 @@ export function NowPage() {
       <div className={`${sidebarClassName} flex flex-col`}>
         {/* Fixed Header Section */}
         <div className="sticky top-0 z-20 bg-[#f7f7f7]">
-          {/* Window Controls */}
-          <div className="flex items-center gap-2 p-3">
-            <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
-              <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
-            </button>
-            <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
-              <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
-            </button>
-            <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
-              <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
-            </button>
-            <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
-              <Edit className="w-3.5 h-3.5" />
-            </button>
-          </div>
+        {/* Window Controls */}
+        <div className="flex items-center gap-2 p-3">
+          <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
+            <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
+          </button>
+          <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
+            <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
+          </button>
+          <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
+            <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
+          </button>
+          <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
+            <Edit className="w-3.5 h-3.5" />
+          </button>
+        </div>
 
-          {/* Search Bar */}
+        {/* Search Bar */}
           <div className="px-3 py-2 border-b border-[#e4e4e4]">
-            <div className="relative">
+          <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-[#969696]" />
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-1.5 bg-[#e4e4e4]/20 rounded-md text-xs placeholder-[#969696] focus:outline-none focus:ring-1 focus:ring-[#e4e4e4]"
-              />
+            />
             </div>
           </div>
         </div>
@@ -345,76 +345,76 @@ export function NowPage() {
           {/* Pinned Section */}
           {pinnedNotes.length > 0 && (
             <>
-              <div className="mt-4">
-                <h3 className="text-xs font-medium text-[#969696] mb-2">
-                  Pinned
-                </h3>
-              </div>
-              <div>
+          <div className="mt-4">
+            <h3 className="text-xs font-medium text-[#969696] mb-2">
+              Pinned
+            </h3>
+          </div>
+          <div>
                 {pinnedNotes.map((note) => (
-                  <button 
-                    key={note.id}
-                    onClick={() => handleNoteSelect(note.id)}
-                    className="group w-full text-left"
-                  >
-                    <div className={`transition-colors ${
-                      selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                    } py-4 px-3 rounded-md`}>
-                      <div className="flex flex-col min-w-0">
-                        <div className="font-medium text-sm text-[#464646] truncate pr-2">
-                          {note.title}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
-                          <span className="text-[#464646]">
-                            {formatDateForPreview(note.date)}
-                          </span>
-                          <span className="text-[#969696] truncate">
-                            {generatePreview(note.content)}
-                          </span>
-                        </div>
-                      </div>
+              <button 
+                key={note.id}
+                onClick={() => handleNoteSelect(note.id)}
+                className="group w-full text-left"
+              >
+                <div className={`transition-colors ${
+                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                } py-4 px-3 rounded-md`}>
+                  <div className="flex flex-col min-w-0">
+                    <div className="font-medium text-sm text-[#464646] truncate pr-2">
+                      {note.title}
                     </div>
-                  </button>
-                ))}
-              </div>
+                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                      <span className="text-[#464646]">
+                            {formatDateForPreview(note.date)}
+                      </span>
+                      <span className="text-[#969696] truncate">
+                            {generatePreview(note.content)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
             </>
           )}
 
           {/* Older Notes Section */}
           {olderNotes.length > 0 && (
             <>
-              <div className="mt-6">
-                <h3 className="text-xs font-medium text-[#969696] mb-2">
-                  Older Notes
-                </h3>
-              </div>
+          <div className="mt-6">
+            <h3 className="text-xs font-medium text-[#969696] mb-2">
+              Older Notes
+            </h3>
+          </div>
               <div className="mb-6">
                 {olderNotes.map((note) => (
-                  <button 
-                    key={note.id}
-                    onClick={() => handleNoteSelect(note.id)}
-                    className="group w-full text-left"
-                  >
-                    <div className={`transition-colors ${
-                      selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
-                    } py-4 px-3 rounded-md`}>
-                      <div className="flex flex-col min-w-0">
-                        <div className="font-medium text-sm text-[#464646] truncate pr-2">
-                          {note.title}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
-                          <span className="text-[#464646]">
-                            {formatDateForPreview(note.date)}
-                          </span>
-                          <span className="text-[#969696] truncate">
-                            {generatePreview(note.content)}
-                          </span>
-                        </div>
-                      </div>
+              <button 
+                key={note.id}
+                onClick={() => handleNoteSelect(note.id)}
+                className="group w-full text-left"
+              >
+                <div className={`transition-colors ${
+                  selectedNote === note.id ? 'bg-[#FFE484]' : 'hover:bg-[#e4e4e4]/40'
+                } py-4 px-3 rounded-md`}>
+                  <div className="flex flex-col min-w-0">
+                    <div className="font-medium text-sm text-[#464646] truncate pr-2">
+                      {note.title}
                     </div>
-                  </button>
-                ))}
-              </div>
+                    <div className="flex items-center gap-2 text-xs mt-0.5 pr-2">
+                      <span className="text-[#464646]">
+                            {formatDateForPreview(note.date)}
+                      </span>
+                      <span className="text-[#969696] truncate">
+                            {generatePreview(note.content)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
             </>
           )}
         </div>
@@ -425,19 +425,19 @@ export function NowPage() {
         {selectedNoteContent && (
           <div className="w-full px-8 py-6 overflow-y-auto h-full">
             <div className="mb-6 text-center">
-              <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
+            <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
                 <Calendar size={16} className="w-4 h-4" />
                 {formatDateForContent(selectedNoteContent.date)}
-              </p>
-            </div>
+            </p>
+          </div>
             <div className="text-[#464646]">
               <h1 className="text-xl font-medium mb-6">
                 {selectedNoteContent.title}
-              </h1>
+            </h1>
               <div className="text-sm">
                 <MarkdownContent content={selectedNoteContent.content} />
               </div>
-            </div>
+              </div>
           </div>
         )}
       </div>
