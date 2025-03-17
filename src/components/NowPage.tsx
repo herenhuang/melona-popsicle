@@ -254,7 +254,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
               </div>
             </div>
 
-            <div className="px-4 pb-24">
+            <div className="px-4 pb-36">
               {/* Pinned Section */}
               {pinnedNotes.length > 0 && (
                 <>
@@ -363,7 +363,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
                 }
               }}
             >
-              <div className="w-full px-8 py-6 pb-24">
+              <div className="w-full px-8 py-6 pb-36">
                 <div className="mb-6 text-center">
                   <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
                     <Calendar size={16} />
@@ -533,7 +533,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
                 <h1 className="text-xl font-medium mb-6">
                   {selectedNoteContent.title}
               </h1>
-                <div className="text-sm">
+                <div className="text-sm pb-24">
                   <MarkdownContent content={selectedNoteContent.content} />
                 </div>
                 </div>
