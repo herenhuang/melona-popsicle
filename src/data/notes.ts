@@ -32,14 +32,11 @@ For now though... I'm going to continue focusing on my nearterm goals below and 
 
 # Current Goals
 - spend now - September working on interesting projects that don't need to have a ROI
-- prove to myself that I have discipline and focus
-
-# Reminder to Self
-"Happiness is when what you think, what you say, and what you do are in harmony."`,
+- prove to myself that I have discipline and focus`,
     isPinned: false
   },
   {
-    id: 'what',
+    id: 'whatdis',
     title: '🐓 what is this?',
     date: '2025-02-16T21:01:00Z',
     content: `This is just one part of my personal website. But why are there so many different pieces and contrasting styles? Well, if you know me at all, you'll know I love variety and anything whimsical. So now you're forced to join me.
@@ -78,7 +75,34 @@ All the code here was written by AI (blend of o1, claude, cursor, v0)! Wild righ
 
 # Completed
 
-- get this page up and share it`,
-    isPinned: false
+- host a fake fashion show for my fake trash bag brand for my real birthday (completed March 2nd, 2025)`,
+    isPinned: true,
+    pinnedOrder: 4
+  },
+  {
+    id: 'links',
+    title: '🔗 links',
+    date: '2025-03-17T01:24:00Z',
+    content: `
+
+- linkedin: 
+- twitter:
+- instagram: 
+`,
+    isPinned: true,
+    pinnedOrder: 2
+  },
+  {
+    id: 'reminders',
+    title: '🌸 reminders',
+    date: '2025-03-17T01:24:00Z',
+    content: `
+
+- Happiness is when what you think, what you say, and what you do are in harmony.
+- What if the sky isn't the limit?
+- All of the time spent on worrying about things can probably be better used in other ways. 
+`,
+    isPinned: true,
+    pinnedOrder: 3
   }
 ]; 
