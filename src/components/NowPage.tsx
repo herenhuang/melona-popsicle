@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { X, Minus, Plus, Search, Edit, Bookmark, Calendar } from 'lucide-react';
+import { X, Minus, Plus, Search, Edit, Bookmark, Calendar, ArrowLeft } from 'lucide-react';
 import { nowUpdates } from '../data/now-updates';
 
 export function NowPage() {
@@ -8,12 +8,22 @@ export function NowPage() {
   const { noteId } = useParams();
   const [selectedNote, setSelectedNote] = useState(noteId || nowUpdates[0].id);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     if (noteId) {
       setSelectedNote(noteId);
     }
   }, [noteId]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const selectedNoteContent = nowUpdates.find(note => note.id === selectedNote);
 
@@ -99,9 +109,11 @@ export function NowPage() {
   };
 
   return (
-    <div className="flex h-screen bg-white">
-      {/* Sidebar */}
-      <div className="w-[320px] border-r border-[#e4e4e4] flex flex-col bg-[#f7f7f7] overflow-hidden">
+    <div className="flex flex-col md:flex-row h-screen bg-white">
+      {/* Sidebar - full width on mobile, normal width on desktop */}
+      <div className={`w-full md:w-[320px] border-r border-[#e4e4e4] flex flex-col bg-[#f7f7f7] overflow-hidden ${
+        selectedNote && isMobile ? 'hidden' : ''
+      }`}>
         {/* Window Controls */}
         <div className="flex items-center gap-2 p-3">
           <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
@@ -206,8 +218,23 @@ export function NowPage() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 bg-white overflow-y-auto">
+      {/* Main Content - full width on mobile, flex-1 on desktop */}
+      <div className={`flex-1 bg-white overflow-y-auto ${
+        !selectedNote && isMobile ? 'hidden' : ''
+      }`}>
+        {/* Mobile back button */}
+        {isMobile && (
+          <div className="px-8 py-4 flex items-center">
+            <button 
+              onClick={() => setSelectedNote('')}
+              className="text-[#969696] hover:text-[#636363] transition-colors flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Notes</span>
+            </button>
+          </div>
+        )}
+        
         <div className="w-full px-8 py-8">
           <div className="mb-8 text-center">
             <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
