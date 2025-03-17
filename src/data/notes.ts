@@ -39,6 +39,7 @@ export const notes: Note[] = [
 - make baggy fashion show recap and upload photos
 - clean apartment
 - apply to jerbs???
+- fix the https:// and domain redirect issues on this site
 
 ![Me pondering life decisions and why I'm working on this website so late](/images/pondering.jpg)
 
@@ -78,7 +79,7 @@ check out my [projects](/now/projects) for more info ~ `,
     title: '🔗 links',
     date: '2025-03-17T00:24:00Z',
     content: `feel free to reach out! if i don't respond right away, definitely follow up again - it's me, not you. :(
-- email: [chat@heyohelen.io](mailto:chat@heyohelen.io)
+- email: [chat@helenhuang.com](mailto:chat@helenhuang.com)
 - linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
 - twitter: [x.com/heyohelen](https://x.com/heyohelen)
 - instagram: [instagram.com/heyohelen](https://www.instagram.com/heyohelen)`,
