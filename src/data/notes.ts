@@ -32,14 +32,17 @@ export const notes: Note[] = [
   {
     id: 'mar172025',
     title: '🌱 now (read me!)',
-    date: '2025-03-17T05:25:00Z',
-    content: `Spent way too long trying to do-redo-erase-revert-build this website... it's pretty late now LOL.
+    date: '2025-03-17T03:50:00Z',
+    content: `my second ever update woo hoo on this new personal website. finally narrowed down top 2 ethical british shorthair breeders. NYC move might happen sooner than expected, so I'm starting to get back into the job search now!
 
-Main update from last time which really was just about a month ago literally, is that I'm thinking about actually starting the job search with teh goal of moving to NYC. Also been really into looking at ethical breeders for british short hairs...
+# goals right now
+- make baggy fashion show recap and upload photos
+- clean apartment
+- apply to jerbs???
 
 ![Me pondering life decisions and why I'm working on this website so late](/images/pondering.jpg)
 
-*BTW, this is my /now page, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm exactly up to these days. I'm keeping my old /now pages though, check out the other notes below.*
+*BTW, this is my /now page, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm exactly up to these days. I'm keeping my old /now pages though, you can see the, below.*
 `,
     isPinned: true,
     pinnedOrder: 2
@@ -47,8 +50,8 @@ Main update from last time which really was just about a month ago literally, is
   {
     id: 'about',
     title: '🤠 about me',
-    date: '2025-03-17T05:25:00Z',
-    content: `howdy, I'm Helen Huang.
+    date: '2025-03-17T01:25:00Z',
+    content: `howdy, I'm Helen Huang. i have over 10 years of experience in product, ops and strategy. super enthusiastic about anything experiential: content, learning, marketing, community, events, food. i enjoy solo travelling (11 countries so far) and dance (hip hop/jazz funk/traditional chinese dancing).
 
 # currently
 - on a sabbatical (length: tbd)
@@ -69,7 +72,7 @@ check out my [projects](/now/projects) for more info ~ `,
   {
     id: 'links',
     title: '🔗 links',
-    date: '2025-03-17T06:24:00Z',
+    date: '2025-03-17T00:24:00Z',
     content: `feel free to reach out! if i don't respond right away, definitely follow up again - it's me, not you. :(
 - email: [chat@heyohelen.io](mailto:chat@heyohelen.io)
 - linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
@@ -81,7 +84,7 @@ check out my [projects](/now/projects) for more info ~ `,
   {
     id: 'projects',
     title: '📙 projects',
-    date: '2025-03-17T05:25:00Z',
+    date: '2025-03-17T00:50:00Z',
     content: `i love building things (even if they're not perfect). ill upload pics soon. :) 
 
 - baggy: a trash bag fashion show (pics coming)
@@ -95,7 +98,7 @@ check out my [projects](/now/projects) for more info ~ `,
   {
     id: 'recognition',
     title: '🎖️ recognition and stuff',
-    date: '2025-03-17T06:24:00Z',
+    date: '2025-03-17T00:54:00Z',
     content: `some stuff i've been recognized for recently ~ ill connect the links soon. 
 
 - dmz women of the year: recognized for contributions to tech education
@@ -110,7 +113,7 @@ check out my [projects](/now/projects) for more info ~ `,
   {
     id: 'reminders',
     title: '🌸 reminders',
-    date: '2025-03-17T06:24:00Z',
+    date: '2025-02-27T07:23:00Z',
     content: `
 - Happiness is when what you think, what you say, and what you do are in harmony.
 - What if the sky isn't the limit?
