@@ -22,47 +22,24 @@ export interface NowUpdate {
 
 export const nowUpdates: NowUpdate[] = [
     {
-        id: '2025-02-18',
+        id: '2025-03-17',
         title: '🌱 now',
-        date: '2025-02-18',
-        formattedDate: 'February 18, 2025 at 3:14 PM',
-        preview: 'After a pretty rough last half...',
+        date: '2025-03-17',
+        formattedDate: 'March 17, 2025 at 12:25 AM',
+        preview: 'Spent way too long trying to do-redo...',
         content: {
           blocks: [
             {
               type: 'paragraph',
               content: [
-                "After a pretty rough last half year, I've been feeling my energy and enthusiasm coming back recently! So I've been spending these past few weeks finally completing some of my personal projects.",
-                "Currently still residing in Toronto, though the plan is to move to NYC by the middle of the year. And maybe get a cute little british shorthair (or two!).",
-                "Moving to another country would require a visa, which opens up a whole new can of worms on decision-making and future-planning. For someone that hasn't really been thinking of plans beyond the next year, that's absolutely a shift in mindset that I'll need to tackle.",
-                "For now though... I'm going to continue focusing on my nearterm goals below and see where that gets me (especially as I continue to get back to - and rediscover - my baseline)." 
-              ]
-            },
-            {
-                type: 'header',
-                title: 'current goals',
-                content: [
-                  'spend now - September working on interesting projects that don\'t need to have a ROI',
-                  'prove to myself that I have discipline and focus',
-                ]
-              },
-            {
-              type: 'header',
-              title: 'reminder to self',
-              content: [
-                '“Happiness is when what you think, what you say, and what you do are in harmony.”',
+                "Spent way too long trying to do-redo-erase-revert-build this website... it's pretty late now LOL.",
+                "Main update from last time which really was just about a month ago literally, is that I'm thinking about actually starting the job search with teh goal of moving to NYC. Also been really into looking at ethical breeders for british short hairs..."
               ]
             }
           ],
-          images: [
-            /* {
-              src: '/images/sample-workspace.jpg',
-              alt: 'My current workspace setup',
-              caption: 'Current workspace setup with natural lighting'
-            } */
-          ]
+          images: []
         }
-      },
+    },
     {
     id: 'bingo',
     title: '📇 bingo card',    
@@ -130,6 +107,42 @@ export const nowUpdates: NowUpdate[] = [
           ]
         }
       ]
+    }
+  },
+  {
+    id: '2025-02-18',
+    title: '❄️ feb update',
+    date: '2025-02-18',
+    formattedDate: 'February 18, 2025 at 3:14 PM',
+    preview: 'After a pretty rough last half...',
+    content: {
+      blocks: [
+        {
+          type: 'paragraph',
+          content: [
+            "After a pretty rough last half year, I've been feeling my energy and enthusiasm coming back recently! So I've been spending these past few weeks finally completing some of my personal projects.",
+            "Currently still residing in Toronto, though the plan is to move to NYC by the middle of the year. And maybe get a cute little british shorthair (or two!).",
+            "Moving to another country would require a visa, which opens up a whole new can of worms on decision-making and future-planning. For someone that hasn't really been thinking of plans beyond the next year, that's absolutely a shift in mindset that I'll need to tackle.",
+            "For now though... I'm going to continue focusing on my nearterm goals below and see where that gets me (especially as I continue to get back to - and rediscover - my baseline)." 
+          ]
+        },
+        {
+          type: 'header',
+          title: 'current goals',
+          content: [
+            'spend now - September working on interesting projects that don\'t need to have a ROI',
+            'prove to myself that I have discipline and focus',
+          ]
+        },
+        {
+          type: 'header',
+          title: 'reminder to self',
+          content: [
+            '"Happiness is when what you think, what you say, and what you do are in harmony."',
+          ]
+        }
+      ],
+      images: []
     }
   }
 ] 
