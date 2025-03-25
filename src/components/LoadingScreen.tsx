@@ -115,33 +115,10 @@ export function LoadingScreen({ onLoadingComplete, imageLoadingProgress = 0 }: L
               text="helen huang"
               colors={{ first: "#76bb5d", second: "#9774cc" }}
               className="text-6xl md:text-8xl font-bold text-[#ff6b35] font-sora"
-              sparklesCount={20}
+              sparklesCount={30}
             />
             
-            {/* Loading progress bar */}
-            <motion.div 
-              className="mt-12 w-[200px] h-2 bg-gray-200 rounded-full overflow-hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              <motion.div 
-                className="h-full bg-[#ff6b35]"
-                initial={{ width: '0%' }}
-                animate={{ width: `${combinedProgress}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.div>
-            
-            {/* Loading text */}
-            <motion.p
-              className="mt-3 text-sm text-gray-500"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              {combinedProgress < 100 ? `Loading content... ${Math.round(combinedProgress)}%` : 'Ready!'}
-            </motion.p>
+            {/* Removed loading progress bar and loading text */}
           </motion.div>
         </motion.div>
       )}
