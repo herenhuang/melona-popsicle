@@ -39,9 +39,9 @@ const SparklesText: React.FC<SparklesTextProps> = ({
       const starX = `${Math.random() * 100}%`;
       const starY = `${Math.random() * 100}%`;
       const color = Math.random() > 0.5 ? colors.first : colors.second;
-      const delay = Math.random() * 2;
+      const delay = Math.random() * 0.5;
       const scale = Math.random() * 1 + 0.3;
-      const lifespan = Math.random() * 10 + 5;
+      const lifespan = Math.random() * 3 + 2;
       const id = `${starX}-${starY}-${Date.now()}`;
       return { id, x: starX, y: starY, color, delay, scale, lifespan };
     };
@@ -64,10 +64,10 @@ const SparklesText: React.FC<SparklesTextProps> = ({
     };
 
     initializeStars();
-    const interval = setInterval(updateStars, 100);
+    const interval = setInterval(updateStars, 50);
 
     return () => clearInterval(interval);
-  }, [colors.first, colors.second]);
+  }, [colors.first, colors.second, sparklesCount]);
 
   return (
     <div
@@ -95,13 +95,20 @@ const Sparkle: React.FC<Sparkle> = ({ id, x, y, color, delay, scale }) => {
     <motion.svg
       key={id}
       className="pointer-events-none absolute z-20"
-      initial={{ opacity: 0, left: x, top: y }}
+      style={{ left: x, top: y }}
+      initial={{ opacity: 0, scale: 0 }}
       animate={{
         opacity: [0, 1, 0],
         scale: [0, scale, 0],
-        rotate: [75, 120, 150],
+        rotate: [0, 120, 0],
       }}
-      transition={{ duration: 0.8, repeat: Infinity, delay }}
+      transition={{ 
+        duration: 1.2, 
+        repeat: Infinity, 
+        delay, 
+        ease: "easeInOut",
+        times: [0, 0.5, 1] 
+      }}
       width="21"
       height="21"
       viewBox="0 0 21 21"

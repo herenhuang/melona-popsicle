@@ -117,7 +117,7 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
               >
                 {/* Top border */}
                 <motion.path
-                  d="M 0,8 L ${combinedProgress * 3},8"
+                  d="M 0,2 L 300,2"
                   stroke="black"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -159,6 +159,11 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
                   transition={{ duration: 0.5, ease: "easeInOut", delay: 0.6 }}
                 />
               </svg>
+
+              {/* Add a complete border once loading is at 100% */}
+              {combinedProgress >= 100 && (
+                <div className="absolute inset-0 border-2 border-black rounded-lg"></div>
+              )}
             </div>
           </motion.div>
         </motion.div>
