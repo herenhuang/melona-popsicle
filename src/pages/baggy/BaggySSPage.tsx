@@ -78,7 +78,7 @@ type MasonryItem = {
 
 // Update image data structure
 const masonryImages: MasonryItem[] = [
-  { src: "https://storage.googleapis.com/helen-huang-videos/baggy/talking-2.mp4", alt: "Behind the Scenes Video", aspectRatio: aspectRatios.video, type: 'video' },
+  { src: "/images/baggy/masonry/talking-2.mp4", alt: "Behind the Scenes Video", aspectRatio: aspectRatios.video, type: 'video' },
   { src: "/images/baggy/masonry/grid1.webp", alt: "Editorial Shot 1", aspectRatio: aspectRatios.portrait, type: 'image' },
   { src: "/images/baggy/masonry/grid2.webp", alt: "Editorial Shot 2", aspectRatio: aspectRatios.landscape, type: 'image' },
   { src: "/images/baggy/masonry/grid3.webp", alt: "Editorial Shot 3", aspectRatio: aspectRatios.square, type: 'image' },
@@ -91,7 +91,7 @@ const masonryImages: MasonryItem[] = [
   { src: "/images/baggy/masonry/grid11.webp", alt: "Editorial Shot 11", aspectRatio: aspectRatios.landscape, type: 'image' },
   { src: "/images/baggy/masonry/grid12.webp", alt: "Editorial Shot 12", aspectRatio: aspectRatios.square, type: 'image' },
   { src: "/images/baggy/masonry/grid13.webp", alt: "Editorial Shot 13", aspectRatio: aspectRatios.portrait, type: 'image' },
-  { src: "https://storage.googleapis.com/helen-huang-videos/baggy/walk-compressed.mp4", alt: "Behind the Scenes Video 2", aspectRatio: aspectRatios.video, type: 'video' }
+  { src: "/images/baggy/masonry/walk-compressed.mp4", alt: "Behind the Scenes Video 2", aspectRatio: aspectRatios.video, type: 'video' }
 ];
 
 // Add custom masonry styles
@@ -428,7 +428,7 @@ const BaggySSPage: React.FC = () => {
               className="w-full h-full object-cover"
               style={{ opacity: 1 - scrollProgress }}
             >
-              <source src="https://storage.googleapis.com/helen-huang-videos/baggy/hero-large.mp4" type="video/mp4" />
+              <source src="/images/baggy/videos/hero-large.mp4" type="video/mp4" />
             </video>
           </div>
 
@@ -536,7 +536,7 @@ const BaggySSPage: React.FC = () => {
                     transform: 'scale(1.01)',
                   }}
                 >
-                  <source src="https://storage.googleapis.com/helen-huang-videos/baggy/book-compressed.mp4" type="video/mp4" />
+                  <source src="/images/baggy/videos/book-compressed.mp4" type="video/mp4" />
                 </video>
               </div>
             </div>
@@ -564,7 +564,7 @@ const BaggySSPage: React.FC = () => {
                     transform: 'scale(1.01)',
                   }}
                 >
-                  <source src="https://storage.googleapis.com/helen-huang-videos/baggy/talking-1.mp4" type="video/mp4" />
+                  <source src="/images/baggy/videos/talking-1.mp4" type="video/mp4" />
                 </video>
               </div>
               <div className="px-6 flex flex-col justify-center h-full">
@@ -616,7 +616,7 @@ const BaggySSPage: React.FC = () => {
                     transform: 'scale(1.01)',
                   }}
                 >
-                  <source src="https://storage.googleapis.com/helen-huang-videos/baggy/store.mp4" type="video/mp4" />
+                  <source src="/images/baggy/videos/store.mp4" type="video/mp4" />
                 </video>
               </div>
               <button 
