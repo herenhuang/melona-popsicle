@@ -10,6 +10,7 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
   const [isVisible, setIsVisible] = useState(true);
   const [internalProgress, setInternalProgress] = useState(0);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+  const [borderLoaded, setBorderLoaded] = useState(false);
   
   // Combine internal loading progress with image loading progress
   const combinedProgress = Math.max(internalProgress, imageLoadingProgress);
@@ -18,56 +19,47 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
   useEffect(() => {
     let interval = setInterval(() => {
       setInternalProgress(prev => {
-        if (prev >= 40) {
+        // Make it go to 100% faster
+        const increment = prev < 80 ? 3 : 6;
+        const nextValue = prev + increment;
+        
+        if (nextValue >= 100) {
           clearInterval(interval);
-          return prev;
+          // Set a flag when border is fully loaded (100%)
+          setBorderLoaded(true);
+          return 100;
         }
-        return prev + 2;
+        return nextValue;
       });
     }, 30);
     
-    const slowTimer = setTimeout(() => {
-      clearInterval(interval);
-      interval = setInterval(() => {
-        setInternalProgress(prev => {
-          if (prev >= 70) {
-            clearInterval(interval);
-            return prev;
-          }
-          return prev + 0.5;
-        });
-      }, 100);
-    }, 1000);
-    
     const initialLoadTimer = setTimeout(() => {
       setInitialLoadComplete(true);
-    }, 2500);
+    }, 1500); // Shortened to 1.5s for faster initial loading
     
     return () => {
       clearInterval(interval);
-      clearTimeout(slowTimer);
       clearTimeout(initialLoadTimer);
     };
   }, []);
   
-  // Handle loading completion
+  // Handle loading completion - only after border is fully loaded
   useEffect(() => {
-    if (initialLoadComplete && (imageLoadingProgress >= 100 || combinedProgress >= 85)) {
+    if (initialLoadComplete && borderLoaded) {
+      // Add a small delay to admire the full border
       const completeTimeout = setTimeout(() => {
-        setInternalProgress(100);
-        
         const exitTimeout = setTimeout(() => {
           setIsVisible(false);
           setTimeout(onLoadingComplete, 1000);
         }, 500);
         
         return () => clearTimeout(exitTimeout);
-      }, imageLoadingProgress >= 100 ? 0 : 2000);
+      }, 800); // 800ms delay to see the complete border
       
       return () => clearTimeout(completeTimeout);
     }
     return undefined;
-  }, [initialLoadComplete, imageLoadingProgress, combinedProgress, onLoadingComplete]);
+  }, [initialLoadComplete, borderLoaded, onLoadingComplete]);
   
   // Fallback timeout
   useEffect(() => {
@@ -75,6 +67,7 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
       if (isVisible) {
         console.warn('Loading screen timed out after maximum wait time');
         setInternalProgress(100);
+        setBorderLoaded(true);
         setIsVisible(false);
         setTimeout(onLoadingComplete, 1000);
       }
@@ -134,7 +127,7 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
                   strokeLinecap="round"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: combinedProgress / 100 }}
-                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
+                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.1 }}
                 />
                 
                 {/* Bottom border */}
@@ -145,7 +138,7 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
                   strokeLinecap="round"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: combinedProgress / 100 }}
-                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.4 }}
+                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
                 />
                 
                 {/* Left border */}
@@ -156,7 +149,7 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
                   strokeLinecap="round"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: combinedProgress / 100 }}
-                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.6 }}
+                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.3 }}
                 />
               </svg>
 
