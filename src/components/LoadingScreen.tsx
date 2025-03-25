@@ -115,7 +115,7 @@ export function LoadingScreen({ onLoadingComplete, imageLoadingProgress = 0 }: L
               text="helen huang"
               colors={{ first: "#76bb5d", second: "#9774cc" }}
               className="text-6xl md:text-8xl font-bold text-[#ff6b35] font-sora"
-              sparklesCount={1}
+              sparklesCount={5}
             />
             
             {/* Removed loading progress bar and loading text */}
