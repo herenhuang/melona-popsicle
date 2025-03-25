@@ -11,7 +11,6 @@ interface Sparkle {
   color: string;
   delay: number;
   scale: number;
-  lifespan: number;
 }
 
 interface SparklesTextProps {
@@ -35,36 +34,30 @@ const SparklesText: React.FC<SparklesTextProps> = ({
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
 
   useEffect(() => {
-    const generateStar = (): Sparkle => {
-      const starX = `${Math.random() * 100}%`;
-      const starY = `${Math.random() * 100}%`;
-      const color = Math.random() > 0.5 ? colors.first : colors.second;
-      const delay = Math.random() * 0.5;
-      const scale = Math.random() * 1 + 0.3;
-      const lifespan = Math.random() * 3 + 2;
-      const id = `${starX}-${starY}-${Date.now()}`;
-      return { id, x: starX, y: starY, color, delay, scale, lifespan };
-    };
+    // Ensure we always have at least one sparkle
+    const count = Math.max(1, sparklesCount);
+    
+    const generateSparkle = (): Sparkle => ({
+      id: String(Math.random()),
+      x: `${Math.random() * 100}%`,
+      y: `${Math.random() * 100}%`,
+      color: Math.random() > 0.5 ? colors.first : colors.second,
+      delay: Math.random() * 0.5,
+      scale: Math.random() * 1 + 0.5
+    });
 
-    const initializeStars = () => {
-      const newSparkles = Array.from({ length: sparklesCount }, generateStar);
-      setSparkles(newSparkles);
-    };
+    // Create initial sparkles
+    const initialSparkles = Array.from({ length: count }, generateSparkle);
+    setSparkles(initialSparkles);
 
-    const updateStars = () => {
-      setSparkles((currentSparkles) =>
-        currentSparkles.map((star) => {
-          if (star.lifespan <= 0) {
-            return generateStar();
-          } else {
-            return { ...star, lifespan: star.lifespan - 0.1 };
-          }
-        }),
+    // Set up interval to refresh sparkles
+    const interval = setInterval(() => {
+      setSparkles(currentSparkles => 
+        currentSparkles.map((sparkle, i) => 
+          Math.random() > 0.7 ? generateSparkle() : sparkle
+        )
       );
-    };
-
-    initializeStars();
-    const interval = setInterval(updateStars, 50);
+    }, 1200);
 
     return () => clearInterval(interval);
   }, [colors.first, colors.second, sparklesCount]);
@@ -103,7 +96,7 @@ const Sparkle: React.FC<Sparkle> = ({ id, x, y, color, delay, scale }) => {
         rotate: [0, 120, 0],
       }}
       transition={{ 
-        duration: 1.2, 
+        duration: 1.5, 
         repeat: Infinity, 
         delay, 
         ease: "easeInOut",

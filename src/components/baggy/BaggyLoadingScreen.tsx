@@ -8,73 +8,32 @@ interface BaggyLoadingScreenProps {
 
 export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0 }: BaggyLoadingScreenProps) {
   const [isVisible, setIsVisible] = useState(true);
-  const [internalProgress, setInternalProgress] = useState(0);
-  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-  const [borderLoaded, setBorderLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [borderComplete, setBorderComplete] = useState(false);
   
-  // Combine internal loading progress with image loading progress
-  const combinedProgress = Math.max(internalProgress, imageLoadingProgress);
-  
-  // Start internal progress animation
+  // Simple progress animation that goes to 100% in stages
   useEffect(() => {
-    let interval = setInterval(() => {
-      setInternalProgress(prev => {
-        // Make it go to 100% faster
-        const increment = prev < 80 ? 3 : 6;
-        const nextValue = prev + increment;
+    let timer: NodeJS.Timeout;
+    
+    // First quickly go to 50%
+    timer = setTimeout(() => {
+      setProgress(50);
+      
+      // Then more gradually to 100%
+      timer = setTimeout(() => {
+        setProgress(100);
+        setBorderComplete(true);
         
-        if (nextValue >= 100) {
-          clearInterval(interval);
-          // Set a flag when border is fully loaded (100%)
-          setBorderLoaded(true);
-          return 100;
-        }
-        return nextValue;
-      });
-    }, 30);
-    
-    const initialLoadTimer = setTimeout(() => {
-      setInitialLoadComplete(true);
-    }, 1500); // Shortened to 1.5s for faster initial loading
-    
-    return () => {
-      clearInterval(interval);
-      clearTimeout(initialLoadTimer);
-    };
-  }, []);
-  
-  // Handle loading completion - only after border is fully loaded
-  useEffect(() => {
-    if (initialLoadComplete && borderLoaded) {
-      // Add a small delay to admire the full border
-      const completeTimeout = setTimeout(() => {
-        const exitTimeout = setTimeout(() => {
+        // Wait to show the complete border
+        timer = setTimeout(() => {
           setIsVisible(false);
           setTimeout(onLoadingComplete, 1000);
-        }, 500);
-        
-        return () => clearTimeout(exitTimeout);
-      }, 800); // 800ms delay to see the complete border
-      
-      return () => clearTimeout(completeTimeout);
-    }
-    return undefined;
-  }, [initialLoadComplete, borderLoaded, onLoadingComplete]);
-  
-  // Fallback timeout
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (isVisible) {
-        console.warn('Loading screen timed out after maximum wait time');
-        setInternalProgress(100);
-        setBorderLoaded(true);
-        setIsVisible(false);
-        setTimeout(onLoadingComplete, 1000);
-      }
-    }, 8000);
+        }, 1000);
+      }, 1000);
+    }, 500);
     
-    return () => clearTimeout(timeout);
-  }, [isVisible, onLoadingComplete]);
+    return () => clearTimeout(timer);
+  }, [onLoadingComplete]);
 
   return (
     <AnimatePresence mode="wait">
@@ -101,60 +60,47 @@ export function BaggyLoadingScreen({ onLoadingComplete, imageLoadingProgress = 0
                 className="w-[300px] h-auto rounded-lg"
               />
               
-              {/* Animated border container */}
-              <svg
-                className="absolute inset-0 w-full h-full"
-                viewBox="0 0 300 400"
-                fill="none"
-                preserveAspectRatio="none"
-              >
+              {/* Simple border animation */}
+              <div className="absolute inset-0">
                 {/* Top border */}
-                <motion.path
-                  d="M 0,2 L 300,2"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: combinedProgress / 100 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                <motion.div 
+                  className="absolute top-0 left-0 h-[2px] bg-black"
+                  style={{ width: `${progress}%` }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.5 }}
                 />
                 
                 {/* Right border */}
-                <motion.path
-                  d="M 298,0 L 298,400"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: combinedProgress / 100 }}
-                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.1 }}
+                <motion.div 
+                  className="absolute top-0 right-0 w-[2px] bg-black"
+                  style={{ height: `${progress}%` }}
+                  initial={{ height: 0 }}
+                  animate={{ height: `${progress}%` }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
                 />
                 
                 {/* Bottom border */}
-                <motion.path
-                  d="M 300,398 L 0,398"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: combinedProgress / 100 }}
-                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.2 }}
+                <motion.div 
+                  className="absolute bottom-0 right-0 h-[2px] bg-black"
+                  style={{ width: `${progress}%` }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                 />
                 
                 {/* Left border */}
-                <motion.path
-                  d="M 2,400 L 2,0"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: combinedProgress / 100 }}
-                  transition={{ duration: 0.5, ease: "easeInOut", delay: 0.3 }}
+                <motion.div 
+                  className="absolute bottom-0 left-0 w-[2px] bg-black"
+                  style={{ height: `${progress}%` }}
+                  initial={{ height: 0 }}
+                  animate={{ height: `${progress}%` }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
                 />
-              </svg>
-
-              {/* Add a complete border once loading is at 100% */}
-              {combinedProgress >= 100 && (
+              </div>
+              
+              {/* Complete border when animation finishes */}
+              {borderComplete && (
                 <div className="absolute inset-0 border-2 border-black rounded-lg"></div>
               )}
             </div>
