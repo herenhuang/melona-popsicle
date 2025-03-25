@@ -4,6 +4,7 @@ import { ImageLoadingContext } from '../../App';
 import { Home, Image as ImageIcon, Album, Users, X, Minus, Plus } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Masonry from 'react-masonry-css';
+import { Helmet } from 'react-helmet-async';
 import '../../styles/baggy.css';
 
 // Define interface for credits members
@@ -410,400 +411,406 @@ const BaggySSPage: React.FC = () => {
   };
 
   return (
-    <BaggyLayout>
-      <div style={{ opacity: isPageVisible ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}>
-        {/* Hero Section */}
-        <div 
-          id="hero"
-          ref={heroRef}
-          className="min-h-screen relative flex flex-col items-center justify-center transition-colors duration-300 pt-16"
-        >
-          {/* Video Background */}
-          <div className="absolute inset-0 w-full h-full overflow-hidden">
-            <video
-              ref={heroVideoRef}
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-              style={{ opacity: 1 - scrollProgress }}
-            >
-              <source src="/images/baggy/videos/hero-large.mp4" type="video/mp4" />
-            </video>
-          </div>
-
-          {/* Hero Content with Simple Elegant Text */}
+    <>
+      <Helmet>
+        <title>BAGGY by Helen Huang | a 100% real garbage bag fashion brand</title>
+        <meta name="description" content="BAGGY transforms waste into luxury fashion. Spring/Summer 2025 collection by creative director Helen Huang." />
+      </Helmet>
+      <BaggyLayout>
+        <div style={{ opacity: isPageVisible ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}>
+          {/* Hero Section */}
           <div 
-            ref={heroContainerRef}
-            className="flex flex-col items-center text-center px-4 max-w-4xl mx-auto relative z-10"
+            id="hero"
+            ref={heroRef}
+            className="min-h-screen relative flex flex-col items-center justify-center transition-colors duration-300 pt-16"
           >
-            <h1 
-              className="font-cormorant text-8xl md:text-[11rem] font-light tracking-widest mb-8 w-full"
-              style={{ color: scrollProgress > 0.5 ? '#000000' : '#FFFFFF' }}
-            >
-              BAGGY
-            </h1>
-            <p 
-              className="font-cormorant text-2xl md:text-4xl tracking-widest uppercase"
-              style={{ color: scrollProgress > 0.5 ? '#000000' : '#FFFFFF' }}
-            >
-              Spring/Summer 25
-            </p>
-          </div>
+            {/* Video Background */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden">
+              <video
+                ref={heroVideoRef}
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+                style={{ opacity: 1 - scrollProgress }}
+              >
+                <source src="/images/baggy/videos/hero-large.mp4" type="video/mp4" />
+              </video>
+            </div>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-10 left-0 right-0 flex justify-center">
-            <a href="#about" className="animate-bounce p-2 opacity-70 hover:opacity-100 transition-opacity duration-300" style={{ color: textColor }}>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        {/* Introduction Blurb - Decreased Text Size */}
-        <section id="about" className="py-16 px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <p className="text-sm md:text-base leading-relaxed tracking-wide mb-12 font-light opacity-90">
-              BAGGY reimagines the ordinary as extraordinary, transforming everyday waste into objects of desire. Led by creative director Helen Huang, our Spring/Summer 2025 collection embraces the tension between luxury and landfill, finding beauty in the discarded. Through three distinct lines, we challenge conventional notions of value in fashion, creating a new aesthetic dialogue between sustainability and style.
-            </p>
-          </div>
-        </section>
+            {/* Hero Content with Simple Elegant Text */}
+            <div 
+              ref={heroContainerRef}
+              className="flex flex-col items-center text-center px-4 max-w-4xl mx-auto relative z-10"
+            >
+              <h1 
+                className="font-cormorant text-8xl md:text-[11rem] font-light tracking-widest mb-8 w-full"
+                style={{ color: scrollProgress > 0.5 ? '#000000' : '#FFFFFF' }}
+              >
+                BAGGY
+              </h1>
+              <p 
+                className="font-cormorant text-2xl md:text-4xl tracking-widest uppercase"
+                style={{ color: scrollProgress > 0.5 ? '#000000' : '#FFFFFF' }}
+              >
+                Spring/Summer 25
+              </p>
+            </div>
 
-        {/* Gallery Section */}
-        <section id="gallery" className="pb-16 px-4 relative">
-          <h2 className="text-lg md:text-xl font-light tracking-[0.2em] text-center mb-12 uppercase">Collection</h2>
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-10 left-0 right-0 flex justify-center">
+              <a href="#about" className="animate-bounce p-2 opacity-70 hover:opacity-100 transition-opacity duration-300" style={{ color: textColor }}>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </a>
+            </div>
+          </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
-            {visibleImages.map((image, index) => (
-              <div key={index} className="relative overflow-hidden group shadow-sm">
-                <div className="aspect-[3/4] overflow-hidden bg-gray-50">
-                  <img 
-                    src={image.src} 
-                    alt={image.alt} 
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                    loading={index < 6 ? "eager" : "lazy"}
-                    onLoad={() => setImagesLoaded(prev => prev + 1)}
-                  />
+          {/* Introduction Blurb - Decreased Text Size */}
+          <section id="about" className="py-16 px-4">
+            <div className="max-w-2xl mx-auto text-center">
+              <p className="text-sm md:text-base leading-relaxed tracking-wide mb-12 font-light opacity-90">
+                BAGGY reimagines the ordinary as extraordinary, transforming everyday waste into objects of desire. Led by creative director Helen Huang, our Spring/Summer 2025 collection embraces the tension between luxury and landfill, finding beauty in the discarded. Through three distinct lines, we challenge conventional notions of value in fashion, creating a new aesthetic dialogue between sustainability and style.
+              </p>
+            </div>
+          </section>
+
+          {/* Gallery Section */}
+          <section id="gallery" className="pb-16 px-4 relative">
+            <h2 className="text-lg md:text-xl font-light tracking-[0.2em] text-center mb-12 uppercase">Collection</h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
+              {visibleImages.map((image, index) => (
+                <div key={index} className="relative overflow-hidden group shadow-sm">
+                  <div className="aspect-[3/4] overflow-hidden bg-gray-50">
+                    <img 
+                      src={image.src} 
+                      alt={image.alt} 
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                      loading={index < 6 ? "eager" : "lazy"}
+                      onLoad={() => setImagesLoaded(prev => prev + 1)}
+                    />
+                  </div>
+                  <div 
+                    className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"
+                    style={{
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 60%)'
+                    }}
+                  >
+                    <div className="w-full p-6 text-white">
+                      <div className="text-sm tracking-widest font-light mb-2">{`${image.collection} - Look ${image.lookNumber}`}</div>
+                      <div className="text-xs tracking-wider opacity-85">Model: {image.model}</div>
+                    </div>
+                  </div>
                 </div>
-                <div 
-                  className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"
-                  style={{
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 60%)'
-                  }}
+              ))}
+            </div>
+            
+            {/* View All Button - Using direct conditional rendering */}
+            {visibleImages.length < galleryImages.length && (
+              <div className="flex justify-center mt-20">
+                <button 
+                  onClick={handleViewAllClick}
+                  className="border border-black px-16 py-3 text-xs tracking-widest hover:bg-black hover:text-white transition-all duration-300 font-light cursor-pointer relative z-10"
+                  type="button"
                 >
-                  <div className="w-full p-6 text-white">
-                    <div className="text-sm tracking-widest font-light mb-2">{`${image.collection} - Look ${image.lookNumber}`}</div>
-                    <div className="text-xs tracking-wider opacity-85">Model: {image.model}</div>
+                  VIEW ALL ({galleryImages.length - visibleImages.length} MORE)
+                </button>
+              </div>
+            )}
+          </section>
+
+          {/* Experience Section */}
+          <section id="experience" className="py-16 px-4 bg-gray-50">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] text-center mb-12 uppercase">Experience</h2>
+              
+              {/* Book Video */}
+              <div className="w-full flex justify-center mb-24">
+                <div className="w-full md:w-[85%] relative">
+                  <video
+                    ref={bookVideoRef}
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto"
+                    style={{
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                      display: 'block',
+                      verticalAlign: 'bottom',
+                      transform: 'scale(1.01)',
+                    }}
+                  >
+                    <source src="/images/baggy/videos/book-compressed.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+
+              {/* Testimonial */}
+              <div className="text-center max-w-4xl mx-auto mb-24 px-4">
+                <blockquote className="text-xl md:text-2xl italic font-light leading-relaxed">
+                  "BAGGY doesn't just reimagine fashion—it forces us to confront our throwaway culture head-on, finding profound beauty in what we discard."
+                </blockquote>
+                <p className="mt-6 text-xs tracking-wider text-gray-500">— Fashion Forward Magazine, a completely legitimate magazine</p>
+              </div>
+
+              {/* Event Coverage */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
+                <div className="relative overflow-hidden max-h-[500px]">
+                  <video
+                    ref={talkingVideoRef}
+                    className="w-full h-full object-cover"
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                      display: 'block',
+                      verticalAlign: 'bottom',
+                      transform: 'scale(1.01)',
+                    }}
+                  >
+                    <source src="/images/baggy/videos/talking-1.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div className="px-6 flex flex-col justify-center h-full">
+                  <div>
+                    <h3 className="text-base uppercase tracking-widest font-light mb-6">SHOW GUESTS</h3>
+                    <p className="mb-6 text-sm leading-relaxed font-light">
+                      The BAGGY community gathered to celebrate a shared vision of sustainable luxury, where each guest became part of a larger dialogue about conscious consumption. Industry leaders, artists, and environmental advocates united in their appreciation for fashion that dares to reimagine waste as a medium of creative expression.
+                    </p>
+                    <p className="text-sm leading-relaxed font-light">
+                      Together, we explored the intersection of eco-consciousness and high fashion, proving that environmental responsibility can coexist with cutting-edge design. The evening embodied our collective commitment to reshaping the future of fashion, one recycled piece at a time.
+                    </p>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-          
-          {/* View All Button - Using direct conditional rendering */}
-          {visibleImages.length < galleryImages.length && (
-            <div className="flex justify-center mt-20">
-              <button 
-                onClick={handleViewAllClick}
-                className="border border-black px-16 py-3 text-xs tracking-widest hover:bg-black hover:text-white transition-all duration-300 font-light cursor-pointer relative z-10"
-                type="button"
-              >
-                VIEW ALL ({galleryImages.length - visibleImages.length} MORE)
-              </button>
-            </div>
-          )}
-        </section>
 
-        {/* Experience Section */}
-        <section id="experience" className="py-16 px-4 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-lg md:text-xl font-light tracking-[0.2em] text-center mb-12 uppercase">Experience</h2>
-            
-            {/* Book Video */}
-            <div className="w-full flex justify-center mb-24">
-              <div className="w-full md:w-[85%] relative">
-                <video
-                  ref={bookVideoRef}
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto"
-                  style={{
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                    display: 'block',
-                    verticalAlign: 'bottom',
-                    transform: 'scale(1.01)',
-                  }}
-                >
-                  <source src="/images/baggy/videos/book-compressed.mp4" type="video/mp4" />
-                </video>
-              </div>
-            </div>
-
-            {/* Testimonial */}
-            <div className="text-center max-w-4xl mx-auto mb-24 px-4">
-              <blockquote className="text-xl md:text-2xl italic font-light leading-relaxed">
-                "BAGGY doesn't just reimagine fashion—it forces us to confront our throwaway culture head-on, finding profound beauty in what we discard."
-              </blockquote>
-              <p className="mt-6 text-xs tracking-wider text-gray-500">— Fashion Forward Magazine, a completely legitimate magazine</p>
-            </div>
-
-            {/* Event Coverage */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
-              <div className="relative overflow-hidden max-h-[500px]">
-                <video
-                  ref={talkingVideoRef}
-                  className="w-full h-full object-cover"
-                  loop
-                  muted
-                  playsInline
-                  style={{
-                    display: 'block',
-                    verticalAlign: 'bottom',
-                    transform: 'scale(1.01)',
-                  }}
-                >
-                  <source src="/images/baggy/videos/talking-1.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div className="px-6 flex flex-col justify-center h-full">
-                <div>
-                  <h3 className="text-base uppercase tracking-widest font-light mb-6">SHOW GUESTS</h3>
-                  <p className="mb-6 text-sm leading-relaxed font-light">
-                    The BAGGY community gathered to celebrate a shared vision of sustainable luxury, where each guest became part of a larger dialogue about conscious consumption. Industry leaders, artists, and environmental advocates united in their appreciation for fashion that dares to reimagine waste as a medium of creative expression.
+              {/* Behind the Scenes */}
+              <div className="flex flex-col items-center max-w-2xl mx-auto">
+                <div className="text-center mb-8 px-4">
+                  <h3 className="text-base uppercase tracking-widest font-light mb-4">Behind the Scenes</h3>
+                  <p className="mb-4 text-sm leading-relaxed font-light">
+                    Each piece in the collection undergoes a rigorous transformation process, where discarded materials are carefully selected, cleaned, and reimagined through innovative construction techniques.
                   </p>
                   <p className="text-sm leading-relaxed font-light">
-                    Together, we explored the intersection of eco-consciousness and high fashion, proving that environmental responsibility can coexist with cutting-edge design. The evening embodied our collective commitment to reshaping the future of fashion, one recycled piece at a time.
+                    Using meticuluously-sourced materials from exclusive manufacturing centers such as Dollarama, our design team spent six months developing proprietary methods. All aimed to transform refuse into refined garments - maintaining structural integrity while challenging conventional fashion aesthetics.
                   </p>
                 </div>
               </div>
             </div>
+          </section>
 
-            {/* Behind the Scenes */}
-            <div className="flex flex-col items-center max-w-2xl mx-auto">
-              <div className="text-center mb-8 px-4">
-                <h3 className="text-base uppercase tracking-widest font-light mb-4">Behind the Scenes</h3>
-                <p className="mb-4 text-sm leading-relaxed font-light">
-                  Each piece in the collection undergoes a rigorous transformation process, where discarded materials are carefully selected, cleaned, and reimagined through innovative construction techniques.
-                </p>
-                <p className="text-sm leading-relaxed font-light">
-                  Using meticuluously-sourced materials from exclusive manufacturing centers such as Dollarama, our design team spent six months developing proprietary methods. All aimed to transform refuse into refined garments - maintaining structural integrity while challenging conventional fashion aesthetics.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Credits Section */}
-        <section id="credits" className="py-12 px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-lg md:text-xl font-light tracking-[0.2em] text-center mb-12 uppercase">Team</h2>
-            
-            {/* Store Video Section */}
-            <div className="w-full flex flex-col items-center justify-center mb-24">
-              <div className="w-full md:w-[75%] relative mb-12">
-                <video
-                  ref={storeVideoRef}
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto"
-                  style={{
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                    display: 'block',
-                    verticalAlign: 'bottom',
-                    transform: 'scale(1.01)',
-                  }}
-                >
-                  <source src="/images/baggy/videos/store.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <button 
-                className="border border-black px-16 py-3 text-xs tracking-widest hover:bg-black hover:text-white transition-all duration-300 font-light cursor-pointer"
-                onClick={() => setIsShoppingModalOpen(true)}
-              >
-                SHOP THE BAGGY BAG
-              </button>
-            </div>
-
-            {/* Special Thanks Section */}
-            <div className="mb-24">
-              <h3 className="text-center text-base font-light tracking-widest mb-12 opacity-70">SPECIAL THANKS</h3>
+          {/* Credits Section */}
+          <section id="credits" className="py-12 px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] text-center mb-12 uppercase">Team</h2>
               
-              <div className="max-w-5xl mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-8">
-                  {/* Column 1 */}
-                  <div className="flex flex-col items-center text-center">
-                    {/* Leadership */}
-                    <div className="w-full">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">LEADERSHIP</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Helen Huang, Creative Director</li>
-                        <li className="text-sm font-light">Benjamin Dryden, Co-Curator</li>
-                      </ul>
+              {/* Store Video Section */}
+              <div className="w-full flex flex-col items-center justify-center mb-24">
+                <div className="w-full md:w-[75%] relative mb-12">
+                  <video
+                    ref={storeVideoRef}
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto"
+                    style={{
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                      display: 'block',
+                      verticalAlign: 'bottom',
+                      transform: 'scale(1.01)',
+                    }}
+                  >
+                    <source src="/images/baggy/videos/store.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <button 
+                  className="border border-black px-16 py-3 text-xs tracking-widest hover:bg-black hover:text-white transition-all duration-300 font-light cursor-pointer"
+                  onClick={() => setIsShoppingModalOpen(true)}
+                >
+                  SHOP THE BAGGY BAG
+                </button>
+              </div>
+
+              {/* Special Thanks Section */}
+              <div className="mb-24">
+                <h3 className="text-center text-base font-light tracking-widest mb-12 opacity-70">SPECIAL THANKS</h3>
+                
+                <div className="max-w-5xl mx-auto px-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-8">
+                    {/* Column 1 */}
+                    <div className="flex flex-col items-center text-center">
+                      {/* Leadership */}
+                      <div className="w-full">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">LEADERSHIP</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Helen Huang, Creative Director</li>
+                          <li className="text-sm font-light">Benjamin Dryden, Co-Curator</li>
+                        </ul>
+                      </div>
+
+                      {/* Photography */}
+                      <div className="w-full mt-8">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">PHOTOGRAPHY</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Adrien Yiptong</li>
+                          <li className="text-sm font-light">Anna Chang</li>
+                          <li className="text-sm font-light">Leslie Seto</li>
+                          <li className="text-sm font-light">Katie Ko</li>
+                        </ul>
+                      </div>
+
+                      {/* Other */}
+                      <div className="w-full mt-8">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">OTHER</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Model credits in above photos</li>
+                          <li className="text-sm font-light">Shoutout to all visitors :)</li>
+                        </ul>
+                      </div>
                     </div>
 
-                    {/* Photography */}
-                    <div className="w-full mt-8">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">PHOTOGRAPHY</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Adrien Yiptong</li>
-                        <li className="text-sm font-light">Anna Chang</li>
-                        <li className="text-sm font-light">Leslie Seto</li>
-                        <li className="text-sm font-light">Katie Ko</li>
-                      </ul>
+                    {/* Column 2 */}
+                    <div className="flex flex-col items-center text-center">
+                      {/* Masters of Ceremony */}
+                      <div className="w-full">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">MASTERS OF CEREMONY</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Nova Xu</li>
+                          <li className="text-sm font-light">Shaiyan Khan</li>
+                          <li className="text-sm font-light">Sean Young as Ash Twin</li>
+                        </ul>
+                      </div>
+
+                      {/* Editorial */}
+                      <div className="w-full mt-8">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">EDITORIAL</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Venice Morales-Vallega</li>
+                          <li className="text-sm font-light">Karan Balaji</li>
+                          <li className="text-sm font-light">Earvin Gocatek</li>
+                        </ul>
+                      </div>
+
+                      {/* Culinary Moments */}
+                      <div className="w-full mt-8">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">CULINARY MOMENTS</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">David Wang</li>
+                          <li className="text-sm font-light">Sofiya Fursa</li>
+                        </ul>
+                      </div>
                     </div>
 
-                    {/* Other */}
-                    <div className="w-full mt-8">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">OTHER</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Model credits in above photos</li>
-                        <li className="text-sm font-light">Shoutout to all visitors :)</li>
-                      </ul>
-                    </div>
-                  </div>
+                    {/* Column 3 */}
+                    <div className="flex flex-col items-center text-center">
+                      {/* Retail Direction */}
+                      <div className="w-full">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">RETAIL DIRECTION</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Nicole Ng</li>
+                          <li className="text-sm font-light">David Bryckine</li>
+                          <li className="text-sm font-light">Ray Chen</li>
+                          <li className="text-sm font-light">Shawn Pear</li>
+                        </ul>
+                      </div>
 
-                  {/* Column 2 */}
-                  <div className="flex flex-col items-center text-center">
-                    {/* Masters of Ceremony */}
-                    <div className="w-full">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">MASTERS OF CEREMONY</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Nova Xu</li>
-                        <li className="text-sm font-light">Shaiyan Khan</li>
-                        <li className="text-sm font-light">Sean Young as Ash Twin</li>
-                      </ul>
-                    </div>
+                      {/* VIPs */}
+                      <div className="w-full mt-8">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">VIPs</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Michelle Tang</li>
+                          <li className="text-sm font-light">Sherry Ning</li>
+                          <li className="text-sm font-light">Justin Cuaresma</li>
+                        </ul>
+                      </div>
 
-                    {/* Editorial */}
-                    <div className="w-full mt-8">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">EDITORIAL</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Venice Morales-Vallega</li>
-                        <li className="text-sm font-light">Karan Balaji</li>
-                        <li className="text-sm font-light">Earvin Gocatek</li>
-                      </ul>
-                    </div>
-
-                    {/* Culinary Moments */}
-                    <div className="w-full mt-8">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">CULINARY MOMENTS</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">David Wang</li>
-                        <li className="text-sm font-light">Sofiya Fursa</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Column 3 */}
-                  <div className="flex flex-col items-center text-center">
-                    {/* Retail Direction */}
-                    <div className="w-full">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">RETAIL DIRECTION</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Nicole Ng</li>
-                        <li className="text-sm font-light">David Bryckine</li>
-                        <li className="text-sm font-light">Ray Chen</li>
-                        <li className="text-sm font-light">Shawn Pear</li>
-                      </ul>
-                    </div>
-
-                    {/* VIPs */}
-                    <div className="w-full mt-8">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">VIPs</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Michelle Tang</li>
-                        <li className="text-sm font-light">Sherry Ning</li>
-                        <li className="text-sm font-light">Justin Cuaresma</li>
-                      </ul>
-                    </div>
-
-                    {/* Venue */}
-                    <div className="w-full mt-8">
-                      <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">VENUE</h4>
-                      <ul className="space-y-2">
-                        <li className="text-sm font-light">Gabe & J, The Ivy</li>
-                      </ul>
+                      {/* Venue */}
+                      <div className="w-full mt-8">
+                        <h4 className="text-sm font-light tracking-widest mb-3 opacity-70">VENUE</h4>
+                        <ul className="space-y-2">
+                          <li className="text-sm font-light">Gabe & J, The Ivy</li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Masonry Grid Section */}
-        <section className="pt-8 pb-24 relative bg-white">
-          <style>{masonryStyles}</style>
-          
-          <div className="max-w-[2000px] mx-auto px-6 md:px-8">
-            <Masonry
-              breakpointCols={breakpointColumns}
-              className="my-masonry-grid"
-              columnClassName="my-masonry-grid_column"
-            >
-              {masonryImages.map((item, index) => (
-                <motion.div
-                  key={item.src}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ 
-                    opacity: loadedMasonryImages.has(item.src) ? 1 : 0,
-                    y: loadedMasonryImages.has(item.src) ? 0 : 20
-                  }}
-                  transition={{ 
-                    duration: 0.8,
-                    delay: index * 0.1,
-                    ease: [0.04, 0.62, 0.23, 0.98]
-                  }}
-                  className="mb-6 relative group"
-                >
-                  <div className="relative overflow-hidden bg-gray-100">
-                    <div style={{ paddingBottom: item.type === 'video' ? '177.78%' : `calc(100% * ${eval(item.aspectRatio)})` }} />
-                    {item.type === 'video' ? (
-                      <video
-                        ref={useVideoPlayback()}
-                        className="absolute inset-0 w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                        loop
-                        muted
-                        playsInline
-                        style={{
-                          display: 'block',
-                          verticalAlign: 'bottom',
-                          transform: 'scale(1.01)',
-                          height: '100%',
-                          minHeight: '100%'
-                        }}
-                        onLoadedData={() => handleMasonryImageLoad(item.src)}
-                      >
-                        <source src={item.src} type="video/mp4" />
-                      </video>
-                    ) : (
-                      <img
-                        src={item.src}
-                        alt={item.alt}
-                        onLoad={() => handleMasonryImageLoad(item.src)}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-300" />
-                    <div className="absolute inset-0 border border-black/5" />
-                  </div>
-                </motion.div>
-              ))}
-            </Masonry>
-          </div>
-        </section>
-      </div>
+          {/* Masonry Grid Section */}
+          <section className="pt-8 pb-24 relative bg-white">
+            <style>{masonryStyles}</style>
+            
+            <div className="max-w-[2000px] mx-auto px-6 md:px-8">
+              <Masonry
+                breakpointCols={breakpointColumns}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column"
+              >
+                {masonryImages.map((item, index) => (
+                  <motion.div
+                    key={item.src}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: loadedMasonryImages.has(item.src) ? 1 : 0,
+                      y: loadedMasonryImages.has(item.src) ? 0 : 20
+                    }}
+                    transition={{ 
+                      duration: 0.8,
+                      delay: index * 0.1,
+                      ease: [0.04, 0.62, 0.23, 0.98]
+                    }}
+                    className="mb-6 relative group"
+                  >
+                    <div className="relative overflow-hidden bg-gray-100">
+                      <div style={{ paddingBottom: item.type === 'video' ? '177.78%' : `calc(100% * ${eval(item.aspectRatio)})` }} />
+                      {item.type === 'video' ? (
+                        <video
+                          ref={useVideoPlayback()}
+                          className="absolute inset-0 w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                          loop
+                          muted
+                          playsInline
+                          style={{
+                            display: 'block',
+                            verticalAlign: 'bottom',
+                            transform: 'scale(1.01)',
+                            height: '100%',
+                            minHeight: '100%'
+                          }}
+                          onLoadedData={() => handleMasonryImageLoad(item.src)}
+                        >
+                          <source src={item.src} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          onLoad={() => handleMasonryImageLoad(item.src)}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-300" />
+                      <div className="absolute inset-0 border border-black/5" />
+                    </div>
+                  </motion.div>
+                ))}
+              </Masonry>
+            </div>
+          </section>
+        </div>
 
-      {/* Add Shopping Modal */}
-      <ShoppingModal
-        isOpen={isShoppingModalOpen}
-        onClose={() => setIsShoppingModalOpen(false)}
-      />
-    </BaggyLayout>
+        {/* Add Shopping Modal */}
+        <ShoppingModal
+          isOpen={isShoppingModalOpen}
+          onClose={() => setIsShoppingModalOpen(false)}
+        />
+      </BaggyLayout>
+    </>
   );
 };
 

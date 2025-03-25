@@ -92,11 +92,12 @@ export const BaggyFooter: React.FC = () => {
                 © 2024 BAGGY. All rights reserved.
               </p>
               <a
-                href="#"
-                onClick={handleLinkClick}
-                className="text-sm font-light text-black/60 hover:text-black transition-colors baggy-footer-link"
+                href="https://instagram.com/baggythebrand"
+                className="text-sm font-light text-black/60 hover:text-black transition-colors baggy-footer-link underline"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                @BAGGYthebrand
+                @BAGGYthebrand &lt;-- click me!
               </a>
             </div>
           </div>
