@@ -1,0 +1,17 @@
+.grid-bg {
+  background-color: #fffdf9;
+  background-image: 
+    linear-gradient(rgba(255, 107, 53, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 53, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: center;
+}
+
+.dot-bg {
+  background-color: #fffdf9;
+  background-image: 
+    radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px, 96px 96px;
+  background-position: center;
+} 

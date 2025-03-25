@@ -1,0 +1,595 @@
+/* BAGGY S/S 25 custom styles */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+/* Baggy-specific base styles */
+.baggy-root {
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset ALL cursor styles within baggy pages */
+.baggy-root,
+.baggy-root *,
+.baggy-root *::before,
+.baggy-root *::after {
+  cursor: auto !important;
+  transition-property: transform, opacity, background-color, border-color, color !important;
+}
+
+/* Only allow pointer cursor on interactive elements */
+.baggy-root a:not([class*="no-pointer"]),
+.baggy-root button:not([class*="no-pointer"]),
+.baggy-root [role="button"]:not([class*="no-pointer"]),
+.baggy-root input[type="button"]:not([class*="no-pointer"]),
+.baggy-root input[type="submit"]:not([class*="no-pointer"]),
+.baggy-root .baggy-nav-link:not([class*="no-pointer"]),
+.baggy-root .gallery-image-container:not([class*="no-pointer"]),
+.baggy-root .collection-card:not([class*="no-pointer"]),
+.baggy-root .btn-elegant:not([class*="no-pointer"]) {
+  cursor: pointer !important;
+}
+
+.baggy-root h1,
+.baggy-root h2,
+.baggy-root h3,
+.baggy-root h4,
+.baggy-root h5 {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.1em;
+}
+
+.baggy-root p {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.75;
+}
+
+/* Smooth scrolling for the baggy pages */
+.baggy-root {
+  scroll-behavior: smooth;
+}
+
+/* Hero section styles */
+.baggy-hero {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Navigation styling for the tubelight navbar */
+/* These classes ensure the tubelight navbar matches the site theme */
+.baggy-root {
+  /* Background elements in light/dark mode */
+  --background: 255 255 255;  /* white */
+  --foreground: 0 0 0;        /* black */
+  --primary: 0 0 0;           /* black for primary elements */
+  --primary-foreground: 255 255 255; /* white on primary */
+  --muted: 243 243 243;       /* very light gray */
+  --muted-foreground: 163 163 163; /* mid gray */
+  --border: 229 229 229;      /* light gray border */
+}
+
+.baggy-root.dark {
+  --background: 0 0 0;         /* black */
+  --foreground: 255 255 255;   /* white */
+  --primary: 255 255 255;      /* white for primary elements */
+  --primary-foreground: 0 0 0; /* black on primary */
+  --muted: 37 37 37;           /* dark gray */
+  --muted-foreground: 163 163 163; /* mid gray */
+  --border: 64 64 64;          /* darker border */
+}
+
+/* Transform classes to RGB values for Tailwind compatibility */
+.baggy-root .bg-background\/5 {
+  background-color: rgba(var(--background), 0.05);
+}
+
+.baggy-root .border-border {
+  border-color: rgba(var(--border), 1);
+}
+
+.baggy-root .border-border\/20 {
+  border-color: rgba(var(--border), 0.2);
+}
+
+.baggy-root .text-foreground\/80 {
+  color: rgba(var(--foreground), 0.8);
+}
+
+.baggy-root .text-primary {
+  color: rgba(var(--primary), 1);
+}
+
+.baggy-root .bg-muted {
+  background-color: rgba(var(--muted), 1);
+}
+
+.baggy-root .bg-primary\/5 {
+  background-color: rgba(var(--primary), 0.05);
+}
+
+.baggy-root .bg-primary {
+  background-color: rgba(var(--primary), 1);
+}
+
+/* Enhanced tubelight navbar styling to match BAGGY aesthetic */
+.baggy-root .fixed.bottom-0.sm\:top-0 {
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.baggy-root .fixed.bottom-0.sm\:top-0 .rounded-full {
+  transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .baggy-root .fixed.bottom-0.sm\:top-0 {
+    top: 20px;
+  }
+}
+
+/* Navigation styling - high fashion */
+.baggy-root .baggy-nav {
+  mix-blend-mode: difference;
+}
+
+.baggy-root .baggy-nav-link {
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.baggy-root .baggy-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.baggy-root .baggy-nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Logo animation styles */
+.baggy-root .baggy-logo {
+  transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+/* Text animation for mobile */
+@media (max-width: 768px) {
+  /* Auto-animate text on mobile without requiring hover */
+  .baggy-root .text-animate-mobile {
+    animation: textPulse 3s infinite alternate;
+  }
+
+  @keyframes textPulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+  }
+  
+  /* More dramatic text movement for mobile */
+  @keyframes textFloat {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(2deg);
+    }
+    100% {
+      transform: translateY(0) rotate(-1deg);
+    }
+  }
+  
+  /* Make navbar stick to bottom on mobile */
+  .baggy-root .fixed.bottom-0 {
+    bottom: 32px;
+  }
+  
+  /* Improve mobile navbar visibility */
+  .baggy-root .bg-background\/5 {
+    background-color: rgba(var(--background), 0.1);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Text cursor proximity effect styles - Enhanced version */
+.baggy-root .text-cursor-proximity {
+  letter-spacing: 0.02em;
+  will-change: transform, color, text-shadow, letter-spacing, rotate;
+}
+
+.baggy-root .text-cursor-proximity span {
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), 
+              color 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+              text-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+              letter-spacing 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+              rotate 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Add magnetic push/pull effect for hover */
+.baggy-root .text-cursor-proximity:hover span {
+  animation: magneticPulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes magneticPulse {
+  0% {
+    transform: translateZ(0) scale(1.05);
+  }
+  50% {
+    transform: translateZ(10px) scale(1.2);
+  }
+  100% {
+    transform: translateZ(0) scale(1.05);
+  }
+}
+
+/* Gallery image hover effects */
+.baggy-root .gallery-image {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: grayscale(0);
+}
+
+.baggy-root .gallery-image:hover {
+  transform: scale(1.03);
+  z-index: 5;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Gallery image container */
+.baggy-root .gallery-image-container {
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease;
+}
+
+.baggy-root .gallery-image-container:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Credits section styling */
+.baggy-root .credits-item {
+  transition: opacity 0.3s ease;
+}
+
+.baggy-root .credits-item:hover {
+  opacity: 0.7;
+}
+
+/* Typography - elegant minimal */
+.baggy-root .text-elegant {
+  letter-spacing: 0.1em;
+  font-weight: 300;
+}
+
+.baggy-root .text-uppercase {
+  text-transform: uppercase;
+}
+
+/* Collection card hover effects */
+.baggy-root .collection-card {
+  transition: all 0.3s ease;
+}
+
+.baggy-root .collection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Hero fade effect on scroll */
+.baggy-root .hero-fade-to-white {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Elegant button styles */
+.baggy-root .btn-elegant {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid currentColor;
+  padding: 0.75rem 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.baggy-root .btn-elegant::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: currentColor;
+  transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+}
+
+.baggy-root .btn-elegant:hover {
+  color: white;
+}
+
+.baggy-root .btn-elegant:hover::after {
+  height: 100%;
+}
+
+/* Fixed navigation blur */
+.baggy-root .nav-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Custom scrollbar for baggy pages */
+.baggy-root::-webkit-scrollbar {
+  width: 4px;
+}
+
+.baggy-root::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.baggy-root::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.baggy-root::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .baggy-root .baggy-logo {
+    font-size: 3rem !important;
+  }
+  
+  /* Enhance mobile text experience */
+  .baggy-root .text-cursor-proximity span {
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+}
+
+/* BAGGY Luxury Fashion Styles */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+/* Baggy-specific base styles */
+.baggy-root {
+  @apply font-sans text-[#1a1a1a];
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.baggy-root h1,
+.baggy-root h2,
+.baggy-root h3,
+.baggy-root h4,
+.baggy-root h5 {
+  font-family: 'Cormorant Garamond', serif;
+  @apply tracking-wide;
+}
+
+.baggy-root p {
+  font-family: 'Inter', sans-serif;
+  @apply leading-relaxed;
+}
+
+/* Luxury transitions */
+.baggy-root * {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Luxury hover effects */
+.baggy-hover-underline {
+  @apply relative;
+}
+
+.baggy-hover-underline::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-500;
+}
+
+.baggy-hover-underline:hover::after {
+  @apply w-full;
+}
+
+/* Luxury button styles */
+.baggy-btn {
+  @apply px-8 py-3 border border-[#1a1a1a]/20 hover:border-[#1a1a1a]
+         text-sm tracking-[0.25em] uppercase transition-all duration-500
+         hover:bg-[#1a1a1a] hover:text-white;
+}
+
+/* Text balance and hyphenation */
+.baggy-text-balance {
+  text-wrap: balance;
+}
+
+.baggy-text-hyphenate {
+  hyphens: auto;
+  text-align: justify;
+}
+
+/* Baggy section styles */
+.baggy-section {
+  @apply py-20 md:py-32;
+}
+
+.baggy-section-title {
+  @apply text-4xl md:text-5xl lg:text-6xl tracking-wide leading-tight;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.baggy-section-subtitle {
+  @apply mt-6 text-lg md:text-xl leading-relaxed text-[#1a1a1a]/70;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Baggy navigation styles */
+.baggy-nav {
+  @apply fixed top-0 left-1/2 -translate-x-1/2 z-50 pt-8;
+}
+
+.baggy-nav-container {
+  @apply flex items-center gap-4 bg-white/10 backdrop-blur-md py-2 px-2 
+         rounded-full border border-[#1a1a1a]/10;
+}
+
+.baggy-nav-link {
+  @apply relative cursor-pointer text-xs tracking-[0.25em] px-8 py-3 rounded-full
+         transition-all duration-500 ease-in-out text-[#707070] hover:text-[#1a1a1a];
+}
+
+.baggy-nav-link.active {
+  @apply text-[#1a1a1a] font-medium;
+}
+
+/* Baggy image styles */
+.baggy-image {
+  @apply transition-transform duration-500;
+}
+
+.baggy-image:hover {
+  @apply transform scale-[1.02];
+}
+
+/* Baggy grid layout */
+.baggy-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+/* Baggy card styles */
+.baggy-card {
+  @apply bg-white/50 backdrop-blur-sm border border-[#1a1a1a]/10
+         p-6 rounded-lg transition-all duration-500;
+}
+
+.baggy-card:hover {
+  @apply border-[#1a1a1a]/20 transform -translate-y-1
+         shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+}
+
+/* Baggy text styles */
+.baggy-heading-xl {
+  @apply text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.baggy-heading-lg {
+  @apply text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.baggy-heading-md {
+  @apply text-3xl md:text-4xl tracking-wide leading-snug;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.baggy-text-lg {
+  @apply text-lg md:text-xl leading-relaxed;
+  font-family: 'Inter', sans-serif;
+}
+
+.baggy-text-md {
+  @apply text-base md:text-lg leading-relaxed;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Baggy animations */
+@keyframes baggyFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.baggy-fade-in {
+  animation: baggyFadeIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+/* Music Player Range Input Styles */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: rgba(0, 0, 0, 0.1);
+  height: 2px;
+  border-radius: 1px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: rgba(0, 0, 0, 0.1);
+  height: 2px;
+  border-radius: 1px;
+}
+
+/* Thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  background-color: #000;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  margin-top: -6px;
+  background-color: #000;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+input[type="range"]:hover::-webkit-slider-thumb {
+  background-color: #000;
+  border-color: #f8f8f8;
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+  background-color: #000;
+  border-color: #f8f8f8;
+}
+
+/* Focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove any transitions on cursor to ensure immediate change */
+* {
+  transition: all 0.3s ease-in-out;
+  transition-property: transform, opacity, background-color, border-color, color;
+} 

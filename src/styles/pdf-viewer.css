@@ -1,0 +1,127 @@
+/* PDF Viewer Error Detection and Handling */
+
+/* First attempt to detect if iframe content didn't load properly */
+.pdf-load-error:has(+ iframe:empty) {
+  display: flex !important;
+}
+
+/* Alternative detection method using a script and class toggle */
+.pdf-error-visible {
+  display: flex !important;
+}
+
+/* Styling for error state */
+.pdf-error-message {
+  padding: 2rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  max-width: 80%;
+}
+
+.pdf-error-icon {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1rem;
+  color: #6b7280;
+}
+
+.pdf-retry-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  color: #fff;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.pdf-retry-button:hover {
+  background-color: #333;
+}
+
+/* PDF controls styling */
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e7eb;
+}
+
+.pdf-control-button {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.pdf-download-button {
+  background-color: transparent;
+  border: 1px solid #d1d5db;
+  color: #4b5563;
+}
+
+.pdf-download-button:hover {
+  background-color: #f3f4f6;
+}
+
+.pdf-open-button {
+  background-color: #000;
+  color: #fff;
+}
+
+.pdf-open-button:hover {
+  background-color: #333;
+}
+
+.pdf-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+/* PDF modal animation */
+@keyframes pdfModalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pdf-modal {
+  animation: pdfModalFadeIn 0.3s ease-out forwards;
+}
+
+/* PDF loading animation */
+.pdf-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f9f9f9;
+}
+
+.pdf-loading-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #000;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+} 
