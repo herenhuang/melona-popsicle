@@ -13,4 +13,17 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 650,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'framer-motion': ['framer-motion'],
+          'ui-components': ['react-masonry-css', 'react-markdown', 'react-helmet-async'],
+          'utils': ['lodash', 'clsx', 'tailwind-merge'],
+        }
+      }
+    }
+  }
 });

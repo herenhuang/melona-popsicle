@@ -299,6 +299,18 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
+// Add this helper function before the BaggySSPage component
+const calculateAspectRatio = (aspectRatio: string): string => {
+  // Parse the aspect ratio values safely
+  const [width, height] = aspectRatio.split('/').map(Number);
+  if (!isNaN(width) && !isNaN(height) && height !== 0) {
+    // Calculate the percentage for padding-bottom
+    return `${(height / width) * 100}%`;
+  }
+  // Fallback to a standard aspect ratio
+  return '100%';
+};
+
 const BaggySSPage: React.FC = () => {
   const { setImageLoadingProgress } = useContext(ImageLoadingContext);
   const [showAllImages, setShowAllImages] = useState(false);
@@ -766,7 +778,7 @@ const BaggySSPage: React.FC = () => {
                     className="mb-6 relative group"
                   >
                     <div className="relative overflow-hidden bg-gray-100">
-                      <div style={{ paddingBottom: item.type === 'video' ? '177.78%' : `calc(100% * ${eval(item.aspectRatio)})` }} />
+                      <div style={{ paddingBottom: item.type === 'video' ? '177.78%' : calculateAspectRatio(item.aspectRatio) }} />
                       {item.type === 'video' ? (
                         <video
                           ref={useVideoPlayback()}
