@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Fashion Video</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            background-color: #000;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        p {
+            margin-top: 20px;
+            max-width: 600px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fashion Video Generator</h1>
+    <canvas id="canvas" width="1280" height="720"></canvas>
+    <button id="downloadBtn">Generate and Download Video</button>
+    <p>This page generates a simple animated fashion video to use as a placeholder. Click the button above to create and download the video. Then move the downloaded file to the 'public/videos' folder and rename it to 'fashion-catwalk.mp4'.</p>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        // Fashion silhouette data
+        const silhouettes = [
+            {
+                points: [
+                    {x: 640, y: 150}, // head
+                    {x: 640, y: 300}, // neck
+                    {x: 580, y: 400}, // left shoulder
+                    {x: 700, y: 400}, // right shoulder
+                    {x: 640, y: 550}, // waist
+                    {x: 580, y: 700}, // left leg
+                    {x: 700, y: 700}  // right leg
+                ],
+                color: 'rgba(255, 255, 255, 0.8)'
+            },
+            {
+                points: [
+                    {x: 440, y: 150},
+                    {x: 440, y: 280},
+                    {x: 380, y: 380},
+                    {x: 500, y: 380},
+                    {x: 440, y: 520},
+                    {x: 400, y: 700},
+                    {x: 480, y: 700}
+                ],
+                color: 'rgba(200, 200, 200, 0.8)'
+            },
+            {
+                points: [
+                    {x: 840, y: 150},
+                    {x: 840, y: 280},
+                    {x: 780, y: 380},
+                    {x: 900, y: 380},
+                    {x: 840, y: 520},
+                    {x: 800, y: 700},
+                    {x: 880, y: 700}
+                ],
+                color: 'rgba(200, 200, 200, 0.8)'
+            }
+        ];
+        
+        let frameCount = 0;
+        let chunks = [];
+        let mediaRecorder;
+        let stream;
+        
+        // Draw fashion runway background
+        function drawBackground() {
+            // Gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#111');
+            gradient.addColorStop(1, '#333');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Runway
+            ctx.fillStyle = '#222';
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 200, canvas.height);
+            ctx.lineTo(canvas.width/2 + 200, canvas.height);
+            ctx.lineTo(canvas.width/2 + 100, canvas.height/2);
+            ctx.lineTo(canvas.width/2 - 100, canvas.height/2);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Runway lights
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            for (let i = 0; i < 10; i++) {
+                const y = canvas.height - i * (canvas.height/2) / 10;
+                const width = 400 - i * 15;
+                ctx.fillRect(canvas.width/2 - width/2, y, width, 2);
+            }
+        }
+        
+        // Draw fashion silhouette
+        function drawSilhouette(silhouette, offset) {
+            ctx.strokeStyle = silhouette.color;
+            ctx.lineWidth = 4;
+            
+            // Draw body outline
+            ctx.beginPath();
+            ctx.moveTo(silhouette.points[0].x, silhouette.points[0].y + offset);
+            
+            for (let i = 1; i < silhouette.points.length; i++) {
+                ctx.lineTo(silhouette.points[i].x, silhouette.points[i].y + offset);
+                
+                // Add dress/skirt flair when reaching waist point
+                if (i === 4) {
+                    if (Math.random() > 0.5) { // Different style for variety
+                        const skirtWidth = 100 + Math.sin(frameCount/10) * 20;
+                        ctx.lineTo(silhouette.points[i].x - skirtWidth, silhouette.points[i+1].y + offset);
+                        ctx.lineTo(silhouette.points[i].x + skirtWidth, silhouette.points[i+1].y + offset);
+                    }
+                }
+            }
+            
+            ctx.stroke();
+            
+            // Add some fashion details
+            ctx.beginPath();
+            ctx.arc(silhouette.points[0].x, silhouette.points[0].y + offset, 20, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Add some movement to the silhouette
+            const swayAmount = Math.sin(frameCount/10) * 5;
+            ctx.beginPath();
+            ctx.moveTo(silhouette.points[2].x, silhouette.points[2].y + offset);
+            ctx.lineTo(silhouette.points[2].x - 40 + swayAmount, silhouette.points[2].y + 80 + offset);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(silhouette.points[3].x, silhouette.points[3].y + offset);
+            ctx.lineTo(silhouette.points[3].x + 40 - swayAmount, silhouette.points[3].y + 80 + offset);
+            ctx.stroke();
+        }
+        
+        // Draw a frame of the animation
+        function drawFrame() {
+            drawBackground();
+            
+            // Draw text
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = '60px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('BAGGY S/S 25', canvas.width/2, 80);
+            
+            // Draw silhouettes with walking animation
+            silhouettes.forEach((silhouette, index) => {
+                const walkOffset = ((frameCount + index * 40) % 120) - 60;
+                drawSilhouette(silhouette, -walkOffset * 5);
+            });
+            
+            // Add some particles/light effects
+            const numParticles = 3;
+            for (let i = 0; i < numParticles; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height/3;
+                const size = Math.random() * 4 + 1;
+                
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            frameCount++;
+        }
+        
+        // Record video
+        function startRecording() {
+            frameCount = 0;
+            chunks = [];
+            
+            stream = canvas.captureStream(30);
+            mediaRecorder = new MediaRecorder(stream, {
+                mimeType: 'video/webm;codecs=vp9',
+                videoBitsPerSecond: 2500000
+            });
+            
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    chunks.push(e.data);
+                }
+            };
+            
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'fashion-catwalk.webm';
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+            
+            mediaRecorder.start();
+            
+            // Record for 8 seconds
+            const recordingDuration = 8000;
+            const framesPerSecond = 30;
+            let frameCount = 0;
+            const totalFrames = recordingDuration / 1000 * framesPerSecond;
+            
+            function recordFrame() {
+                drawFrame();
+                frameCount++;
+                
+                if (frameCount < totalFrames) {
+                    requestAnimationFrame(recordFrame);
+                } else {
+                    mediaRecorder.stop();
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = 'Generate and Download Video';
+                }
+            }
+            
+            recordFrame();
+        }
+        
+        // Initial draw
+        drawFrame();
+        
+        // Setup download button
+        downloadBtn.addEventListener('click', () => {
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = 'Generating Video...';
+            setTimeout(() => {
+                startRecording();
+            }, 100);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,12 @@
+This directory would contain actual video files in a real application.
+
+For example:
+- baggy-magazine-walkthrough.mp4
+- baggy-runway-show.mp4
+- baggy-behind-the-scenes.mp4
+
+Since we can't create actual video files through this interface, we'll rely on the 
+fallback poster images in our components and proper error handling.
+
+When implementing this for real, you would place actual .mp4, .webm, or other 
+video format files in this directory. 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bag shape -->
+  <path d="M60 80 
+           C60 60 100 40 120 40
+           C140 40 180 60 180 80
+           L180 200
+           C180 210 170 220 160 220
+           L80 220
+           C70 220 60 210 60 200
+           Z" 
+        fill="black"/>
+  
+  <!-- Bag opening -->
+  <path d="M60 80
+           C60 70 100 60 120 60
+           C140 60 180 70 180 80
+           C180 90 140 100 120 100
+           C100 100 60 90 60 80Z"
+        fill="black"/>
+  
+  <!-- Highlights -->
+  <path d="M80 100
+           C100 110 140 110 160 100
+           L160 190
+           C160 200 150 210 140 210
+           L100 210
+           C90 210 80 200 80 190
+           Z"
+        fill="#222"
+        opacity="0.1"/>
+</svg> 
