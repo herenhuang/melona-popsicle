@@ -1,0 +1,2 @@
+public/images/baggy/videos/*.mp4 filter=lfs diff=lfs merge=lfs -text
+public/images/baggy/masonry/*.mp4 filter=lfs diff=lfs merge=lfs -text
