@@ -201,6 +201,10 @@
     background-color: rgba(var(--background), 0.1);
     backdrop-filter: blur(8px);
   }
+
+  .px-6.flex.flex-col.justify-center.h-full {
+    text-align: center;
+  }
 }
 
 /* Text cursor proximity effect styles - Enhanced version */
