@@ -78,7 +78,6 @@ const BaggyMagazineViewer: React.FC<BaggyMagazineViewerProps> = ({
               controls
               muted
               className="w-full h-full"
-              poster="/images/baggy/magazine-preview.jpg"
             >
               Your browser does not support the video tag.
             </video>
