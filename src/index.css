@@ -26,9 +26,18 @@
   @apply mb-1;
 }
 
+.markdown-content:not([data-baggy="true"]) li li {
+  @apply mt-1 mb-1;
+}
+
 .markdown-content:not([data-baggy="true"]) ul,
 .markdown-content:not([data-baggy="true"]) ol {
   @apply mb-3;
+}
+
+.markdown-content:not([data-baggy="true"]) li > ul,
+.markdown-content:not([data-baggy="true"]) li > ol {
+  @apply mt-1 mb-1;
 }
 
 .bg-grid-pattern {
