@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate, useLocation } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface MarkdownContentProps {
   content: string;
@@ -18,6 +19,7 @@ export function MarkdownContent({ content, onImagesLoaded }: MarkdownContentProp
     <div className="markdown-content" data-baggy={isBaggyPage}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
         components={{
           a: ({ node, ...props }) => {
             const href = props.href || '';
@@ -46,9 +48,9 @@ export function MarkdownContent({ content, onImagesLoaded }: MarkdownContentProp
               />
             );
           },
-          h1: ({ node, ...props }) => <h1 className="text-xl font-medium mt-6 mb-3" {...props} />,
-          h2: ({ node, ...props }) => <h2 className="text-lg font-medium mt-5 mb-3" {...props} />,
-          h3: ({ node, ...props }) => <h3 className="text-base font-medium mt-4 mb-2" {...props} />,
+          h1: ({ node, ...props }) => <h1 className="text-lg font-medium mt-6 mb-3" {...props} />,
+          h2: ({ node, ...props }) => <h2 className="text-base font-medium mt-5 mb-3" {...props} />,
+          h3: ({ node, ...props }) => <h3 className="text-sm font-medium mt-4 mb-2" {...props} />,
           p: ({ node, ...props }) => <p className="mb-4" {...props} />,
           ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4" {...props} />,
           ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4" {...props} />,

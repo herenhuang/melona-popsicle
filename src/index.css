@@ -40,6 +40,11 @@
   @apply mt-1 mb-1;
 }
 
+/* Responsive iframe container */
+.markdown-content iframe {
+  @apply w-full max-w-[560px] aspect-video my-4 rounded-lg;
+}
+
 .bg-grid-pattern {
   background-image: 
     linear-gradient(rgba(255, 107, 53, 0.1) 1px, transparent 1px),
