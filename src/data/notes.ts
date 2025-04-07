@@ -62,13 +62,16 @@ i enjoy solo travelling 🗺️ (11 countries so far) and dance 💃 (hip hop/ja
 - on a sabbatical (length: tbd)
 
 # previous work work 
-- cofounder @ co.lab — creating immersive, real-world tech learning programs for busy professionals
-- program + product @ microsoft — worked on edge devrel & azure devops, focusing on dev advocacy and product iteration
+- cofounder @ co.lab (forbes 30 under 30 education, asu+gsv 150, hustle fund affies award) — creating immersive, real-world tech learning programs for non-traditional tech talent, wearer of all hats
+- program + product management @ microsoft — 2 teams, msft edge developer relations & windows engineering/azure devops, pricing strategy 
 - product manager intern @ zynga — contributed to wordstreak with friends (300k dau), spearheaded app revamp from 1 to 4 stars in four months
 - interned @ cibc & scotiabank — business analyst roles back in university days
+- sales - manchuwok, canada's wonderland, shoe club  
 
 # education
 - b.sc in science and business (earth sci specialization) @ university of waterloo
+- nat eliason's build your own products with AI course 
+- shreyas doshi's improving your product sense course 
 
 check out my [projects](/projects) for more info ~ `,
     isPinned: true,
@@ -100,20 +103,21 @@ check out my [projects](/projects) for more info ~ `,
     isPinned: true,
     pinnedOrder: 4
   },
+
+  
+  // Non-pinned notes (in descending date order)
   {
     id: 'recognition',
     title: '🎖️ recognition and speaking',
     date: '2025-03-17T00:54:00Z',
-    content: `some stuff i've been recognized for recently ~ ill connect the links soon. 
-
-- forbes 30 under 30: honored for co.lab's impact
+    content: `
+- forbes 30 under 30, asu+gsv top 150 startups: honored for co.lab's impact
+- product hunt #1 product of the day, #4 of the day for separate project ~ 
 - dmz women of the year: recognized for contributions to tech education
 - glory 30x30 honoree: named one of canada's standout young entrepreneurs
 - waterloo innovation summit: spoke on flipped classrooms & peer-led learning
 - dmz: discussed founder-led sales strategies & marketing funnels
-- founder institute: insights on community-driven growth & product-led strategies`,
-    isPinned: true,
-    pinnedOrder: 5
+- founder institute: insights on community-driven growth & product-led strategies`
   },
   {
     id: 'reminders',
@@ -122,13 +126,8 @@ check out my [projects](/projects) for more info ~ `,
     content: `
 - Happiness is when what you think, what you say, and what you do are in harmony.
 - What if the sky isn't the limit?
-- All of the time spent on worrying about things can probably be better used in other ways.`,
-    isPinned: true,
-    pinnedOrder: 6
+- All of the time spent on worrying about things can probably be better used in other ways.`
   },
-
-  
-  // Non-pinned notes (in descending date order)
   {
     id: 'feb182025',
     title: '❄️ feb update',
@@ -173,20 +172,22 @@ I used a blend of Cursor (with the help of MCPs), Cursor Code (for any times whe
 - move to NY
 - do an essay on why i stopped doing my nails and lashes
 - try pottery
+- crocs in jean-form
+- scifi short story 
 - take pictures of all my clothes
-- set up trading view for my stocks and rebalance them
 
 # In Progress
 
-- finish this website
 - restart my blog
 - finish AI coding course
 - finish dance classes
-- get a drivers license
-- host a fake fashion show for my fake trash bag brand for my real birthday
+- set up trading view for my stocks and rebalance them
+
 
 # Completed
 
+- finish this website (forever in progress but also done)
+- get a drivers license (completed Feb 24, 2024)
 - host a fake fashion show for my fake trash bag brand for my real birthday (completed March 2nd, 2025)`,
     isPinned: false
   }
