@@ -67,6 +67,8 @@ export const notes: Note[] = [
 - interned @ cibc & scotiabank -- business analyst roles back in university days
 - sales -- manchuwok, canada's wonderland, shoe club  
 
+see resume [here](https://drive.google.com/file/d/1dOHZE6Myq8lDvrVT0xSz1hHR4eZ3IiyK/view?usp=sharing)
+
 # education (and lifelong learning)
 - b.sc in science and business (earth sci specialization) @ university of waterloo (2017)
 - nat eliason's build your own products with AI course (feb 2025)
