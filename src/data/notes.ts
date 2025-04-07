@@ -46,7 +46,7 @@ export const notes: Note[] = [
 *BTW, this is my /now page, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm exactly up to these days. I'm keeping my old /now pages though, you can see the, below.*
 `,
     isPinned: true,
-    pinnedOrder: 2
+    pinnedOrder: 4
   },
   {
     id: 'about',
@@ -120,7 +120,7 @@ export const notes: Note[] = [
   </iframe>
   `,
     isPinned: true,
-    pinnedOrder: 4
+    pinnedOrder: 2
   },
 
   
