@@ -52,28 +52,24 @@ export const notes: Note[] = [
     id: 'about',
     title: '🤠 about me',
     date: '2025-03-17T01:25:00Z',
-    content: `howdy, I'm Helen Huang. 
+    content: `howdy, I'm Helen Huang, a product, ops and strategy person. enthusiastic about anything experiential: marketing, content, learning, community, food. 
     
-i have over 9 years of experience in product, ops and strategy. super enthusiastic about anything experiential: content, learning, marketing, community, events, food. 
-    
-i enjoy solo travelling 🗺️ (11 countries so far) and dance 💃 (hip hop/jazz funk/bachata/traditional chinese dancing).
-
 # currently
-- on a sabbatical (length: tbd)
+- on a x-month sabbatical (since Sept 2024)
+- creating short-form [content](/projects) (31K+ followers, 1M+ impressions on socials)
+- searching for meaningful work with people who care about making the world better (NYC or remote)
 
 # previous work work 
-- cofounder @ co.lab (forbes 30 under 30 education, asu+gsv 150, hustle fund affies award) — creating immersive, real-world tech learning programs for non-traditional tech talent, wearer of all hats
-- program + product management @ microsoft — 2 teams, msft edge developer relations & windows engineering/azure devops, pricing strategy 
-- product manager intern @ zynga — contributed to wordstreak with friends (300k dau), spearheaded app revamp from 1 to 4 stars in four months
+- cofounder @ co.lab - wearer of all hats, $30M+ in annual tech industry salaries for our graduates, forbes 30 under 30 education, asu+gsv 150, hustle fund affies award
+- program + product management @ microsoft — msft edge tech evangelism & later windows engineering/azure devops working on pricing and developer experience
+- product manager intern @ zynga — wordstreak with friends (300k dau), spearheaded app revamp from 1 to 4 stars in four months
 - interned @ cibc & scotiabank — business analyst roles back in university days
 - sales - manchuwok, canada's wonderland, shoe club  
 
 # education
-- b.sc in science and business (earth sci specialization) @ university of waterloo
-- nat eliason's build your own products with AI course 
-- shreyas doshi's improving your product sense course 
-
-check out my [projects](/projects) for more info ~ `,
+- b.sc in science and business (earth sci specialization) @ university of waterloo (2017)
+- nat eliason's build your own products with AI course (2025)
+- shreyas doshi's improving your product sense course (2025)`,
     isPinned: true,
     pinnedOrder: 1
   },

@@ -12,9 +12,10 @@ export function MarkdownContent({ content, onImagesLoaded }: MarkdownContentProp
   const navigate = useNavigate();
   const location = useLocation();
   const shouldAnimate = !location.pathname.includes('baggy');
+  const isBaggyPage = location.pathname.includes('baggy');
 
   return (
-    <div className="markdown-content">
+    <div className="markdown-content" data-baggy={isBaggyPage}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

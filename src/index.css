@@ -13,6 +13,24 @@
   }
 }
 
+/* Markdown content styles (excluding Baggy pages) */
+.markdown-content:not([data-baggy="true"]) {
+  @apply leading-relaxed;
+}
+
+.markdown-content:not([data-baggy="true"]) p {
+  @apply mb-4;
+}
+
+.markdown-content:not([data-baggy="true"]) li {
+  @apply mb-1;
+}
+
+.markdown-content:not([data-baggy="true"]) ul,
+.markdown-content:not([data-baggy="true"]) ol {
+  @apply mb-3;
+}
+
 .bg-grid-pattern {
   background-image: 
     linear-gradient(rgba(255, 107, 53, 0.1) 1px, transparent 1px),
