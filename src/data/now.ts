@@ -39,6 +39,8 @@ export const nowNote: Note = {
 - played 900-person musical chairs in bryant park
 - picked up what I thought was a piece of popcorn but it was really a cockroach egg (don't ask me how I know lol)
 
+![i attended ny tech week and all i got was this ny cookie](/images/nyccookiewoo_compressed.jpeg)
+
 # building with ai
 The month-long Bolt Hackathon is prob the biggest to-do on my list right now. I have a bunch of ideas, and I just know there's enough time to execute them all. What's harder though is keeping up the momentum and motivation. But currently I'm working on another 
 Reddit game, and then I have this flight anxiety app I'm hoping to actually ship. 
@@ -54,12 +56,8 @@ They all say NYC is a city that moves fast, and there's endless amounts of thing
 # current mood: indecisive as usual 
 But the good thing is I am choosing to be happy (and patient) with said indecision. One day there's going to be a decision and I'll look back on these notes and be like "oh man, remember when I spent those few months bunming around and doing whatever the heck? Those were great times!"
 
-
-![i attended ny tech week and all i got was this ny cookie](/images/nyccookiewoo_compressed.jpeg)
-
-
-*BTW, this is my /now page, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm exactly up to these days. I'm keeping my old /now pages though, you can see them below.*
-`,
+---
+*BTW, this is my /now page, inspired by Derek Sivers and the [/now movement](https://nownownow.com/about). It's essentially a spot to showcase what I'm exactly up to these days. I'm keeping my old /now pages though, you can see them in the other entries.*`,
   isPinned: true,
   pinnedOrder: 4
 }; 
