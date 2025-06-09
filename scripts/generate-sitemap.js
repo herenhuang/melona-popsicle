@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { notes } from '../src/data/notes.js';
+import { nowNote } from '../src/data/now.js';
+import { staticNotes } from '../src/data/static.js';
+import { journalNotes } from '../src/data/journal.js';
 
 // Get current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -11,6 +13,7 @@ const __dirname = path.dirname(__filename);
  * Generates an XML sitemap based on the notes data
  */
 function generateSitemap() {
+  const notes = [nowNote, ...staticNotes, ...journalNotes];
   const baseUrl = 'https://helenhuang.io';
   const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
   

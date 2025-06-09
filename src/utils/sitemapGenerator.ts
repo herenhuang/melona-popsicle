@@ -1,4 +1,6 @@
-import { notes } from '../data/notes';
+import { nowNote } from '../data/now';
+import { staticNotes } from '../data/static';
+import { journalNotes } from '../data/journal';
 import fs from 'fs';
 import path from 'path';
 
@@ -6,6 +8,7 @@ import path from 'path';
  * Generates an XML sitemap based on the notes data
  */
 export function generateSitemap() {
+  const notes = [nowNote, ...staticNotes, ...journalNotes];
   const baseUrl = 'https://helenhuang.io';
   const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
   

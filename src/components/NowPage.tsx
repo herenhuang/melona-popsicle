@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { X, Minus, Plus, Search, Edit, Calendar, ArrowLeft } from 'lucide-react';
-import { notes } from '../data/notes';
+import { nowNote, Note, generatePreview } from '../data/now';
+import { staticNotes } from '../data/static';
+import { journalNotes } from '../data/journal';
 import { MarkdownContent } from './MarkdownContent';
 import { formatDateForContent, formatDateForPreview } from '../utils/dateFormatters';
-import { generatePreview } from '../data/notes';
 import { Helmet } from 'react-helmet-async';
 import { ImageLoadingContext } from '../App';
 
@@ -15,6 +16,9 @@ interface NowPageProps {
 export function NowPage({ defaultNote }: NowPageProps) {
   const navigate = useNavigate();
   const { noteId } = useParams();
+  
+  // Combine all notes
+  const notes: Note[] = [nowNote, ...staticNotes, ...journalNotes];
   
   // Initialize with false and update in useEffect to avoid SSR issues
   const [isMobile, setIsMobile] = useState(false);
@@ -131,8 +135,8 @@ export function NowPage({ defaultNote }: NowPageProps) {
   const handleNoteSelect = (id: string) => {
     setSelectedNote(id);
     
-    // Special case for mar172025 note
-    if (id === 'mar172025') {
+    // Use /now URL for the current now note
+    if (id === nowNote.id) {
       navigate('/now');
     } else {
       navigate(`/${id}`);

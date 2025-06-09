@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { HelmetProvider } from 'react-helmet-async';
 import { Header } from './components/Header';
 import { ContactBar } from './components/ContactBar';
+import { nowNote } from './data/now';
 // Lazy load bigger components
 const Confetti = lazy(() => import('./components/Confetti').then(module => ({ default: module.Confetti })));
 const GardenDemo = lazy(() => import('./components/GardenDemo').then(module => ({ default: module.GardenDemo })));
@@ -119,10 +120,10 @@ function AppContent() {
             </Suspense>
           } />
           
-          {/* /now path - show the mar172025 note */}
+          {/* /now path - show the current now note */}
           <Route path="/now" element={
             <Suspense fallback={<PageFallback />}>
-              <NowPage defaultNote="mar172025" />
+              <NowPage defaultNote={nowNote.id} />
             </Suspense>
           } />
           
