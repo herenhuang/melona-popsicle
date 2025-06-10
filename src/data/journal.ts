@@ -16,19 +16,6 @@ export const journalNotes: Note[] = [
     isPinned: false
   },
   {
-    id: 'reminders',
-    title: '🌸 pondering',
-    date: '2025-02-27T07:23:00Z',
-    content: `
-- Happiness is when what you think, what you say, and what you do are in harmony.
-- What if the sky isn't the limit?
-- All of the time spent on worrying about things can probably be better used in other ways.
-- Perhaps digital beings should have rights?
-- What exactly does a work-life integration look like?
-- How do we get the general public to care about things that matter? How do we break information down into digestible pieces, while retaining the full context and nuance? How do we communicate in a way that is accessible to everyone?`,
-    isPinned: false
-  },
-  {
     id: 'feb182025',
     title: 'feb update',
     date: '2025-02-18T20:14:00Z',
@@ -62,7 +49,7 @@ All the code here was written with the help of AI cause I don't code... or I gue
     date: '2025-06-09T11:17:00Z',
     content: `In January, I led a workshop where we made bingo cards (rather than your usual new years resolutions). This is what's on mine, it represents all the things I want to complete (or at least get started on) in in this first half of 2025.
 
-    Update: June 2025 - Good amount of stuff done, but I think I should probably create a new bingo card for this next half.
+Update: June 2025 - Good amount of stuff done, but I think I should probably create a new bingo card for this next half.
 
 # Not Yet Started
 - write a creative workbook
