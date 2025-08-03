@@ -1,15 +1,9 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { Header } from './components/Header';
-import { ContactBar } from './components/ContactBar';
 import { nowNote } from './data/now';
 // Lazy load bigger components
-const Confetti = lazy(() => import('./components/Confetti').then(module => ({ default: module.Confetti })));
-const GardenDemo = lazy(() => import('./components/GardenDemo').then(module => ({ default: module.GardenDemo })));
-const ChatBox = lazy(() => import('./components/ChatBox').then(module => ({ default: module.ChatBox })));
 const NowPage = lazy(() => import('./components/NowPage').then(module => ({ default: module.NowPage })));
-const Experience = lazy(() => import('./components/Experience').then(module => ({ default: module.Experience })));
 import { LoadingScreen } from './components/LoadingScreen';
 import { BaggyLoadingScreen } from './components/baggy/BaggyLoadingScreen';
 // Lazy load the BaggySSPage component
@@ -24,29 +18,6 @@ export const ImageLoadingContext = React.createContext<{
   imageLoadingProgress: 0,
   setImageLoadingProgress: () => {},
 });
-
-function HomePage() {
-  const location = useLocation();
-
-  return (
-    <div className="flex flex-col items-center min-h-screen px-8 md:px-16 lg:px-24 grid-bg">
-      <Suspense fallback={null}>
-        <Confetti />
-      </Suspense>
-      <Header />
-      <Suspense fallback={<div className="w-full h-[300px]" />}>
-        <Experience />
-      </Suspense>
-      <Suspense fallback={<div className="w-full h-[400px]" />}>
-        <GardenDemo />
-      </Suspense>
-      <ContactBar isPersonal={true} />
-      <Suspense fallback={null}>
-        <ChatBox />
-      </Suspense>
-    </div>
-  );
-}
 
 function App() {
   return (

@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { contentPlugin } from './src/utils/vite-plugin-content';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), contentPlugin()],
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
