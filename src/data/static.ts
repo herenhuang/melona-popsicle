@@ -1,4 +1,4 @@
-import { Note } from './now';
+import { Note } from './types';
 
 export const staticNotes: Note[] = [
   {

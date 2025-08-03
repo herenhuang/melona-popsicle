@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { X, Minus, Plus, Search, Edit, Calendar, ArrowLeft } from 'lucide-react';
-import { nowNote, Note, generatePreview } from '../data/now';
+import { nowNote } from '../data/now';
+import { Note } from '../data/types';
 import { staticNotes } from '../data/static';
 import { journalNotes } from '../data/journal';
 import { MarkdownContent } from './MarkdownContent';
 import { formatDateForContent, formatDateForPreview } from '../utils/dateFormatters';
 import { Helmet } from 'react-helmet-async';
 import { ImageLoadingContext } from '../App';
+import { generatePreview } from '../utils/previews';
 
 interface NowPageProps {
   defaultNote?: string;
