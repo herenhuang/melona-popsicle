@@ -14,3 +14,5 @@
   from = "/calledhome/*"
   to = "https://poemjc.netlify.app/:splat"
   status = 200
+  force = true
+
