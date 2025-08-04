@@ -1,12 +1,6 @@
 # Proxy rules for /calledhome should come first
-
-# Explicitly proxy the path WITHOUT a trailing slash
-/calledhome   https://poemjc.netlify.app/   200!
-# Explicitly proxy the path WITH a trailing slash
-/calledhome/  https://poemjc.netlify.app/   200!
-# Proxy all assets within the path
-/calledhome/* https://poemjc.netlify.app/:splat 200!
-
-# Your framework's original catch-all rule for SPA routing
-# (This rule might already exist in your file)
+# This handles requests for /calledhome and /calledhome/
+/calledhome/   https://poemjc.netlify.app/   200!
+# This handles requests for all assets inside /calledhome/
+/calledhome/*  https://poemjc.netlify.app/:splat  200!
 /* /index.html 200
