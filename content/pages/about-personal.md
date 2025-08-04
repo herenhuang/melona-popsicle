@@ -20,8 +20,15 @@ howdy, I'm Helen! yes there is a lot of text in this website but it's my site so
 - 2023: worked abroad in Jamaica, UK, Turkey, India, Singapore, Brazil
 - 2024: stepped back from Co.Lab, to chase curiosity
 
-# facets of self
+# personal pillars 
 - amor fati: love of fate, embracing all aspects of life, good and bad, as necessary and beautiful
 - do good and help others
 - variety and change is the spice of life
 - happiness is when what you think, what you say, and what you do are in harmony
+
+if anything on my page resonates with you, please feel free to reach out (best via email)
+
+- email: chat @ this site domain name! 
+- linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
+- twitter: [x.com/heyohelen](https://x.com/heyohelen)
+- instagram: [instagram.com/heyohelen](https://www.instagram.com/heyohelen)

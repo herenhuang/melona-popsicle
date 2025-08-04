@@ -1,14 +1,16 @@
 ---
 id: projects
 title: 📙 projects
-date: 2025-04-07T00:59:00Z
+date: 2025-08-04T14:59:00Z
 isPinned: true
 pinnedOrder: 3
 ---
 
-i find doing stuff and helping people to be fun. here are some things i'm particularly proud of: 
+doing stuff and helping people is fun
 
-# products
+# most recent projects 
+- [called home](https://calledhome.helenhuang.io/)
+- Touch Grass [(demo)](https://x.com/boltdotnew/status/1947047452130890097)
 - [Fika](https://www.trustfika.com) - couples threapy for cofounders
 
 # events & community
@@ -16,8 +18,6 @@ i find doing stuff and helping people to be fun. here are some things i'm partic
   - check out the dedicated [BAGGY site](https://helenhuang.io/baggy) to decide whether it's real or fake...
   - how it all [started](https://www.instagram.com/p/DFBvhI9vayw/) 
 - coordinated over 15+ volunteers to put on Tech Together, a month-long series of event programming for folks impacted by layoffs with virtual and irl events in Toronto, NYC and Seattle
-
-![a few of the events we ran, which saw over 700 engaged attendees (tears were shed)](/images/techtogether.png)
 
 # content & social media 
 - micro-influencer on [LinkedIn](https://www.linkedin.com/in/heyohelen/), mainly written content on tech and entrepreneurship -- *20K+ followers, previously Top Voice*
