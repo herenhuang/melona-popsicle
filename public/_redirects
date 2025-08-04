@@ -1,4 +1,8 @@
+# Proxy rules for /calledhome should come first
+/calledhome    /calledhome/                  301!
+/calledhome/   https://poemjc.netlify.app/   200!
+/calledhome/*  https://poemjc.netlify.app/:splat  200!
+
+# Your framework's original catch-all rule for SPA routing
+# (This rule might already exist in your file)
 /* /index.html 200
-/index.html / 301
-/now/about /about 301
-/now/* /:splat 301

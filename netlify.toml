@@ -1,18 +1,1 @@
-# This file configures proxying so that your poem appears at helenhuang.io/calledhome.
-# This file should be placed in the root of your helenhuang.io site's repository.
-
-# Rule 1: Redirect /calledhome to /calledhome/
-# This ensures that relative asset paths in your HTML (like "style.css") work correctly.
-[[redirects]]
-  from = "/calledhome"
-  to = "/calledhome/"
-  status = 301
-  force = true
-
-# Rule 2: Proxy everything under /calledhome/ to your poem site.
-[[redirects]]
-  from = "/calledhome/*"
-  to = "https://poemjc.netlify.app/:splat"
-  status = 200
-  force = true
 
