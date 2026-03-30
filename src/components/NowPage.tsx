@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { X, Minus, Plus, Search, Edit, Calendar, ArrowLeft } from 'lucide-react';
-import { nowNote } from '../data/now';
+import { X, Minus, Plus, Search, Edit, Calendar, ArrowLeft, ChevronDown, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { nowNote, olderNowNotes } from '../data/now';
 import { Note } from '../data/types';
 import { staticNotes } from '../data/static';
 import { journalNotes } from '../data/journal';
@@ -20,12 +20,14 @@ export function NowPage({ defaultNote }: NowPageProps) {
   const { noteId } = useParams();
   
   // Combine all notes
-  const notes: Note[] = [nowNote, ...staticNotes, ...journalNotes];
+  const notes: Note[] = [nowNote, ...staticNotes, ...journalNotes, ...olderNowNotes];
   
   // Initialize with false and update in useEffect to avoid SSR issues
   const [isMobile, setIsMobile] = useState(false);
   const [selectedNote, setSelectedNote] = useState(noteId || defaultNote || notes[0].id);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [olderNotesExpanded, setOlderNotesExpanded] = useState(false);
 
   // Refs for scrollable containers
   const notesListRef = useRef<HTMLDivElement>(null);
@@ -311,13 +313,20 @@ export function NowPage({ defaultNote }: NowPageProps) {
               {olderNotes.length > 0 && (
                 <>
                   <div className="mt-6">
-                    <h3 className="text-sm font-medium text-[#969696] mb-2">
-                      Older Notes
-                    </h3>
+                    <button
+                      onClick={() => setOlderNotesExpanded(!olderNotesExpanded)}
+                      className="flex items-center gap-1.5 group"
+                    >
+                      <ChevronDown className={`w-4 h-4 text-[#969696] transition-transform duration-200 ${olderNotesExpanded ? '' : '-rotate-90'}`} />
+                      <h3 className="text-sm font-medium text-[#969696] group-hover:text-[#636363] transition-colors">
+                        Older Notes
+                      </h3>
+                    </button>
                   </div>
+                  {olderNotesExpanded && (
                   <div className="mb-6">
                     {olderNotes.map((note) => (
-                      <button 
+                      <button
                         key={note.id}
                         onClick={() => handleNoteSelect(note.id)}
                         className="group w-full text-left"
@@ -342,6 +351,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
                       </button>
                     ))}
                   </div>
+                  )}
                 </>
               )}
             </div>
@@ -422,26 +432,39 @@ export function NowPage({ defaultNote }: NowPageProps) {
       )}
       <div className="flex flex-row h-screen bg-white">
         {/* Sidebar */}
-        <div className={`${sidebarClassName} flex flex-col`}>
+        <div className={`${sidebarCollapsed ? 'w-[48px]' : 'w-[320px]'} border-r border-[#e4e4e4] bg-[#f7f7f7] relative flex flex-col transition-all duration-200`}>
           {/* Fixed Header Section */}
           <div className="sticky top-0 z-20 bg-[#f7f7f7]">
           {/* Window Controls */}
           <div className="flex items-center gap-2 py-3 px-4 h-[46px]">
-            <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
-              <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
-            </button>
-            <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
-              <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
-            </button>
-            <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
-              <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
-            </button>
-            <button className="ml-auto text-[#969696] hover:text-[#636363] transition-colors">
-              <Edit className="w-3.5 h-3.5" />
+            {!sidebarCollapsed && (
+              <>
+                <button className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/90 flex items-center justify-center group">
+                  <X className="w-2 h-2 text-[#ff5f57]/0 group-hover:text-[#660000] transition-colors" />
+                </button>
+                <button className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/90 flex items-center justify-center group">
+                  <Minus className="w-2 h-2 text-[#febc2e]/0 group-hover:text-[#9a6c00] transition-colors" />
+                </button>
+                <button className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/90 flex items-center justify-center group">
+                  <Plus className="w-2 h-2 text-[#28c840]/0 group-hover:text-[#006500] transition-colors" />
+                </button>
+              </>
+            )}
+            <button
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className={`${sidebarCollapsed ? 'mx-auto' : 'ml-auto'} text-[#969696] hover:text-[#636363] transition-colors`}
+              title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              {sidebarCollapsed ? (
+                <PanelLeftOpen className="w-4 h-4" />
+              ) : (
+                <PanelLeftClose className="w-4 h-4" />
+              )}
             </button>
           </div>
 
           {/* Search Bar */}
+          {!sidebarCollapsed && (
             <div className="px-3 py-2 border-b border-[#e4e4e4]">
             <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-[#969696]" />
@@ -454,9 +477,11 @@ export function NowPage({ defaultNote }: NowPageProps) {
               />
               </div>
             </div>
+          )}
           </div>
 
           {/* Notes List - Scrollable Area */}
+          {!sidebarCollapsed && (
           <div className="flex-1 overflow-y-auto px-3 pb-10">
             {/* Pinned Section */}
             {pinnedNotes.length > 0 && (
@@ -468,7 +493,7 @@ export function NowPage({ defaultNote }: NowPageProps) {
             </div>
             <div>
                   {pinnedNotes.map((note) => (
-                <button 
+                <button
                   key={note.id}
                   onClick={() => handleNoteSelect(note.id)}
                   className="group w-full text-left"
@@ -500,13 +525,20 @@ export function NowPage({ defaultNote }: NowPageProps) {
             {olderNotes.length > 0 && (
               <>
             <div className="mt-6">
-              <h3 className="text-xs font-medium text-[#969696] mb-2">
-                Older Notes
-              </h3>
+              <button
+                onClick={() => setOlderNotesExpanded(!olderNotesExpanded)}
+                className="flex items-center gap-1 group"
+              >
+                <ChevronDown className={`w-3 h-3 text-[#969696] transition-transform duration-200 ${olderNotesExpanded ? '' : '-rotate-90'}`} />
+                <h3 className="text-xs font-medium text-[#969696] group-hover:text-[#636363] transition-colors">
+                  Older Notes
+                </h3>
+              </button>
             </div>
+            {olderNotesExpanded && (
                 <div className="mb-6">
                   {olderNotes.map((note) => (
-                <button 
+                <button
                   key={note.id}
                   onClick={() => handleNoteSelect(note.id)}
                   className="group w-full text-left"
@@ -531,29 +563,31 @@ export function NowPage({ defaultNote }: NowPageProps) {
                 </button>
               ))}
             </div>
+            )}
               </>
             )}
           </div>
+          )}
         </div>
 
         {/* Main Content */}
         <div className={mainContentClassName}>
           {selectedNoteContent && (
-            <div className="w-full px-8 py-6 overflow-y-auto h-full">
+            <div className="w-full px-8 py-6 overflow-y-auto h-full flex flex-col">
               <div className="mb-6 text-center">
               <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
                   <Calendar size={16} className="w-4 h-4" />
                   {formatDateForContent(selectedNoteContent.date)}
               </p>
             </div>
-              <div className="text-[#464646]">
+              <div className="text-[#464646] flex-1 flex flex-col">
                 <h1 className="text-xl font-medium mb-6">
                   {selectedNoteContent.title}
               </h1>
-                <div className="text-sm pb-24">
-                  <MarkdownContent 
-                    content={selectedNoteContent.content} 
-                    onImagesLoaded={handleImagesLoaded} 
+                <div className="text-sm flex-1">
+                  <MarkdownContent
+                    content={selectedNoteContent.content}
+                    onImagesLoaded={handleImagesLoaded}
                   />
                 </div>
                 </div>
