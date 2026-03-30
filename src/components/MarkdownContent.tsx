@@ -55,6 +55,7 @@ export function MarkdownContent({ content, onImagesLoaded }: MarkdownContentProp
           ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4" {...props} />,
           ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4" {...props} />,
           li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+          hr: ({ node, ...props }) => <hr className="my-8 border-[#e4e4e4]" {...props} />,
           img: ({ node, src, alt, ...props }) => {
             if (src) {
               return (

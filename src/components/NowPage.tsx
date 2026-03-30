@@ -573,21 +573,21 @@ export function NowPage({ defaultNote }: NowPageProps) {
         {/* Main Content */}
         <div className={mainContentClassName}>
           {selectedNoteContent && (
-            <div className="w-full px-8 py-6 overflow-y-auto h-full">
+            <div className="w-full px-8 py-6 overflow-y-auto h-full flex flex-col">
               <div className="mb-6 text-center">
               <p className="text-sm text-[#969696] flex items-center justify-center gap-2">
                   <Calendar size={16} className="w-4 h-4" />
                   {formatDateForContent(selectedNoteContent.date)}
               </p>
             </div>
-              <div className="text-[#464646]">
+              <div className="text-[#464646] flex-1 flex flex-col">
                 <h1 className="text-xl font-medium mb-6">
                   {selectedNoteContent.title}
               </h1>
-                <div className="text-sm pb-24">
-                  <MarkdownContent 
-                    content={selectedNoteContent.content} 
-                    onImagesLoaded={handleImagesLoaded} 
+                <div className="text-sm flex-1">
+                  <MarkdownContent
+                    content={selectedNoteContent.content}
+                    onImagesLoaded={handleImagesLoaded}
                   />
                 </div>
                 </div>
