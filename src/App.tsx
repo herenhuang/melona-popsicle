@@ -84,10 +84,10 @@ function AppContent() {
       )}
       <div style={{ opacity: isLoading && isInitialLoad ? 0 : 1, transition: 'opacity 0.5s ease-in-out' }}>
         <Routes>
-          {/* Root path - show about page on desktop, nav on mobile */}
+          {/* Root path - show now page on desktop, nav on mobile */}
           <Route path="/" element={
             <Suspense fallback={<PageFallback />}>
-              <NowPage defaultNote="about" />
+              <NowPage defaultNote={nowNote.id} />
             </Suspense>
           } />
           

@@ -62,7 +62,7 @@ pinnedOrder: 1           # (optional) Sort order within pinned (1 = top)
 - **Add a new note**: Create a `.md` file in the appropriate `content/` subdirectory with valid frontmatter. It auto-loads — no code changes needed.
 - **Edit content**: Just edit the markdown file. Vite HMR picks up changes in dev.
 - **Pin a note**: Set `isPinned: true` and `pinnedOrder: N` in frontmatter.
-- **The "now" page**: Whatever file is in `content/now/` with the most recent date becomes the current /now page. Old now files can stay (they appear in the sidebar).
+- **The "now" page**: Whatever file is in `content/now/` with the most recent date automatically becomes the current /now page and gets pinned in the sidebar. Old now files automatically get unpinned and appear in "Older Notes". No need to set `isPinned` or `pinnedOrder` in now page frontmatter — the system handles it. To post a new update, just create a new file in `content/now/` with a newer date.
 
 ### Note type definition (`src/data/types.ts`)
 ```ts
@@ -81,7 +81,7 @@ interface Note {
 ### Routes (`src/App.tsx`)
 | Route | What it shows |
 |-------|--------------|
-| `/` | NowPage with `defaultNote="about"` (shows about-work on desktop) |
+| `/` | NowPage with latest now note selected (same as /now) |
 | `/now` | NowPage with latest now note selected |
 | `/:noteId` | NowPage with that note selected |
 | `/baggy` | Standalone BAGGY fashion show page (separate design) |
