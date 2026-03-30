@@ -1,7 +1,7 @@
 ---
 id: about_work
 title: 👩🏻‍💼 about me (work version)
-date: 2025-06-09T15:03:00Z
+date: 2026-03-29T22:09:00Z
 isPinned: true
 pinnedOrder: 1
 ---
@@ -9,11 +9,10 @@ pinnedOrder: 1
 howdy, I'm Helen Huang, a product, ops and strategy person. enthusiastic about anything experiential: marketing, content, learning, community, food. 
     
 # currently
-- on a [career break](https://www.linkedin.com/posts/heyohelen_newbeginnings-careerchange-adultgapyear-activity-7269806988396490752-Lbet?utm_source=share&utm_medium=member_desktop&rcm=ACoAAA0TBRAB1SrfwkAumixBnBxq7Zxt35jGKd8)
-- [vibecoding](/projects) 
-- searching for meaningful work with people who care about making the world better (NYC or remote)
+- working on a new company to help us live more authentically in the age of AI: [Trove](https://trove.is/)
 
-# work work 
+# prev stuff
+- took an adult gap year and it was both awesome and anxiety-inducing ngl
 - cofounder @ co.lab -- wearer of all hats, $30M+ in annual tech industry salaries for our graduates
   - forbes 30 under 30, asu+gsv 150 top startups, hustle fund affies award, and some other [accolades](/recognition)
 - program + product management @ microsoft -- msft edge tech evangelism & later windows engineering/azure devops working on pricing models and dev experience
