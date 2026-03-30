@@ -118,6 +118,19 @@ Apple Notes-inspired layout:
 - `public/files/` — PDFs and other downloadable files
 - `images/` (root) — appears to be source/unoptimized images
 
+## Content Editing Workflow (for agents)
+When the user asks to update content, the workflow is:
+1. Edit the relevant markdown file in `content/`
+2. For new images: run `npm run add-image <path-to-image> [optional-name]` — this optimizes to WebP and puts it in `public/images/`, then prints the markdown reference to use
+3. Commit and push
+
+### Image helper
+```bash
+npm run add-image ~/Downloads/photo.jpg          # → public/images/photo.webp
+npm run add-image ~/Downloads/photo.jpg my-photo  # → public/images/my-photo.webp
+```
+Converts to WebP, resizes to max 1200px wide, prints markdown snippet to paste.
+
 ## Important Notes
 - The `@` path alias maps to `./src/` (configured in vite.config.ts)
 - No test framework is set up
