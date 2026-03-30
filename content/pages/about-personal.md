@@ -1,7 +1,7 @@
 ---
 id: about_personal
 title: 🤠 about me (personal version)
-date: 2026-03-29T00:00:00Z
+date: 2026-03-29T22:06:00Z
 isPinned: true
 pinnedOrder: 2
 ---
