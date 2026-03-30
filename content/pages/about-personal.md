@@ -1,7 +1,7 @@
 ---
 id: about_personal
 title: 🤠 about me (personal version)
-date: 2025-06-09T15:03:00Z
+date: 2026-03-29T00:00:00Z
 isPinned: true
 pinnedOrder: 2
 ---
@@ -18,7 +18,8 @@ howdy, I'm Helen! yes there is a lot of text in this website but it's my site so
 - 2017: moved to Seattle for work
 - 2021: quit, moved back to Toronto and started Co.Lab
 - 2023: worked abroad in Jamaica, UK, Turkey, India, Singapore, Brazil
-- 2024: stepped back from Co.Lab, to chase curiosity
+- 2024: stepped back from Co.Lab, to chase curiosity, took an adult gap year
+- 2025: started a new company to help us live more authentically in the age of AI: [Trove](https://trove.is/)
 
 # personal pillars 
 - amor fati: love of fate, embracing all aspects of life, good and bad, as necessary and beautiful
@@ -26,7 +27,7 @@ howdy, I'm Helen! yes there is a lot of text in this website but it's my site so
 - variety and change is the spice of life
 - happiness is when what you think, what you say, and what you do are in harmony
 
-if anything on my page resonates with you, please feel free to reach out (best via email)
+if anything on my page resonates with you, please feel free to reach out
 
 - email: chat @ this site domain name! 
 - linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
