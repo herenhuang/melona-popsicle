@@ -1,13 +1,13 @@
 ---
-id: about_work
-title: 👩🏻‍💼 about me (work version)
-date: 2026-03-29T22:09:00Z
+id: about
+title: 🤠 about me
+date: 2026-04-26T00:00:00Z
 isPinned: true
 pinnedOrder: 1
 ---
 
-howdy, I'm Helen Huang, a product, ops and strategy person. enthusiastic about anything experiential: marketing, content, learning, community, food. 
-    
+howdy, I'm Helen! yes there is a lot of text in this website but it's my site so i can do what i want.
+
 # currently
 - working on a new company to help us live more authentically in the age of AI: [Trove](https://trove.is/)
 
@@ -18,6 +18,17 @@ howdy, I'm Helen Huang, a product, ops and strategy person. enthusiastic about a
 - program + product management @ microsoft -- msft edge tech evangelism & later windows engineering/azure devops working on pricing models and dev experience
 - product manager intern @ zynga -- wordstreak with friends (300k dau), spearheaded app revamp from 1 to 4 stars in four months
 - interned @ cibc & scotiabank -- business analyst roles back in university days
-- sales -- manchuwok, canada's wonderland, shoe club  
+- sales -- manchuwok, canada's wonderland, shoe club
 
-see resume [here](https://drive.google.com/file/d/1dOHZE6Myq8lDvrVT0xSz1hHR4eZ3IiyK/view?usp=sharing)
+# personal pillars
+- amor fati: love of fate, embracing all aspects of life, good and bad, as necessary and beautiful
+- do good and help others
+- variety and change is the spice of life
+- happiness is when what you think, what you say, and what you do are in harmony
+
+if anything on my page resonates with you, please feel free to reach out
+
+- email: chat @ this site domain name!
+- linkedin: [linkedin.com/in/heyohelen](https://www.linkedin.com/in/heyohelen)
+- twitter: [x.com/heyohelen](https://x.com/heyohelen)
+- instagram: [instagram.com/heyohelen](https://www.instagram.com/heyohelen)
