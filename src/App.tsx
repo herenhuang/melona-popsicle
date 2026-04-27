@@ -84,10 +84,10 @@ function AppContent() {
       )}
       <div style={{ opacity: isLoading && isInitialLoad ? 0 : 1, transition: 'opacity 0.5s ease-in-out' }}>
         <Routes>
-          {/* Root path - show now page on desktop, nav on mobile */}
+          {/* Root path - land on the merged about page */}
           <Route path="/" element={
             <Suspense fallback={<PageFallback />}>
-              <NowPage defaultNote={nowNote.id} />
+              <NowPage defaultNote="about" />
             </Suspense>
           } />
           
@@ -100,6 +100,10 @@ function AppContent() {
           
           {/* Legacy /now/:noteId paths - redirect to new structure */}
           <Route path="/now/:noteId" element={<Navigate to="/:noteId" replace />} />
+
+          {/* Legacy about pages - redirect to merged /about */}
+          <Route path="/about_personal" element={<Navigate to="/about" replace />} />
+          <Route path="/about_work" element={<Navigate to="/about" replace />} />
           
           {/* New direct note paths */}
           <Route path="/:noteId" element={
