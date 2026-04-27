@@ -100,6 +100,10 @@ function AppContent() {
           
           {/* Legacy /now/:noteId paths - redirect to new structure */}
           <Route path="/now/:noteId" element={<Navigate to="/:noteId" replace />} />
+
+          {/* Legacy about pages - redirect to merged /about */}
+          <Route path="/about_personal" element={<Navigate to="/about" replace />} />
+          <Route path="/about_work" element={<Navigate to="/about" replace />} />
           
           {/* New direct note paths */}
           <Route path="/:noteId" element={
